@@ -77,6 +77,7 @@ echo
 
 # ----------------------- 02 E-Books löschen (Bautzen) ----------------------- #
 
+# spec_Z_01
 # - M|MEDGR > Facet > Text facet > eBook
 # -- show as: records
 # --- All > Edit rows > Remove all matching rows
@@ -126,6 +127,7 @@ echo
 
 # ------------- 03 Zeitschriften löschen (Breitenbrunn, Dresden) ------------- #
 
+# spec_Z_02
 # - M|ART > Facet > Text facet > "Z" und "GH"
 # -- show as: records
 # --- All > Edit rows > Remove all matching rows
@@ -181,6 +183,7 @@ echo
 
 # ----------------------- 04 Makulierte Medien löschen ----------------------- #
 
+# spec_Z_03
 # - E|EXSTA > Facet > Text facet > "M"
 # -- show as: rows
 # --- All > Edit rows > Remove all matching rows
