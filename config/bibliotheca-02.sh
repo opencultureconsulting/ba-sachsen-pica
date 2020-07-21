@@ -46,14 +46,14 @@ echo
 
 # ================================ TRANSFORM ================================= #
 
-# -------------------------- 01 Spalte File ans Ende ------------------------- #
+# --------------------------- 01 Spalten sortieren --------------------------- #
 
 # damit Records-Mode erhalten bleibt
 # - M|MEDGR > Facet > Text facet > eBook
 # -- show as: records
 # --- All > Edit rows > Remove all matching rows
 
-echo "Spalte File ans Ende..."
+echo "Spalten sortieren: Beginnen mit 1. M|MEDNR, 2. E|EXNR, 3. File"
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -63,8 +63,20 @@ if curl -fs \
     {
       "op": "core/column-move",
       "columnName": "File",
-      "index": 132,
-      "description": "Move column File to position 132"
+      "index": 0,
+      "description": "Move column File to position 0"
+    },
+    {
+      "op": "core/column-move",
+      "columnName": "E|EXNR",
+      "index": 0,
+      "description": "Move column E|EXNR to position 0"
+    },
+    {
+      "op": "core/column-move",
+      "columnName": "M|MEDNR",
+      "index": 0,
+      "description": "Move column M|MEDNR to position 0"
     }
   ]
 JSON
@@ -231,9 +243,101 @@ else
 fi
 echo
 
-# ---------------------------- 05 Bibliothekssigel --------------------------- #
+# ---------------------------------- 05 0100 --------------------------------- #
 
-echo "Bibliothekssigel..."
+# spec_B_T_01
+# TODO: Aufteilung in 0100 / 0110 nach Nummernkreisen
+# TODO: Korrekturen für <9 und >10-stellige
+echo "K10plus-PPNs in 0100..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value.length()",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": 9,
+                  "l": "9"
+                }
+              },
+              {
+                "v": {
+                  "v": 10,
+                  "l": "10"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|IDNR",
+      "expression": "grel:value",
+      "onError": "set-to-blank",
+      "newColumnName": "0100",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# ---------------------------------- 06 2199 --------------------------------- #
+
+# spec_B_T_49
+# TODO: Titeldaten ohne Exemplare
+echo "Nummern aus Datenkonversion 2199..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|MEDNR",
+      "expression": "grel:'BA' + cells['E|ZWGST'].value + value",
+      "onError": "set-to-blank",
+      "newColumnName": "2199",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# --------------------------------- 07 7100B --------------------------------- #
+
+# spec_B_E_15
+echo "Bibliothekssigel 7100B..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -249,8 +353,8 @@ if curl -fs \
       "baseColumnName": "E|ZWGST",
       "expression": "grel:value.replace('BB','Brt 1').replace('BZ','Bn 3').replace('DD','D 161').replace('EH','D 275').replace('GC','Gla 1').replace('PL','Pl 11')",
       "onError": "set-to-blank",
-      "newColumnName": "sigel",
-      "columnInsertIndex": 37
+      "newColumnName": "7100B",
+      "columnInsertIndex": 3
     }
   ]
 JSON
@@ -286,17 +390,13 @@ format="pic"
 echo "export ${p} to pica+ file using template..."
 IFS= read -r -d '' template << "TEMPLATE"
 {{
-if(isNonBlank(cells['M|MEDNR'].value), '' + '\n', '')
+if(row.index - row.record.fromRowIndex == 0, '' + '\n', '')
 }}{{
-forNonBlank(cells['M|ART'].value, v, '002@' + ' 0' + v + 'au' + '\n', '')
+forNonBlank(cells['0100'].value, v, '003@' + ' 0' + v + '\n', '')
 }}{{
-forNonBlank(cells['M|IDNR'].value, v, '003@' + ' 0' + v + '\n', '')
+forNonBlank(cells['2199'].value, v, '006Y' + ' 0' + v + '\n', '')
 }}{{
-forNonBlank(cells['E|ZWGST'].value, v, '006Y' + ' 0' + 'BA' + v + cells['M|MEDNR'].value + '\n', '')
-}}{{
-forNonBlank(cells['E|BARCO'].value, v, '209A/' + with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i) + ' B' + cells['sigel'].value + 'f' + cells['E|ZWGST'].value + 'a' + cells['E|STA1'].value + 'x00' + '\n', '')
-}}{{
-forNonBlank(cells['E|BARCO'].value, v, '209G/' + with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i) + ' a' + v + '\n', '')
+if(isNonBlank(cells['E|EXNR'].value), '209A/' + with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i) + ' B' + cells['7100B'].value + 'f' + cells['E|ZWGST'].value + forNonBlank(cells['E|STA1'].value, v, 'a' + v, '') + 'x00' + '\n', '')
 }}
 TEMPLATE
 if echo "${template}" | head -c -2 | curl -fs \
