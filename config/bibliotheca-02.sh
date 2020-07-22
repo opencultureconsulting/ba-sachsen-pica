@@ -53,7 +53,7 @@ echo
 # -- show as: records
 # --- All > Edit rows > Remove all matching rows
 
-echo "Spalten sortieren: Beginnen mit 1. M|MEDNR, 2. E|EXNR, 3. File"
+echo "Spalten sortieren: Beginnen mit 1. M|MEDNR, 2. E|EXNR, 3. File..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -478,8 +478,7 @@ if curl -fs \
       "expression": "grel:[ forNonBlank(cells['M|ISBN'].value,v,if(isNumeric(v[0]),v,null),null), forNonBlank(cells['M|ISBN2'].value,v,if(isNumeric(v[0]),v,null),null) ].uniques().join('␟')",
       "onError": "set-to-blank",
       "newColumnName": "2000",
-      "columnInsertIndex": 10,
-      "description": "Create column 2000 at index 10 based on column M|ISBN using expression grel:[ forNonBlank(cells['M|ISBN'].value,v,if(isNumeric(v[0]),v,null),null), forNonBlank(cells['M|ISBN2'].value,v,if(isNumeric(v[0]),v,null),null) ].uniques().join('␟')"
+      "columnInsertIndex": 3
     }
   ]
 JSON
