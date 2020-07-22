@@ -42,7 +42,7 @@ echo
 # ------------------------ 01 PPN anreichern über ISBN ----------------------- #
 
 # TODO: Anreicherung für 0110
-# spec_Z_07
+# spec_Z_04
 echo "PPN anreichern über ISBN..."
 if curl -fs \
   --data project="${projects[$p]}" \
@@ -257,7 +257,7 @@ echo
 # --------------------------- 02 Exemplare clustern -------------------------- #
 
 # TODO: 0110 berücksichtigen
-# spec_Z_07
+# spec_Z_05
 echo "Exemplare clustern..."
 if curl -fs \
   --data project="${projects[$p]}" \
