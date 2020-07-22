@@ -1,7 +1,7 @@
 # Bibliotheca Hauptverarbeitung
 # - Datenbereinigungen
-# - Für PICA+ umformen
-# - TSV und PICA+ (via Template) generieren
+# - Mapping auf PICA3
+# - PICA3-Spalten als CSV (via Template) exportieren
 
 # ================================== CONFIG ================================== #
 
@@ -365,38 +365,130 @@ else
 fi
 echo
 
-# ================================== EXPORT ================================== #
+# --------------------------------- 07 7100f --------------------------------- #
 
-# ------------------------------------ TSV ----------------------------------- #
-
-format="tsv"
-echo "export ${p} to ${format} file..."
+# spec_B_E_13
+echo "Zweigstelle 7100f..."
 if curl -fs \
   --data project="${projects[$p]}" \
-  --data format="${format}" \
-  --data engine='{"facets":[],"mode":"row-based"}' \
-  "${endpoint}/command/core/export-rows" \
-  > "${workspace}/${p}.${format}"
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "E|ZWGST",
+      "expression": "grel:value",
+      "onError": "set-to-blank",
+      "newColumnName": "7100f",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
 then
-  log "exported ${p} (${projects[$p]}) to ${workspace}/${p}.${format}"
+  log "transformed ${p} (${projects[$p]})"
 else
-  error "export of ${p} (${projects[$p]}) failed!"
+  error "transform ${p} (${projects[$p]}) failed!"
 fi
 echo
 
-# ----------------------------------- PICA+ ---------------------------------- #
+# --------------------------------- 07 209Aa --------------------------------- #
 
-format="pic"
-echo "export ${p} to pica+ file using template..."
+# spec_B_E_07
+echo "Standort 209Aa..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "E|STA1",
+      "expression": "grel:value",
+      "onError": "set-to-blank",
+      "newColumnName": "209Aa",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# ================================== EXPORT ================================== #
+
+# Export der PICA3-Spalten als CSV
+format="csv"
+echo "export ${p} to ${format} file using template..."
 IFS= read -r -d '' template << "TEMPLATE"
 {{
-if(row.index - row.record.fromRowIndex == 0, '' + '\n', '')
-}}{{
-forNonBlank(cells['0100'].value, v, '003@' + ' 0' + v + '\n', '')
-}}{{
-forNonBlank(cells['2199'].value, v, '006Y' + ' 0' + v + '\n', '')
-}}{{
-if(isNonBlank(cells['E|EXNR'].value), '209A/' + with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i) + ' B' + cells['7100B'].value + 'f' + cells['E|ZWGST'].value + forNonBlank(cells['E|STA1'].value, v, 'a' + v, '') + 'x00' + '\n', '')
+with(
+  [
+    '2199',
+    '0100',
+    '7100B',
+    '7100f',
+    '209Aa'
+  ],
+  columns,
+  if(
+    row.index == 0,
+    forEach(
+        columns,
+        cn,
+        cn.escape('csv')
+      ).join(',')
+      + '\n'
+      + with(
+        forEach(
+          columns,
+          cn,
+          forNonBlank(
+            cells[cn].value,
+            v,
+            v.escape('csv'),
+            '␀'
+          )
+        ).join(',').replace('␀',''),
+        r,
+        if(
+          isNonBlank(r.split(',').join(',')),
+          r + '\n',
+          ''
+        )
+      ),
+    with(
+      forEach(
+        columns,
+        cn,
+        forNonBlank(
+          cells[cn].value,
+          v,
+          v.escape('csv'),
+          '␀'
+        )
+      ).join(',').replace('␀',''),
+      r,
+      if(
+        isNonBlank(r.split(',').join(',')),
+        r + '\n',
+        ''
+      )
+    )
+  )
+)
 }}
 TEMPLATE
 if echo "${template}" | head -c -2 | curl -fs \
