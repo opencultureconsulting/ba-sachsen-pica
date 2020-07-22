@@ -11,6 +11,7 @@ source bash-refine.sh
 
 # override default config
 memory="8G"
+endpoint="http://localhost:3334"
 
 # check requirements, set trap, create workspace and tee to logfile
 init
@@ -22,6 +23,9 @@ source config/bibliotheca-01.sh
 
 checkpoint "Bibliotheca Hauptverarbeitung"; echo
 source config/bibliotheca-02.sh
+
+checkpoint "PICA+ generieren"; echo
+source config/ba-sachsen.sh
 
 # ================================= STATS ================================= #
 
