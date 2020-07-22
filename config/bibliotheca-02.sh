@@ -243,7 +243,37 @@ else
 fi
 echo
 
-# ---------------------------------- 05 0100 --------------------------------- #
+# ---------------------------------- 05 File --------------------------------- #
+
+echo "Bibliothekskürzel aus Import-Dateiname..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "columnName": "File",
+      "expression": "grel:with([ ['bautzen.tsv','BZ'], ['breitenbrunn.tsv','BB'], ['dresden.tsv','DD'],  ['glauchau.tsv','GC'], ['plauen.tsv','PL'] ], mapping, forEach(mapping, m, if(value == m[0], m[1], '')).join(''))",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# ---------------------------------- 06 0100 --------------------------------- #
 
 # spec_B_T_01
 # TODO: Aufteilung in 0100 / 0110 nach Nummernkreisen
@@ -302,7 +332,7 @@ else
 fi
 echo
 
-# ---------------------------------- 06 2199 --------------------------------- #
+# ---------------------------------- 07 2199 --------------------------------- #
 
 # spec_B_T_49
 # TODO: Titeldaten ohne Exemplare
@@ -320,7 +350,7 @@ if curl -fs \
         "mode": "row-based"
       },
       "baseColumnName": "M|MEDNR",
-      "expression": "grel:'BA' + cells['E|ZWGST'].value + value",
+      "expression": "grel:'BA' + cells['File'].value + value",
       "onError": "set-to-blank",
       "newColumnName": "2199",
       "columnInsertIndex": 3
@@ -334,7 +364,7 @@ else
 fi
 echo
 
-# --------------------------------- 07 7100B --------------------------------- #
+# --------------------------------- 08 7100B --------------------------------- #
 
 # spec_B_E_15
 echo "Bibliothekssigel 7100B..."
@@ -365,7 +395,7 @@ else
 fi
 echo
 
-# --------------------------------- 07 7100f --------------------------------- #
+# --------------------------------- 09 7100f --------------------------------- #
 
 # spec_B_E_13
 echo "Zweigstelle 7100f..."
@@ -396,10 +426,10 @@ else
 fi
 echo
 
-# --------------------------------- 07 209Aa --------------------------------- #
+# --------------------------------- 10 7100a --------------------------------- #
 
 # spec_B_E_07
-echo "Standort 209Aa..."
+echo "Standort 7100a..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -413,10 +443,43 @@ if curl -fs \
         "mode": "row-based"
       },
       "baseColumnName": "E|STA1",
-      "expression": "grel:value",
+      "expression": "grel:value.replace('␟',' ')",
       "onError": "set-to-blank",
-      "newColumnName": "209Aa",
+      "newColumnName": "7100a",
       "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# --------------------------------- 11 2000 ---------------------------------- #
+
+# TODO: ISMN in 2020
+# spec_B_T_04, spec_B_T_05
+echo "ISBN 2000..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "record-based"
+      },
+      "baseColumnName": "M|ISBN",
+      "expression": "grel:[ forNonBlank(cells['M|ISBN'].value,v,if(isNumeric(v[0]),v,null),null), forNonBlank(cells['M|ISBN2'].value,v,if(isNumeric(v[0]),v,null),null) ].uniques().join('␟')",
+      "onError": "set-to-blank",
+      "newColumnName": "2000",
+      "columnInsertIndex": 10,
+      "description": "Create column 2000 at index 10 based on column M|ISBN using expression grel:[ forNonBlank(cells['M|ISBN'].value,v,if(isNumeric(v[0]),v,null),null), forNonBlank(cells['M|ISBN2'].value,v,if(isNumeric(v[0]),v,null),null) ].uniques().join('␟')"
     }
   ]
 JSON
@@ -438,9 +501,10 @@ with(
   [
     '2199',
     '0100',
+    '2000',
     '7100B',
     '7100f',
-    '209Aa'
+    '7100a'
   ],
   columns,
   if(

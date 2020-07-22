@@ -51,13 +51,17 @@ format="pic"
 echo "export ${p} to pica+ file using template..."
 IFS= read -r -d '' template << "TEMPLATE"
 {{
-if(row.index - row.record.fromRowIndex == 0, '' + '\n', '')
+if(row.index - row.record.fromRowIndex == 0,
+'' + '\n'
++ forNonBlank(cells['0100'].value, v, '003@' + ' 0' + v + '\n', '')
++ forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A' + ' 0' + x + '\n').join(''), '')
++ forNonBlank(cells['2199'].value, v, '006Y' + ' 0' + v + '\n', '')
+,'')
 }}{{
-forNonBlank(cells['0100'].value, v, '003@' + ' 0' + v + '\n', '')
-}}{{
-forNonBlank(cells['2199'].value, v, '006Y' + ' 0' + v + '\n', '')
-}}{{
-if(isNonBlank(cells['7100f'].value), '209A/' + with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i) + ' B' + cells['7100B'].value + 'f' + cells['7100f'].value + forNonBlank(cells['209Aa'].value, v, 'a' + v, '') + 'x00' + '\n', '')
+if(isNonBlank(cells['7100f'].value),
+with(with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i),exnr,
+'209A/' + exnr + ' B' + cells['7100B'].value + 'f' + cells['7100f'].value + forNonBlank(cells['7100a'].value, v, 'a' + v, '') + 'x00' + '\n'
+), '')
 }}
 TEMPLATE
 if echo "${template}" | head -c -2 | curl -fs \
