@@ -335,7 +335,6 @@ echo
 # ---------------------------------- 07 2199 --------------------------------- #
 
 # spec_B_T_49
-# TODO: Titeldaten ohne Exemplare
 echo "Nummern aus Datenkonversion 2199..."
 if curl -fs \
   --data project="${projects[$p]}" \
@@ -489,6 +488,68 @@ else
 fi
 echo
 
+# --------------------------------- 12 E0XX ---------------------------------- #
+
+# spec_B_E_10
+echo "Zugangsdatum E0XX..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "E|ZUDAT",
+      "expression": "grel:forNonBlank(value,v,v[0,2] + '-' + v[3,5] + '-' + v[8,10],'22-07-20')",
+      "onError": "set-to-blank",
+      "newColumnName": "E0XX",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# --------------------------------- 12 E0XXb ---------------------------------- #
+
+# spec_B_E_14
+echo "Selektionsschlüssel E0XXb..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "E|ZWGST",
+      "expression": "grel:value.toLowercase()",
+      "onError": "set-to-blank",
+      "newColumnName": "E0XXb",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 # ================================== EXPORT ================================== #
 
 # Export der PICA3-Spalten als CSV
@@ -503,7 +564,9 @@ with(
     '2000',
     '7100B',
     '7100f',
-    '7100a'
+    '7100a',
+    'E0XX',
+    'E0XXb'
   ],
   columns,
   if(

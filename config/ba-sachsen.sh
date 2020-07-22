@@ -391,7 +391,8 @@ if(row.index - row.record.fromRowIndex == 0,
 }}{{
 if(isNonBlank(cells['7100f'].value),
 with(with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i),exnr,
-'209A/' + exnr + ' B' + cells['7100B'].value + 'f' + cells['7100f'].value + forNonBlank(cells['7100a'].value, v, 'a' + v, '') + 'x00' + '\n'
+'208@/' + exnr + ' a' + cells['E0XX'].value + 'bn' + cells['E0XXb'].value + '\n'
++ '209A/' + exnr + ' B' + cells['7100B'].value + 'f' + cells['7100f'].value + forNonBlank(cells['7100a'].value, v, 'a' + v, '') + 'x00' + '\n'
 ), '')
 }}
 TEMPLATE
