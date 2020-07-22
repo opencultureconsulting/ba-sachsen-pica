@@ -1,5 +1,5 @@
 #!/bin/bash
-# bash-refine v1.1.0: bash-refine.sh, Felix Lohmeier, 2020-07-10
+# bash-refine v1.1.1: bash-refine.sh, Felix Lohmeier, 2020-07-22
 # https://gist.github.com/felixlohmeier/d76bd27fbc4b8ab6d683822cdf61f81d
 # license: MIT License https://choosealicense.com/licenses/mit/
 
@@ -65,7 +65,7 @@ function requirements {
 
 # ============================== OPENREFINE API ============================== #
 
-function refine_start() {
+function refine_start {
   echo "start OpenRefine server..."  
   local dir
   dir="$(readlink -f "${workspace}")"
@@ -76,19 +76,19 @@ function refine_start() {
     || error "starting OpenRefine server failed!"
 }
 
-function refine_stats() {
+function refine_stats {
   # print server load
   ps -o start,etime,%mem,%cpu,rss -p "${pid_server}"
 }
 
-function refine_kill() {
+function refine_kill {
   # kill OpenRefine immediately; SIGKILL (kill -9) prevents saving projects
   { kill -9 "${pid_server}" && wait "${pid_server}"; } 2>/dev/null
   # delete temporary OpenRefine projects
   (cd "${workspace}" && rm -rf ./*.project* && rm -f workspace.json)
 }
 
-function refine_check() {
+function refine_check {
   if grep -i 'exception\|error' "${logfile}"; then
     error "log contains warnings!"
   else
@@ -96,7 +96,7 @@ function refine_check() {
   fi
 }
 
-function refine_stop() {
+function refine_stop {
   echo "stop OpenRefine server and print server load..."
   refine_stats
   echo
@@ -105,7 +105,7 @@ function refine_stop() {
   refine_check
 }
 
-function refine_csrf() {
+function refine_csrf {
   # get CSRF token (introduced in OpenRefine 3.3)
   if [[ "${csrf}" = true ]]; then
       local response
@@ -118,7 +118,7 @@ function refine_csrf() {
   fi
 }
 
-function refine_store() {
+function refine_store {
   # check and store project id from import in associative array projects
   if [[ $# = 2 ]]; then
     projects[$1]=$(cut -d '=' -f 2 "$2")
@@ -144,23 +144,23 @@ function refine_store() {
 
 # ============================ SCRIPT ENVIRONMENT ============================ #
 
-function log() {
+function log {
   # log status message
   echo "$(date +%H:%M:%S.%3N) [                   client] $1"
 }
 
-function error() {
+function error {
   # log error message and exit
   echo 1>&2 "ERROR: $1"
   refine_kill; pkill -P $$; exit 1
 }
 
-function monitor() {
+function monitor {
   # store pid of last execution
   pids[$1]="$!"
 }
 
-function monitoring() {
+function monitoring {
   # wait for stored pids, remove them from array and check log for errors
   for pid in "${!pids[@]}"; do
     wait "${pids[$pid]}" \
@@ -206,16 +206,18 @@ function checkpoint_stats {
   diffsec=$(( values[${#keys[@]}] - values[0] ))
   printf "%80s\n%80s\n" "----------" "($(date -d @${diffsec} -u +%H:%M:%S))"
 }
+
 function count_output {
   # word count on all files in workspace
   echo "files (number of lines / size in bytes) in ${workspace}..."
   (cd "${workspace}" && wc -c -l ./*)
 }
-function init() {
+
+function init {
   # check requirements and download software if necessary
   requirements
   # set trap, create directories and tee to log file
   trap 'error "script interrupted!"' HUP INT QUIT TERM
   mkdir -p "${workspace}"
-  exec &> >(tee -a "${logfile}")
+  exec &> >(tee -i -a "${logfile}")
 }
