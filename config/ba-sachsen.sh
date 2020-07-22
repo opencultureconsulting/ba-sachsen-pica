@@ -39,10 +39,341 @@ echo
 
 # ================================ TRANSFORM ================================= #
 
-# --------------------------- 01 Exemplare clustern -------------------------- #
+# ------------------------ 01 PPN anreichern über ISBN ----------------------- #
 
-# TODO
+# TODO: Anreicherung für 0110
 # spec_Z_07
+echo "PPN anreichern über ISBN..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "2000",
+      "expression": "grel:with(value.replace('-',''),x,forEach(x.split('␟'),v,if(v.length()==10,with('978'+x[0,9],z,z+((10-(sum(forRange(0,12,1,i,toNumber(z[i])*(1+(i%2*2)) )) %10)) %10).toString()[0] ),v))).uniques().join('␟')",
+      "onError": "set-to-blank",
+      "newColumnName": "tmp",
+      "columnInsertIndex": 3
+    },
+    {
+      "op": "core/column-split",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "columnName": "tmp",
+      "guessCellType": false,
+      "removeOriginalColumn": true,
+      "mode": "separator",
+      "separator": "␟",
+      "regex": false,
+      "maxColumns": 0
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "isBlank(value)",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0100",
+            "expression": "isBlank(value)",
+            "columnName": "0100",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "tmp 1",
+      "expression": "grel:with(forEach(value.cross('ba-sachsen','tmp 1'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟') + '␟' + forEach(value.cross('ba-sachsen','tmp 2'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟'),x,x.split('␟')[0])",
+      "onError": "set-to-blank",
+      "newColumnName": "tmp 1_0100",
+      "columnInsertIndex": 4
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "isBlank(value)",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0100",
+            "expression": "isBlank(value)",
+            "columnName": "0100",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "tmp 2",
+      "expression": "grel:with(forEach(value.cross('ba-sachsen','tmp 1'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟') + forEach(value.cross('ba-sachsen','tmp 2'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟'),x,x.split('␟')[0])",
+      "onError": "set-to-blank",
+      "newColumnName": "tmp 2_0100",
+      "columnInsertIndex": 6
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "isBlank(value)",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0100",
+            "expression": "isBlank(value)",
+            "columnName": "0100",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0100",
+      "expression": "grel:forNonBlank(cells['tmp 1_0100'].value,v,v,forNonBlank(cells['tmp 2_0100'].value,v,v,''))",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/column-removal",
+      "columnName": "tmp 2_0100"
+    },
+    {
+      "op": "core/column-removal",
+      "columnName": "tmp 1_0100"
+    },
+    {
+      "op": "core/column-removal",
+      "columnName": "tmp 2"
+    },
+    {
+      "op": "core/column-removal",
+      "columnName": "tmp 1"
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# --------------------------- 02 Exemplare clustern -------------------------- #
+
+# TODO: 0110 berücksichtigen
+# spec_Z_07
+echo "Exemplare clustern..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0100",
+            "expression": "isBlank(value)",
+            "columnName": "0100",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0100",
+      "expression": "null",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0100",
+            "expression": "isBlank(value)",
+            "columnName": "0100",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0100",
+      "expression": "grel:row.record.cells[columnName].value[0]",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/row-reorder",
+      "mode": "record-based",
+      "sorting": {
+        "criteria": [
+          {
+            "valueType": "string",
+            "column": "0100",
+            "blankPosition": 2,
+            "errorPosition": 1,
+            "reverse": false,
+            "caseSensitive": false
+          }
+        ]
+      }
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "0100",
+      "expression": "grel:forNonBlank(cells['0100'].value,v,v,forNonBlank(cells['2199'].value,v,v,''))",
+      "onError": "set-to-blank",
+      "newColumnName": "id",
+      "columnInsertIndex": 0
+    },
+    {
+      "op": "core/blank-down",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "columnName": "id"
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 
 # ================================== EXPORT ================================== #
 
