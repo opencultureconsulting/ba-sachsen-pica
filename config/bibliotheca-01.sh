@@ -413,9 +413,7 @@ echo
 
 # ------------------ 07 Titeldaten-Felder mit Zahlen löschen ----------------- #
 
-# - key > Facet > Custom text facet > isNumeric(value[2,3].trim()) > true
-# - All > Edit rows > Remove all matching rows
-
+# außer 026, weil das für Zuordnung IDNR benötigt wird
 echo "Titeldaten-Felder mit Zahlen löschen"
 if curl -fs \
   --data project="${projects[$p]}" \
@@ -430,7 +428,7 @@ if curl -fs \
           {
             "type": "list",
             "name": "key",
-            "expression": "grel:isNumeric(value[2,3].trim())",
+            "expression": "grel:and(isNumeric(value[2,4].trim()), value[2,5] != '026'))",
             "columnName": "key",
             "invert": false,
             "omitBlank": false,
