@@ -381,7 +381,7 @@ echo
 # - key > Edit cells > Blank down
 # - value > Edit cells > join multi-valued cells... > ␟
 
-echo "Mehrfachbelegungen zusammenführen"
+echo "Mehrfachbelegungen zusammenführen..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -414,7 +414,7 @@ echo
 # ------------------ 07 Titeldaten-Felder mit Zahlen löschen ----------------- #
 
 # außer 026, weil das für Zuordnung IDNR benötigt wird
-echo "Titeldaten-Felder mit Zahlen löschen"
+echo "Titeldaten-Felder mit Zahlen löschen..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -461,7 +461,7 @@ echo
 
 # - key > Transpose > Columnize by key/value columns... > OK
 
-echo "Titeldaten-Felder mit Zahlen löschen"
+echo "Transponieren..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
