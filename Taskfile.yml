@@ -1,0 +1,85 @@
+# https://taskfile.dev
+
+version: '3'
+
+output: 'group'
+
+vars:
+  DATE:
+    sh: date +%Y%m%d_%H%M%S
+
+env:
+  REFINE_MEMORY: 8g
+  REFINE_ENDPOINT: http://localhost:3334
+
+tasks:
+  default:
+    desc: Workflow
+    deps: [bibliotheca, mkdir]
+    cmds:
+      - tasks/03-ba-sachsen.sh "output/02-bibliotheca-main"
+    sources:
+      - output/02-bibliotheca-main/bibliotheca.csv
+    generates:
+      - output/03-ba-sachsen/ba-sachsen.pic
+    env:
+      REFINE_WORKDIR: output/03-ba-sachsen
+      REFINE_LOGFILE: log/03-ba-sachsen/{{.DATE}}.log
+
+  glauchau:
+    desc: Glauchau
+    deps: [mkdir]
+    cmds:
+      - tasks/01-bibliotheca-pre.sh "input/glauchau.imp"
+    sources:
+      - input/glauchau.imp
+    generates:
+      - output/01-bibliotheca-pre/glauchau.tsv
+    env:
+      REFINE_MEMORY: 6G
+      REFINE_ENDPOINT: http://localhost:3334
+      REFINE_WORKDIR: output/01-bibliotheca-pre
+      REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_glauchau.log
+
+  plauen:
+    desc: Plauen
+    deps: [mkdir]
+    cmds:
+      - mkdir -p output/01-bibliotheca-pre log/01-bibliotheca-pre
+      - tasks/01-bibliotheca-pre.sh "input/plauen.imp"
+    sources:
+      - input/plauen.imp
+    generates:
+      - output/01-bibliotheca-pre/plauen.tsv
+    env:
+      REFINE_MEMORY: 4G
+      REFINE_ENDPOINT: http://localhost:3335
+      REFINE_WORKDIR: output/01-bibliotheca-pre
+      REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_plauen.log
+
+  bibliotheca:
+    desc: Hauptverarbeitung
+    deps: [glauchau, plauen, mkdir]
+    cmds:
+      - tasks/02-bibliotheca-main.sh "output/01-bibliotheca-pre"
+    sources:
+      - output/01-bibliotheca-pre/*.tsv
+    generates:
+      - output/02-bibliotheca-main/bibliotheca.csv
+    env:
+      REFINE_WORKDIR: output/02-bibliotheca-main
+      REFINE_LOGFILE: log/02-bibliotheca-main/{{.DATE}}.log
+
+  mkdir:
+    desc: Ordner erstellen
+    cmds:
+      - mkdir -p output/01-bibliotheca-pre log/01-bibliotheca-pre
+      - mkdir -p output/02-bibliotheca-main log/02-bibliotheca-main
+      - mkdir -p output/03-ba-sachsen log/03-ba-sachsen
+    status:
+      - test -d output/01-bibliotheca-pre
+      - test -d log/01-bibliotheca-pre
+      - test -d output/02-bibliotheca-main
+      - test -d log/02-bibliotheca-main
+      - test -d output/03-ba-sachsen
+      - test -d log/03-ba-sachsen

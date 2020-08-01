@@ -1,27 +1,38 @@
+#!/bin/bash
 # Bibliotheca Vorverarbeitung
-# - Exporte der fünf Standorte importieren
+# - Export von einer der Bibliotheken importieren
 # - in Tabellenformat umwandeln
-# - als eine Datei exportieren
+# - als TSV exportieren
 
-# ================================== CONFIG ================================== #
+# =============================== ENVIRONMENT ================================ #
 
-projects["bautzen"]="input/bautzen.imp"
-projects["breitenbrunn"]="input/breitenbrunn.imp"
-projects["dresden"]="input/dresden.imp"
-projects["glauchau"]="input/glauchau.imp"
-projects["plauen"]="input/plauen.imp"
+# source the main script
+source "${BASH_SOURCE%/*}/../bash-refine.sh" || exit 1
 
-# ================================ BEGIN LOOP ================================ #
+# read input
+if [[ $1 ]]; then
+  p="$(basename "$1" .imp)"
+  projects[$p]="$(readlink -e "$1")"
+else
+  echo 1>&2 "Please provide path to input file"; exit 1
+fi
 
-for p in "${!projects[@]}"; do
+# make script executable from another directory
+cd "${BASH_SOURCE%/*}/" || exit 1
 
-checkpoint "${p}"; echo
+# check requirements, set trap, create workdir and tee to logfile
+init
 
 # ================================= STARTUP ================================== #
 
+checkpoint "Startup"; echo
+
+# start OpenRefine server
 refine_start; echo
 
 # ================================== IMPORT ================================== #
+
+checkpoint "Import"; echo
 
 # Line-based text files
 # Character encoding: ISO-8859-1
@@ -39,16 +50,18 @@ if curl -fs --write-out "%{redirect_url}\n" \
                    "ignoreLines": 1
                   }' \
   "${endpoint}/command/core/create-project-from-upload$(refine_csrf)" \
-  > "${workspace}/${p}.id"
+  > "${workdir}/${p}.id"
 then
   log "imported ${projects[$p]} as ${p}"
 else
   error "import of ${projects[$p]} failed!"
 fi
-refine_store "${p}" "${workspace}/${p}.id" || error "import of ${p} failed!"
+refine_store "${p}" "${workdir}/${p}.id" || error "import of ${p} failed!"
 echo
 
 # ================================ TRANSFORM ================================= #
+
+checkpoint "Transform"; echo
 
 # -------------------- 01 Mehrzeilige Inhalte extrahieren -------------------- #
 
@@ -485,6 +498,8 @@ echo
 
 # ================================== EXPORT ================================== #
 
+checkpoint "Export"; echo
+
 format="tsv"
 echo "export ${p} to ${format} file..."
 if curl -fs \
@@ -492,9 +507,9 @@ if curl -fs \
   --data format="${format}" \
   --data engine='{"facets":[],"mode":"row-based"}' \
   "${endpoint}/command/core/export-rows" \
-  > "${workspace}/${p}.${format}"
+  > "${workdir}/${p}.${format}"
 then
-  log "exported ${p} (${projects[$p]}) to ${workspace}/${p}.${format}"
+  log "exported ${p} (${projects[$p]}) to ${workdir}/${p}.${format}"
 else
   error "export of ${p} (${projects[$p]}) failed!"
 fi
@@ -502,8 +517,13 @@ echo
 
 # ================================== FINISH ================================== #
 
+checkpoint "Finish"; echo
+
+# stop OpenRefine server
 refine_stop; echo
 
-# ================================= END LOOP ================================= #
+# calculate run time based on checkpoints
+checkpoint_stats; echo
 
-done
+# word count on all files in workdir
+count_output

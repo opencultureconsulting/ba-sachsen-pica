@@ -1,21 +1,45 @@
-# Generierung PICA+ aus CSV-Exporten
+#!/bin/bash
+# Generierung PICA+
+# - PPNs anreichern und Exemplare clustern
+# - als PICA+ exportieren
 
-# ================================== CONFIG ================================== #
+# =============================== ENVIRONMENT ================================ #
 
-# TODO: Zusammenführung mit Alephino
-zip -j "${workspace}/ba-sachsen.zip" \
-  "${workspace}/bibliotheca.csv"
+# source the main script
+source "${BASH_SOURCE%/*}/../bash-refine.sh" || exit 1
 
-projects["ba-sachsen"]="${workspace}/ba-sachsen.zip"
+# read input
+if [[ $1 ]]; then
+  inputdir1="$(readlink -e "$1")"
+else
+  echo 1>&2 "Please provide path to directory with input file(s)"; exit 1
+fi
+if [[ $2 ]]; then
+  inputdir2="$(readlink -e "$2")"
+fi
+
+# make script executable from another directory
+cd "${BASH_SOURCE%/*}/" || exit 1
+
+# check requirements, set trap, create workdir and tee to logfile
+init
 
 # ================================= STARTUP ================================== #
 
+checkpoint "Startup"; echo
+
+# start OpenRefine server
 refine_start; echo
 
 # ================================== IMPORT ================================== #
 
-# Neues Projekt erstellen aus Zip-Archiv
+checkpoint "Import"; echo
 
+# TODO: Zusammenführung mit Alephino
+zip -j "${workdir}/ba-sachsen.zip" "${inputdir1}"/*.csv
+projects["ba-sachsen"]="${workdir}/ba-sachsen.zip"
+
+# Neues Projekt erstellen aus Zip-Archiv
 p="ba-sachsen"
 echo "import file" "${projects[$p]}" "..."
 if curl -fs --write-out "%{redirect_url}\n" \
@@ -28,16 +52,18 @@ if curl -fs --write-out "%{redirect_url}\n" \
                    "separator": ","
                   }' \
   "${endpoint}/command/core/create-project-from-upload$(refine_csrf)" \
-  > "${workspace}/${p}.id"
+  > "${workdir}/${p}.id"
 then
   log "imported ${projects[$p]} as ${p}"
 else
   error "import of ${projects[$p]} failed!"
 fi
-refine_store "${p}" "${workspace}/${p}.id" || error "import of ${p} failed!"
+refine_store "${p}" "${workdir}/${p}.id" || error "import of ${p} failed!"
 echo
 
 # ================================ TRANSFORM ================================= #
+
+checkpoint "Transform"; echo
 
 # ------------------------ 01 PPN anreichern über ISBN ----------------------- #
 
@@ -377,6 +403,8 @@ echo
 
 # ================================== EXPORT ================================== #
 
+checkpoint "Export"; echo
+
 # Export in PICA+
 format="pic"
 echo "export ${p} to pica+ file using template..."
@@ -405,9 +433,9 @@ if echo "${template}" | head -c -2 | curl -fs \
   --data engine='{"facets":[],"mode":"row-based"}' \
   --data-urlencode template@- \
   "${endpoint}/command/core/export-rows" \
-  > "${workspace}/${p}.${format}"
+  > "${workdir}/${p}.${format}"
 then
-  log "exported ${p} (${projects[$p]}) to ${workspace}/${p}.${format}"
+  log "exported ${p} (${projects[$p]}) to ${workdir}/${p}.${format}"
 else
   error "export of ${p} (${projects[$p]}) failed!"
 fi
@@ -415,4 +443,13 @@ echo
 
 # ================================== FINISH ================================== #
 
+checkpoint "Finish"; echo
+
+# stop OpenRefine server
 refine_stop; echo
+
+# calculate run time based on checkpoints
+checkpoint_stats; echo
+
+# word count on all files in workdir
+count_output

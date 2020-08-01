@@ -1,5 +1,5 @@
 #!/bin/bash
-# bash-refine v1.1.1: bash-refine.sh, Felix Lohmeier, 2020-07-22
+# bash-refine v1.3.2: bash-refine.sh, Felix Lohmeier, 2020-08-01
 # https://gist.github.com/felixlohmeier/d76bd27fbc4b8ab6d683822cdf61f81d
 # license: MIT License https://choosealicense.com/licenses/mit/
 
@@ -7,14 +7,30 @@
 
 # ================================== CONFIG ================================== #
 
-endpoint="http://localhost:3333"
-memory="1400M" # increase to available RAM
+endpoint="${REFINE_ENDPOINT:-http://localhost:3333}"
+memory="${REFINE_MEMORY:-1400M}"
+csrf="${REFINE_CSRF:-true}"
 date="$(date +%Y%m%d_%H%M%S)"
-workspace="output/${date}"
-logfile="${workspace}/${date}.log"
-csrf=true # set to false for OpenRefine < 3.3
-jq="jq" # path to executable
-openrefine="openrefine/refine" # path to executable
+if [[ -n "$(readlink -e "${REFINE_WORKDIR}")" ]]; then
+  workdir="$(readlink -e "${REFINE_WORKDIR}")"
+else
+  workdir="$(readlink -m "${BASH_SOURCE%/*}/output/${date}")"
+fi
+if [[ -n "$(readlink -f "${REFINE_LOGFILE}")" ]]; then
+  logfile="$(readlink -f "${REFINE_LOGFILE}")"
+else
+  logfile="$(readlink -m "${BASH_SOURCE%/*}/log/${date}.log")"
+fi
+if [[ -n "$(readlink -e "${REFINE_JQ}")" ]]; then
+  jq="$(readlink -e "${REFINE_JQ}")"
+else
+  jq="$(readlink -m "${BASH_SOURCE%/*}/lib/jq")"
+fi
+if [[ -n "$(readlink -e "${REFINE_REFINE}")" ]]; then
+  refine="$(readlink -e "${REFINE_REFINE}")"
+else
+  refine="$(readlink -m "${BASH_SOURCE%/*}/lib/openrefine/refine")"
+fi
 
 declare -A checkpoints # associative array for stats
 declare -A pids # associative array for monitoring background jobs
@@ -37,28 +53,29 @@ function requirements {
   # download jq and OpenRefine if necessary
   if [[ -z "$(readlink -e "${jq}")" ]]; then
     echo "Download jq..."
+    mkdir -p "$(dirname "${jq}")"
     # jq 1.4 has much faster startup time than 1.5 and 1.6
     curl -L --output "${jq}" \
       "https://github.com/stedolan/jq/releases/download/jq-1.4/jq-linux-x86_64"
     chmod +x "${jq}"; echo
   fi
-  if [[ -z "$(readlink -e "${openrefine}")" ]]; then
+  if [[ -z "$(readlink -e "${refine}")" ]]; then
     echo "Download OpenRefine..."
-    mkdir -p "$(dirname "${openrefine}")"
+    mkdir -p "$(dirname "${refine}")"
     curl -L --output openrefine.tar.gz \
       "https://github.com/OpenRefine/OpenRefine/releases/download/3.3/openrefine-linux-3.3.tar.gz"
-    echo "Install OpenRefine in subdirectory $(dirname "${openrefine}")..."
-    tar -xzf openrefine.tar.gz -C "$(dirname "${openrefine}")" --strip 1 --totals
+    echo "Install OpenRefine in subdirectory $(dirname "${refine}")..."
+    tar -xzf openrefine.tar.gz -C "$(dirname "${refine}")" --strip 1 --totals
     rm -f openrefine.tar.gz
     # do not try to open OpenRefine in browser
     sed -i '$ a JAVA_OPTIONS=-Drefine.headless=true' \
-      "$(dirname "${openrefine}")"/refine.ini
+      "$(dirname "${refine}")"/refine.ini
     # set min java heap space to allocated memory
     sed -i 's/-Xms$REFINE_MIN_MEMORY/-Xms$REFINE_MEMORY/' \
-      "$(dirname "${openrefine}")"/refine
+      "$(dirname "${refine}")"/refine
     # set autosave period from 5 minutes to 25 hours
     sed -i 's/#REFINE_AUTOSAVE_PERIOD=60/REFINE_AUTOSAVE_PERIOD=1500/' \
-      "$(dirname "${openrefine}")"/refine.ini  
+      "$(dirname "${refine}")"/refine.ini
     echo
   fi
 }
@@ -66,10 +83,10 @@ function requirements {
 # ============================== OPENREFINE API ============================== #
 
 function refine_start {
-  echo "start OpenRefine server..."  
+  echo "start OpenRefine server..."
   local dir
-  dir="$(readlink -f "${workspace}")"
-  ${openrefine} -v warn -m "${memory}" -p "${endpoint##*:}" -d "${dir}" &
+  dir="$(readlink -e "${workdir}")"
+  ${refine} -v warn -m "${memory}" -p "${endpoint##*:}" -d "${dir}" &
   pid_server=${!}
   timeout 30s bash -c "until curl -s \"${endpoint}\" \
     | cat | grep -q -o 'OpenRefine' ; do sleep 1; done" \
@@ -85,7 +102,7 @@ function refine_kill {
   # kill OpenRefine immediately; SIGKILL (kill -9) prevents saving projects
   { kill -9 "${pid_server}" && wait "${pid_server}"; } 2>/dev/null
   # delete temporary OpenRefine projects
-  (cd "${workspace}" && rm -rf ./*.project* && rm -f workspace.json)
+  (cd "${workdir}" && rm -rf ./*.project* && rm -f workspace.json)
 }
 
 function refine_check {
@@ -208,9 +225,9 @@ function checkpoint_stats {
 }
 
 function count_output {
-  # word count on all files in workspace
-  echo "files (number of lines / size in bytes) in ${workspace}..."
-  (cd "${workspace}" && wc -c -l ./*)
+  # word count on all files in workdir
+  echo "files (number of lines / size in bytes) in ${workdir}..."
+  (cd "${workdir}" && wc -c -l ./*)
 }
 
 function init {
@@ -218,6 +235,6 @@ function init {
   requirements
   # set trap, create directories and tee to log file
   trap 'error "script interrupted!"' HUP INT QUIT TERM
-  mkdir -p "${workspace}"
+  mkdir -p "${workdir}" "$(dirname "${logfile}")"
   exec &> >(tee -i -a "${logfile}")
 }
