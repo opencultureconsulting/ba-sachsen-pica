@@ -14,9 +14,9 @@ if [[ $1 ]]; then
 else
   echo 1>&2 "Please provide path to directory with input file(s)"; exit 1
 fi
-if [[ $2 ]]; then
-  inputdir2="$(readlink -e "$2")"
-fi
+#if [[ $2 ]]; then
+#  inputdir2="$(readlink -e "$2")"
+#fi
 
 # check requirements, set trap, create workdir and tee to logfile
 init
