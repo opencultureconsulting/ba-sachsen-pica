@@ -54,7 +54,7 @@ tasks:
     vars:
       INPUT: '{{.INPUT | default "input/bautzen.imp"}}'
     env:
-      REFINE_MEMORY: '{{.REFINE_MEMORY | default "8G"}}'
+      REFINE_MEMORY: '{{.REFINE_MEMORY | default "6G"}}'
       REFINE_ENDPOINT: http://localhost:3335
       REFINE_WORKDIR: output/01-bibliotheca-pre
       REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}}_bautzen.log
@@ -70,7 +70,7 @@ tasks:
     vars:
       INPUT: '{{.INPUT | default "input/breitenbrunn.imp"}}'
     env:
-      REFINE_MEMORY: '{{.REFINE_MEMORY | default "8G"}}'
+      REFINE_MEMORY: '{{.REFINE_MEMORY | default "4G"}}'
       REFINE_ENDPOINT: http://localhost:3335
       REFINE_WORKDIR: output/01-bibliotheca-pre
       REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_breitenbrunn.log
@@ -86,7 +86,7 @@ tasks:
     vars:
       INPUT: '{{.INPUT | default "input/dresden.imp"}}'
     env:
-      REFINE_MEMORY: '{{.REFINE_MEMORY | default "8G"}}'
+      REFINE_MEMORY: '{{.REFINE_MEMORY | default "7G"}}'
       REFINE_ENDPOINT: http://localhost:3336
       REFINE_WORKDIR: output/01-bibliotheca-pre
       REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_dresden.log
