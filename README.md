@@ -10,5 +10,7 @@
     * input/plauen.imp
     * input/riesa-exemplare.txt
     * input/riesa-titel.txt
-2. Datenverarbeitung: `./main.sh`
-3. Ergebnisse prüfen: `wc -l output/*/*.tsv`
+2. Installation und initiale Datenverarbeitung: `./main.sh`
+3. Weitere Datenverarbeitungen:
+    * `lib/task` für gesamten Workflow
+    * `lib/task --list` für eine Liste der verfügbaren Tasks

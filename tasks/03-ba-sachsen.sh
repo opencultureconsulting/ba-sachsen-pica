@@ -18,9 +18,6 @@ if [[ $2 ]]; then
   inputdir2="$(readlink -e "$2")"
 fi
 
-# make script executable from another directory
-cd "${BASH_SOURCE%/*}/" || exit 1
-
 # check requirements, set trap, create workdir and tee to logfile
 init
 

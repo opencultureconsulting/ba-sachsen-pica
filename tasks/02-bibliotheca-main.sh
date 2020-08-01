@@ -16,9 +16,6 @@ else
   echo 1>&2 "Please provide path to directory with input file(s)"; exit 1
 fi
 
-# make script executable from another directory
-cd "${BASH_SOURCE%/*}/" || exit 1
-
 # check requirements, set trap, create workdir and tee to logfile
 init
 

@@ -17,15 +17,15 @@ else
   echo 1>&2 "Please provide path to input file"; exit 1
 fi
 
-# make script executable from another directory
-cd "${BASH_SOURCE%/*}/" || exit 1
-
 # check requirements, set trap, create workdir and tee to logfile
 init
 
 # ================================= STARTUP ================================== #
 
 checkpoint "Startup"; echo
+
+# print environment variables
+printenv | grep REFINE; echo
 
 # start OpenRefine server
 refine_start; echo
