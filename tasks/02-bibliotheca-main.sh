@@ -393,8 +393,8 @@ if curl -fs \
         "facets": [],
         "mode": "row-based"
       },
-      "baseColumnName": "E|ZWGST",
-      "expression": "grel:value.replace('BB','Brt 1').replace('BZ','Bn 3').replace('DD','D 161').replace('EH','D 275').replace('GC','Gla 1').replace('PL','Pl 11')",
+      "baseColumnName": "File",
+      "expression": "grel:with(if(value=='DD',forNonBlank(cells['E|ZWGST'].value,v,v,value),value),x,x.replace('BB','Brt 1').replace('BZ','Bn 3').replace('DD','D 161').replace('EH','D 275').replace('GC','Gla 1').replace('PL','Pl 11'))",
       "onError": "set-to-blank",
       "newColumnName": "7100B",
       "columnInsertIndex": 3
@@ -424,8 +424,8 @@ if curl -fs \
         "facets": [],
         "mode": "row-based"
       },
-      "baseColumnName": "E|ZWGST",
-      "expression": "grel:value",
+      "baseColumnName": "File",
+      "expression": "grel:if(value=='DD',forNonBlank(cells['E|ZWGST'].value,v,v,value),value)",
       "onError": "set-to-blank",
       "newColumnName": "7100f",
       "columnInsertIndex": 3
@@ -549,8 +549,8 @@ if curl -fs \
         "facets": [],
         "mode": "row-based"
       },
-      "baseColumnName": "E|ZWGST",
-      "expression": "grel:value.toLowercase()",
+      "baseColumnName": "File",
+      "expression": "grel:with(if(value=='DD',forNonBlank(cells['E|ZWGST'].value,v,v,value),value),x,x.toLowercase())",
       "onError": "set-to-blank",
       "newColumnName": "E0XXb",
       "columnInsertIndex": 3
