@@ -473,6 +473,7 @@ IFS= read -r -d '' template << "TEMPLATE"
 {{
 if(row.index - row.record.fromRowIndex == 0,
 '' + '\n'
++ forNonBlank(cells['0500'].value, v, '002@' + ' 0' + v + '\n', '')
 + forNonBlank(cells['0100'].value, v, '003@' + ' 0' + v + '\n', '')
 + forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A' + ' 0' + x + '\n').join(''), '')
 + forNonBlank(cells['2199'].value, v, '006Y' + ' 0' + v + '\n', '')
