@@ -62,7 +62,72 @@ echo
 
 checkpoint "Transform"; echo
 
-# ------------------------ 01 PPN anreichern über ISBN ----------------------- #
+# -------------------------- 01 Titel ohne Exemplare ------------------------- #
+
+# TODO: Temporäres Löschen durch Generierung von Lax-Sätzen ersetzen
+echo "Titel ohne Exemplare löschen..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/row-removal",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "isBlank(value)",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "7100f",
+            "expression": "isBlank(value)",
+            "columnName": "7100f",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      }
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# ------------------------ 02 PPN anreichern über ISBN ----------------------- #
 
 # TODO: Anreicherung für 0110
 # spec_Z_04
@@ -277,7 +342,7 @@ else
 fi
 echo
 
-# --------------------------- 02 Exemplare clustern -------------------------- #
+# --------------------------- 03 Exemplare clustern -------------------------- #
 
 # TODO: 0110 berücksichtigen
 # spec_Z_05
@@ -396,7 +461,6 @@ else
   error "transform ${p} (${projects[$p]}) failed!"
 fi
 echo
-
 
 # ================================== EXPORT ================================== #
 
