@@ -680,6 +680,47 @@ else
 fi
 echo
 
+# --------------------------------- 16 8200 ---------------------------------- #
+
+# spec_B_E_02
+echo "Verbuchungsnummer 4000..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "text",
+            "name": "M|HST",
+            "columnName": "M|HST",
+            "query": "¬",
+            "mode": "text",
+            "caseSensitive": false,
+            "invert": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "E|BARCO",
+      "expression": "grel:cells['File'].value + value",
+      "onError": "set-to-blank",
+      "newColumnName": "8200",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 # ================================== EXPORT ================================== #
 
 checkpoint "Export"; echo
