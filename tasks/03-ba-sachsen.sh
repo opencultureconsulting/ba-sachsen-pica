@@ -477,6 +477,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['0100'].value, v, '003@' + ' 0' + v + '\n', '')
 + forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A' + ' 0' + x + '\n').join(''), '')
 + forNonBlank(cells['2199'].value, v, '006Y' + ' 0' + v + '\n', '')
++ forNonBlank(cells['4000'].value, v, '021A' + ' a' + v + '\n', '')
 ,'')
 }}{{
 if(isNonBlank(cells['7100f'].value),

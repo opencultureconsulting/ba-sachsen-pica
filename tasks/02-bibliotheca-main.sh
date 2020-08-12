@@ -639,6 +639,47 @@ else
 fi
 echo
 
+# --------------------------------- 15 4000 ---------------------------------- #
+
+# spec_B_T_17
+echo "Haupttitel 4000..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "text",
+            "name": "M|HST",
+            "columnName": "M|HST",
+            "query": "¬",
+            "mode": "text",
+            "caseSensitive": false,
+            "invert": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|HST",
+      "expression": "grel:with(value.split('¬'), v, v[0].trim() + ' @' + v[1].trim())",
+      "onError": "set-to-blank",
+      "newColumnName": "4000",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 # ================================== EXPORT ================================== #
 
 checkpoint "Export"; echo
@@ -655,6 +696,7 @@ with(
     '0100',
     '0500',
     '2000',
+    '4000',
     '7100B',
     '7100f',
     '7100a',
