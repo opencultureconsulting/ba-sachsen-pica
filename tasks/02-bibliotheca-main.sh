@@ -652,21 +652,11 @@ if curl -fs \
     {
       "op": "core/column-addition",
       "engineConfig": {
-        "facets": [
-          {
-            "type": "text",
-            "name": "M|HST",
-            "columnName": "M|HST",
-            "query": "¬",
-            "mode": "text",
-            "caseSensitive": false,
-            "invert": false
-          }
-        ],
-        "mode": "row-based"
+        "facets": [],
+        "mode": "record-based"
       },
       "baseColumnName": "M|HST",
-      "expression": "grel:with(value.split('¬'), v, v[0].trim() + ' @' + v[1].trim())",
+      "expression": "grel:if(value.contains('¬'),with(value.split('¬'), v, v[0].trim() + ' @' + v[1].trim()),value)",
       "onError": "set-to-blank",
       "newColumnName": "4000",
       "columnInsertIndex": 3
@@ -693,17 +683,7 @@ if curl -fs \
     {
       "op": "core/column-addition",
       "engineConfig": {
-        "facets": [
-          {
-            "type": "text",
-            "name": "M|HST",
-            "columnName": "M|HST",
-            "query": "¬",
-            "mode": "text",
-            "caseSensitive": false,
-            "invert": false
-          }
-        ],
+        "facets": [],
         "mode": "row-based"
       },
       "baseColumnName": "E|BARCO",
