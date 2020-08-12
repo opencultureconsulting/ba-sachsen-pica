@@ -725,6 +725,20 @@ echo
 
 checkpoint "Export"; echo
 
+# Export des OpenRefine-Projekts für Tests
+format="openrefine.tar.gz"
+echo "export ${p} to ${format} file..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  "${endpoint}/command/core/export-project" \
+  > "${workdir}/${p}.${format}"
+then
+  log "exported ${p} (${projects[$p]}) to ${workdir}/${p}.${format}"
+else
+  error "export of ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 # Export der PICA3-Spalten als CSV
 # Spalte 2199 muss vorne stehen, weil später für Sortierung benötigt
 format="csv"

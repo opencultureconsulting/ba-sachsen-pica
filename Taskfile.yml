@@ -39,6 +39,7 @@ tasks:
       - output/01-bibliotheca-pre/*.tsv
     generates:
       - output/02-bibliotheca-main/bibliotheca.csv
+      - output/02-bibliotheca-main/bibliotheca.openrefine.tar.gz
     env:
       REFINE_WORKDIR: output/02-bibliotheca-main
       REFINE_LOGFILE: log/02-bibliotheca-main/{{.DATE}}.log
