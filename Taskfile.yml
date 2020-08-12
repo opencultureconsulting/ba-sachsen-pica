@@ -83,7 +83,7 @@ tasks:
     sources:
       - '{{.INPUT}}'
     generates:
-      - output/01-bibliotheca-pre/dresdeb.tsv
+      - output/01-bibliotheca-pre/dresden.tsv
     vars:
       INPUT: '{{.INPUT | default "input/dresden.imp"}}'
     env:
