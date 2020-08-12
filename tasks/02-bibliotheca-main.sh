@@ -625,7 +625,7 @@ if curl -fs \
         "mode": "row-based"
       },
       "baseColumnName": "M|ART",
-      "expression": $(echo "grel:${expression}" | ${jq} -s -R '.')
+      "expression": $(echo "grel:${expression}" | ${jq} -s -R '.'),
       "onError": "set-to-blank",
       "newColumnName": "0500",
       "columnInsertIndex": 3
