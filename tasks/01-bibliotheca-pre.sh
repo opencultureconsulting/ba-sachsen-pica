@@ -63,7 +63,7 @@ echo
 
 checkpoint "Transform"; echo
 
-# -------------------- 01 Mehrzeilige Inhalte extrahieren -------------------- #
+# ---------------------- Mehrzeilige Inhalte extrahieren --------------------- #
 
 # - Column 1 > Text filter > regular expression aktivieren > ^\* > invert
 # -- Column 1 > Edit column > Add column based on this column...
@@ -130,7 +130,7 @@ else
 fi
 echo
 
-# --------------------------- 02 Leerzeilen löschen --------------------------- #
+# ---------------------------- Leerzeilen löschen ---------------------------- #
 
 # - All > Facet > Facet by blank > true
 # - All > Edit rows > Remove all matching rows
@@ -179,7 +179,7 @@ fi
 echo
 
 
-# ---------------------- 03 Felder und Werte aufteilen ----------------------- #
+# ------------------------ Felder und Werte aufteilen ------------------------ #
 
 # - value > Facet > Customized facets > Facet by blank > true
 # -- value > Edit cells > Transform... > cells['Column 1'].value.slice(9)
@@ -252,7 +252,7 @@ fi
 echo
 
 
-# --------------- 04 Mehrzeilige Inhalte (mit #) zusammenführen -------------- #
+# ----------------- Mehrzeilige Inhalte (mit #) zusammenführen --------------- #
 
 # - value > Edit cells > Join multi-valued cells... > ␟
 # (das ist das Unicode-Zeichen U+241F)
@@ -280,7 +280,7 @@ fi
 echo
 
 
-# --------------------- 05 Feldnamen um M oder E ergänzen -------------------- #
+# ----------------------- Feldnamen um M oder E ergänzen --------------------- #
 
 # - key > Facet > Text facet > *****
 # -- value > Edit column > Add column based on this column... > typ > value
@@ -389,7 +389,7 @@ else
 fi
 echo
 
-# ------------------- 06 Mehrfachbelegungen zusammenführen ------------------- #
+# --------------------- Mehrfachbelegungen zusammenführen -------------------- #
 
 # - key > Edit cells > Blank down
 # - value > Edit cells > join multi-valued cells... > ␟
@@ -424,7 +424,7 @@ else
 fi
 echo
 
-# ------------------ 07 Titeldaten-Felder mit Zahlen löschen ----------------- #
+# -------------------- Titeldaten-Felder mit Zahlen löschen ------------------ #
 
 # außer 026, weil das für Zuordnung IDNR benötigt wird
 echo "Titeldaten-Felder mit Zahlen löschen..."
@@ -470,7 +470,7 @@ else
 fi
 echo
 
-# ----------------------------- 08 Transponieren ----------------------------- #
+# ------------------------------- Transponieren ------------------------------ #
 
 # - key > Transpose > Columnize by key/value columns... > OK
 

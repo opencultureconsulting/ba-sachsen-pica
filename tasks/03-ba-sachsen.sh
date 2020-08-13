@@ -62,7 +62,7 @@ echo
 
 checkpoint "Transform"; echo
 
-# -------------------------- 01 Titel ohne Exemplare ------------------------- #
+# ---------------------------- Titel ohne Exemplare -------------------------- #
 
 # TODO: Temporäres Löschen durch Generierung von Lax-Sätzen ersetzen
 echo "Titel ohne Exemplare löschen..."
@@ -127,7 +127,7 @@ else
 fi
 echo
 
-# ------------------------ 02 PPN anreichern über ISBN ----------------------- #
+# -------------------------- PPN anreichern über ISBN ------------------------ #
 
 # TODO: Anreicherung für 0110
 # spec_Z_04
@@ -342,7 +342,7 @@ else
 fi
 echo
 
-# --------------------------- 03 Exemplare clustern -------------------------- #
+# ----------------------------- Exemplare clustern --------------------------- #
 
 # TODO: 0110 berücksichtigen
 # spec_Z_05
