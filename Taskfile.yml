@@ -58,7 +58,7 @@ tasks:
       REFINE_MEMORY: '{{.REFINE_MEMORY | default "6G"}}'
       REFINE_ENDPOINT: http://localhost:3335
       REFINE_WORKDIR: output/01-bibliotheca-pre
-      REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}}_bautzen.log
+      REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_bautzen.log
 
   breitenbrunn:
     desc: Bibliotheca Vorverarbeitung
