@@ -567,50 +567,44 @@ echo
 # ----------------------------------- 0500 ----------------------------------- #
 
 # spec_B_T_56
-# TODO: Regeln für ART=GH, ART=L
 # TODO: Differenzierung nach MEDGR
 echo "Gattung und Status 0500..."
 read -r -d '' expression << EXPRESSION
 if(
-  value == 'M',
+  or(
+    value == 'M',
+    value == 'L'
+  ),
   'Aan',
-  if(
-    value == 'U',
-    'Asn',
-    if(
-      value == 'A',
-      'Ban',
-      if(
-        value == 'V',
-        'Ban',
-        if(
-          and(
-            value == 'P',
-            forNonBlank(cells['M|MEDGR'].value,v,if(v == 'SPIEL', true, false),false)
-          ),
-          'Ban',
-          if(
-            value == 'P',
-            'Lax',
-            if(
-              value == 'G',
-              'Acn',
-              if(
-                value == 'S',
-                'AFn',
-                if(
-                  value == 'Z',
-                  'Abn',
-                  null
-                )
-              )
-            )
-          )
-        )
-      )
-    )
-  )
-)
+if(
+  value == 'U',
+  'Asn',
+if(
+  or(
+    value == 'A',
+    value == 'V'
+  ),
+  'Ban',
+if(
+  and(
+    value == 'P',
+    forNonBlank(cells['M|MEDGR'].value,v,if(v == 'SPIEL', true, false),false)
+  ),
+  'Ban',
+if(
+  value == 'P',
+  'Lax',
+if(
+  value == 'G',
+  'Acn',
+if(
+  value == 'S',
+  'AFn',
+if(
+  value == 'Z',
+  'Abn',
+null
+))))))))
 EXPRESSION
 if curl -fs \
   --data project="${projects[$p]}" \
@@ -628,6 +622,51 @@ if curl -fs \
       "expression": $(echo "grel:${expression}" | ${jq} -s -R '.'),
       "onError": "set-to-blank",
       "newColumnName": "0500",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# ----------------------------------- 1140 ----------------------------------- #
+
+# spec_B_T_53
+# TODO: Differenzierung nach MEDGR
+echo "Veröffentlichungsart 1140..."
+read -r -d '' expression << EXPRESSION
+if(
+  value == 'A',
+  'muto',
+if(
+  value == 'V',
+  'vide',
+if(
+  value == 'L',
+  'lo',
+null
+)))
+EXPRESSION
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << JSON
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|ART",
+      "expression": $(echo "grel:${expression}" | ${jq} -s -R '.'),
+      "onError": "set-to-blank",
+      "newColumnName": "1140",
       "columnInsertIndex": 3
     }
   ]
@@ -730,6 +769,7 @@ with(
     '2199',
     '0100',
     '0500',
+    '1140',
     '2000',
     '4000',
     '7100B',
