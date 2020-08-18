@@ -515,7 +515,27 @@ if curl -fs \
     {
       "op": "core/column-addition",
       "engineConfig": {
-        "facets": [],
+        "facets": [
+          {
+            "type": "list",
+            "name": "E|EXNR",
+            "expression": "isBlank(value)",
+            "columnName": "E|EXNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
         "mode": "row-based"
       },
       "baseColumnName": "E|ZUDAT",
@@ -546,7 +566,27 @@ if curl -fs \
     {
       "op": "core/column-addition",
       "engineConfig": {
-        "facets": [],
+        "facets": [
+          {
+            "type": "list",
+            "name": "E|EXNR",
+            "expression": "isBlank(value)",
+            "columnName": "E|EXNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
         "mode": "row-based"
       },
       "baseColumnName": "File",

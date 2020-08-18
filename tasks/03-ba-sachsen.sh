@@ -97,9 +97,9 @@ if curl -fs \
           },
           {
             "type": "list",
-            "name": "7100f",
+            "name": "E0XX",
             "expression": "isBlank(value)",
-            "columnName": "7100f",
+            "columnName": "E0XX",
             "invert": false,
             "omitBlank": false,
             "omitError": false,
