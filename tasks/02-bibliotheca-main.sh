@@ -740,6 +740,141 @@ else
 fi
 echo
 
+# ----------------------------------- 1100 ----------------------------------- #
+
+# spec_B_T_02
+# 1100a normiert mit zahlreichen Ersetzungen
+echo "Jahresangaben 1100a und 1100n..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|MEDNR",
+            "expression": "isBlank(value)",
+            "columnName": "M|MEDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|JAHR",
+      "expression": "grel:value",
+      "onError": "set-to-blank",
+      "newColumnName": "1100n",
+      "columnInsertIndex": 3
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|MEDNR",
+            "expression": "isBlank(value)",
+            "columnName": "M|MEDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|JAHR",
+      "expression": "grel:with(with(with(value.replace('[','').replace(']','').replace('(','').replace(')','').replace(' ','').replace('?','').replace('.','').replace('ca','').replace('c','').replace('ff',''),x,forNonBlank(x.split('/')[1],v,v,x)),y,y.split('-')[0]),z,if(and(z.length()==4,isNumeric(z)),z,if(z=='19XX','19XX',null))))",
+      "onError": "set-to-blank",
+      "newColumnName": "1100a",
+      "columnInsertIndex": 3
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|MEDNR",
+            "expression": "isBlank(value)",
+            "columnName": "M|MEDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1100a",
+            "expression": "isBlank(value)",
+            "columnName": "1100a",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1100a",
+      "expression": "grel:if(cells['M|JAHR'].value.contains('19'),'19XX','20XX')",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 # ================================== EXPORT ================================== #
 
 checkpoint "Export"; echo
@@ -769,6 +904,8 @@ with(
     '2199',
     '0100',
     '0500',
+    '1100a',
+    '1100n',
     '1140',
     '2000',
     '4000',
