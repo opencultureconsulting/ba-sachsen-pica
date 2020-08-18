@@ -476,7 +476,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['0500'].value, v, '002@' + ' 0' + v + '\n', '')
 + forNonBlank(cells['0100'].value, v, '003@' + ' 0' + v + '\n', '')
 + forNonBlank(cells['1100a'].value, v, '011@' + ' a' + v + ' n' + cells['1100n'].value + '\n', '')
-+ forNonBlank(cells['1140'].value, v, '013H@' + ' a' + v + '\n', '')
++ forNonBlank(cells['1140'].value, v, '013H' + ' a' + v + '\n', '')
 + forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A' + ' 0' + x + '\n').join(''), '')
 + forNonBlank(cells['2199'].value, v, '006Y' + ' 0' + v + '\n', '')
 + forNonBlank(cells['4000'].value, v, '021A' + ' a' + v + '\n', '')
