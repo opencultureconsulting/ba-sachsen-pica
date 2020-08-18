@@ -21,6 +21,7 @@ tasks:
       - output/02-bibliotheca-main/bibliotheca.csv
     generates:
       - output/03-ba-sachsen/ba-sachsen.pic
+      - output/03-ba-sachsen/ba-sachsen.openrefine.tar.gz
     env:
       REFINE_WORKDIR: output/03-ba-sachsen
       REFINE_LOGFILE: log/03-ba-sachsen/{{.DATE}}.log
