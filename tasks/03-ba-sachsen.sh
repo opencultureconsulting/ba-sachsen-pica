@@ -452,6 +452,38 @@ if curl -fs \
         "mode": "row-based"
       },
       "columnName": "id"
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "id",
+            "expression": "isBlank(value)",
+            "columnName": "id",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "2199",
+      "expression": "grel:if(rowIndex - row.record.fromRowIndex == 0,row.record.cells[columnName].value.join('␟'),null)",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
     }
   ]
 JSON
@@ -492,7 +524,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['1100a'].value, v, '011@' + ' a' + v + ' n' + cells['1100n'].value + '\n', '')
 + forNonBlank(cells['1140'].value, v, '013H' + ' a' + v + '\n', '')
 + forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A' + ' 0' + x + '\n').join(''), '')
-+ forNonBlank(cells['2199'].value, v, '006Y' + ' 0' + v + '\n', '')
++ forNonBlank(cells['2199'].value, v, forEach(v.split('␟'),x,'006Y' + ' 0' + x + '\n').join(''), '')
 + forNonBlank(cells['4000'].value, v, '021A' + ' a' + v + '\n', '')
 ,'')
 }}{{
