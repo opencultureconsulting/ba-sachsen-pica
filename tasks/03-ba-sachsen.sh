@@ -145,7 +145,7 @@ if curl -fs \
         "mode": "row-based"
       },
       "baseColumnName": "2000",
-      "expression": "grel:with(value.replace('-',''),x,forEach(x.split('␟'),v,if(v.length()==10,with('978'+x[0,9],z,z+((10-(sum(forRange(0,12,1,i,toNumber(z[i])*(1+(i%2*2)) )) %10)) %10).toString()[0] ),v))).uniques().join('␟')",
+      "expression": "grel:with(value.replace('-',''),x,forEach(x.split('␟'),v,if(v.length()==10,with('978'+v[0,9],z,z+((10-(sum(forRange(0,12,1,i,toNumber(z[i])*(1+(i%2*2)) )) %10)) %10).toString()[0] ),v))).uniques().join('␟')",
       "onError": "set-to-blank",
       "newColumnName": "tmp",
       "columnInsertIndex": 3
