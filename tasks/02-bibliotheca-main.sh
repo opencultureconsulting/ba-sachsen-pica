@@ -488,7 +488,7 @@ if curl -fs \
         "mode": "record-based"
       },
       "baseColumnName": "M|ISBN",
-      "expression": "grel:[ forNonBlank(cells['M|ISBN'].value,v,if(isNumeric(v[0]),v,null),null), forNonBlank(cells['M|ISBN2'].value,v,if(isNumeric(v[0]),v,null),null) ].uniques().join('␟').replace('-','')",
+      "expression": "grel:[ forNonBlank(cells['M|ISBN'].value,v,if(isNumeric(v[0]),v,null),null), forNonBlank(cells['M|ISBN2'].value,v,if(isNumeric(v[0]),v,null),null) ].uniques().join('␟').replace('-','').toUppercase()",
       "onError": "set-to-blank",
       "newColumnName": "2000",
       "columnInsertIndex": 3
