@@ -1,5 +1,5 @@
 #!/bin/bash
-# bash-refine v1.3.2: bash-refine.sh, Felix Lohmeier, 2020-08-01
+# bash-refine v1.3.3: bash-refine.sh, Felix Lohmeier, 2020-09-07
 # https://gist.github.com/felixlohmeier/d76bd27fbc4b8ab6d683822cdf61f81d
 # license: MIT License https://choosealicense.com/licenses/mit/
 
@@ -63,7 +63,7 @@ function requirements {
     echo "Download OpenRefine..."
     mkdir -p "$(dirname "${refine}")"
     curl -L --output openrefine.tar.gz \
-      "https://github.com/OpenRefine/OpenRefine/releases/download/3.3/openrefine-linux-3.3.tar.gz"
+      "https://github.com/OpenRefine/OpenRefine/releases/download/3.4/openrefine-linux-3.4.tar.gz"
     echo "Install OpenRefine in subdirectory $(dirname "${refine}")..."
     tar -xzf openrefine.tar.gz -C "$(dirname "${refine}")" --strip 1 --totals
     rm -f openrefine.tar.gz
