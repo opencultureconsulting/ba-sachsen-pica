@@ -165,7 +165,7 @@ if curl -fs \
       "maxColumns": 0
     },
     {
-      "op": "core/column-addition",
+      "op": "core/text-transform",
       "engineConfig": {
         "facets": [
           {
@@ -209,62 +209,11 @@ if curl -fs \
         ],
         "mode": "row-based"
       },
-      "baseColumnName": "tmp 1",
-      "expression": "grel:with(forEach(value.cross('ba-sachsen','tmp 1'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟') + '␟' + forEach(value.cross('ba-sachsen','tmp 2'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟'),x,x.split('␟')[0])",
-      "onError": "set-to-blank",
-      "newColumnName": "tmp 1_0100",
-      "columnInsertIndex": 4
-    },
-    {
-      "op": "core/column-addition",
-      "engineConfig": {
-        "facets": [
-          {
-            "type": "list",
-            "name": "2199",
-            "expression": "isBlank(value)",
-            "columnName": "2199",
-            "invert": false,
-            "omitBlank": false,
-            "omitError": false,
-            "selection": [
-              {
-                "v": {
-                  "v": false,
-                  "l": "false"
-                }
-              }
-            ],
-            "selectBlank": false,
-            "selectError": false
-          },
-          {
-            "type": "list",
-            "name": "0100",
-            "expression": "isBlank(value)",
-            "columnName": "0100",
-            "invert": false,
-            "omitBlank": false,
-            "omitError": false,
-            "selection": [
-              {
-                "v": {
-                  "v": true,
-                  "l": "true"
-                }
-              }
-            ],
-            "selectBlank": false,
-            "selectError": false
-          }
-        ],
-        "mode": "row-based"
-      },
-      "baseColumnName": "tmp 2",
-      "expression": "grel:with(forEach(value.cross('ba-sachsen','tmp 1'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟') + forEach(value.cross('ba-sachsen','tmp 2'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟'),x,x.split('␟')[0])",
-      "onError": "set-to-blank",
-      "newColumnName": "tmp 2_0100",
-      "columnInsertIndex": 6
+      "columnName": "0100",
+      "expression": "grel:forEach(cells['tmp 1'].value.cross('ba-sachsen','tmp 1'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟').split('␟')[0]",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
     },
     {
       "op": "core/text-transform",
@@ -312,26 +261,120 @@ if curl -fs \
         "mode": "row-based"
       },
       "columnName": "0100",
-      "expression": "grel:forNonBlank(cells['tmp 1_0100'].value,v,v,forNonBlank(cells['tmp 2_0100'].value,v,v,''))",
+      "expression": "grel:forEach(cells['tmp 1'].value.cross('ba-sachsen','tmp 2'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟').split('␟')[0]",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "isBlank(value)",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0100",
+            "expression": "isBlank(value)",
+            "columnName": "0100",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0100",
+      "expression": "grel:forEach(cells['tmp 2'].value.cross('ba-sachsen','tmp 1'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟').split('␟')[0]",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "isBlank(value)",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0100",
+            "expression": "isBlank(value)",
+            "columnName": "0100",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0100",
+      "expression": "grel:forEach(cells['tmp 2'].value.cross('ba-sachsen','tmp 2'),r,forNonBlank(r.cells['0100'].value,v,v,null)).join('␟').split('␟')[0]",
       "onError": "keep-original",
       "repeat": false,
       "repeatCount": 10
     },
     {
       "op": "core/column-removal",
-      "columnName": "tmp 2_0100"
-    },
-    {
-      "op": "core/column-removal",
-      "columnName": "tmp 1_0100"
+      "columnName": "tmp 1"
     },
     {
       "op": "core/column-removal",
       "columnName": "tmp 2"
-    },
-    {
-      "op": "core/column-removal",
-      "columnName": "tmp 1"
     }
   ]
 JSON
@@ -353,38 +396,6 @@ if curl -fs \
   "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
   << "JSON"
   [
-    {
-      "op": "core/text-transform",
-      "engineConfig": {
-        "facets": [
-          {
-            "type": "list",
-            "name": "0100",
-            "expression": "isBlank(value)",
-            "columnName": "0100",
-            "invert": false,
-            "omitBlank": false,
-            "omitError": false,
-            "selection": [
-              {
-                "v": {
-                  "v": true,
-                  "l": "true"
-                }
-              }
-            ],
-            "selectBlank": false,
-            "selectError": false
-          }
-        ],
-        "mode": "row-based"
-      },
-      "columnName": "0100",
-      "expression": "null",
-      "onError": "keep-original",
-      "repeat": false,
-      "repeatCount": 10
-    },
     {
       "op": "core/text-transform",
       "engineConfig": {
