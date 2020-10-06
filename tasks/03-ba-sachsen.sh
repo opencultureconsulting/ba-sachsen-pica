@@ -542,8 +542,11 @@ if(row.index - row.record.fromRowIndex == 0,
 if(isNonBlank(cells['7100f'].value),
 with(with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i),exnr,
 '208@/' + exnr + ' a' + cells['E0XX'].value + 'bn' + cells['E0XXb'].value + '\n'
-+ '209A/' + exnr + ' B' + cells['7100B'].value + 'f' + cells['7100f'].value + forNonBlank(cells['7100a'].value, v, 'a' + v, '') + 'x00' + '\n'
-+ forNonBlank(cells['8200'].value, v, '209C/' + exnr + ' a' + v + '\n', '')
++ '209A/' + exnr + ' B' + cells['7100B'].value + 'f' + cells['7100f'].value + forNonBlank(cells['7100a'].value, v, 'a' + v, '') + forNonBlank(cells['7100d'].value, v, 'd' + v, '') + 'x00' + '\n'
++ forNonBlank(cells['8011'].value, v, '209B/' + exnr + ' a' + v + 'x11' + '\n', '')
++ forNonBlank(cells['8100'].value, v, '209C/' + exnr + ' a' + v + '\n', '')
++ forNonBlank(cells['8200'].value, v, '209G/' + exnr + ' a' + v + '\n', '')
++ forNonBlank(cells['8515'].value, v, '220B/' + exnr + ' a' + v + '\n', '')
 ), '')
 }}
 TEMPLATE
