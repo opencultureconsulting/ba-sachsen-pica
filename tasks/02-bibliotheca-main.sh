@@ -377,10 +377,10 @@ else
 fi
 echo
 
-# ----------------------------------- 7100B ---------------------------------- #
+# ----------------------------------- 7100j ---------------------------------- #
 
 # spec_B_E_15
-echo "Bibliothekssigel 7100B..."
+echo "Abteilungsnummer 7100j..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -394,9 +394,9 @@ if curl -fs \
         "mode": "row-based"
       },
       "baseColumnName": "File",
-      "expression": "grel:with(if(value=='DD',forNonBlank(cells['E|ZWGST'].value,v,v,value),value),x,x.replace('BB','Brt 1').replace('BZ','Bn 3').replace('DD','D 161').replace('EH','D 275').replace('GC','Gla 1').replace('PL','Pl 11'))",
+      "expression": "grel:with(if(value=='DD',forNonBlank(cells['E|ZWGST'].value,v,v,value),value),x,x.replace('BB','0002').replace('BZ','0001').replace('DD','0003').replace('EH','0008').replace('GC','0004').replace('PL','0007'))",
       "onError": "set-to-blank",
-      "newColumnName": "7100B",
+      "newColumnName": "7100j",
       "columnInsertIndex": 3
     }
   ]
@@ -918,7 +918,7 @@ echo
 # ----------------------------------- 8515 ----------------------------------- #
 
 # spec_B_E_01
-# nur für Bautzen und Dresden
+# nur für Bautzen
 echo "Ausleihhinweis 8515..."
 if curl -fs \
   --data project="${projects[$p]}" \
@@ -939,12 +939,6 @@ if curl -fs \
             "omitBlank": false,
             "omitError": false,
             "selection": [
-              {
-                "v": {
-                  "v": "DD",
-                  "l": "DD"
-                }
-              },
               {
                 "v": {
                   "v": "BZ",
@@ -1797,7 +1791,7 @@ with(
     '1140',
     '2000',
     '4000',
-    '7100B',
+    '7100j',
     '7100f',
     '7100a',
     '7100d',
