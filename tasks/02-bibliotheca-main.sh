@@ -456,7 +456,7 @@ if curl -fs \
         "mode": "row-based"
       },
       "baseColumnName": "E|STA1",
-      "expression": "grel:value.replace('␟',' ')",
+      "expression": "grel:value.replace('␟',' ').replace(/ +/,' ')",
       "onError": "set-to-blank",
       "newColumnName": "7100a",
       "columnInsertIndex": 3
