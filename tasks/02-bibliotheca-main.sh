@@ -63,9 +63,6 @@ checkpoint "Transform"; echo
 # ----------------------------- Spalten sortieren ---------------------------- #
 
 # damit Records-Mode erhalten bleibt
-# - M|MEDGR > Facet > Text facet > eBook
-# -- show as: records
-# --- All > Edit rows > Remove all matching rows
 
 echo "Spalten sortieren: Beginnen mit 1. M|MEDNR, 2. E|EXNR, 3. File..."
 if curl -fs \
@@ -77,20 +74,17 @@ if curl -fs \
     {
       "op": "core/column-move",
       "columnName": "File",
-      "index": 0,
-      "description": "Move column File to position 0"
+      "index": 0
     },
     {
       "op": "core/column-move",
       "columnName": "E|EXNR",
-      "index": 0,
-      "description": "Move column E|EXNR to position 0"
+      "index": 0
     },
     {
       "op": "core/column-move",
       "columnName": "M|MEDNR",
-      "index": 0,
-      "description": "Move column M|MEDNR to position 0"
+      "index": 0
     }
   ]
 JSON
@@ -210,9 +204,7 @@ echo
 # ------------------------- Makulierte Medien löschen ------------------------ #
 
 # spec_Z_03
-# - E|EXSTA > Facet > Text facet > "M"
-# -- show as: rows
-# --- All > Edit rows > Remove all matching rows
+# löscht alle Titel+Exemplare, die ausschließlich makulierte Ex. enthalten
 
 echo "Makulierte Medien löschen..."
 if curl -fs \
@@ -228,7 +220,7 @@ if curl -fs \
           {
             "type": "list",
             "name": "E|EXSTA",
-            "expression": "value",
+            "expression": "grel:row.record.cells[columnName].value.uniques().join(',') == 'M'",
             "columnName": "E|EXSTA",
             "invert": false,
             "omitBlank": false,
@@ -236,8 +228,8 @@ if curl -fs \
             "selection": [
               {
                 "v": {
-                  "v": "M",
-                  "l": "M"
+                  "v": true,
+                  "l": "true"
                 }
               }
             ],
@@ -245,7 +237,7 @@ if curl -fs \
             "selectError": false
           }
         ],
-        "mode": "row-based"
+        "mode": "record-based"
       }
     }
   ]
@@ -410,8 +402,8 @@ echo
 
 # ----------------------------------- 7100f ---------------------------------- #
 
-# spec_B_E_13
-echo "Zweigstelle 7100f..."
+# spec_B_E_13, spec_Z_03
+echo "Zweigstelle 7100f"
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -555,47 +547,88 @@ echo
 
 # ----------------------------------- E0XXb ---------------------------------- #
 
-# spec_B_E_14
+# spec_B_E_14, spec_Z_03, spec_B_E16
+# leer für Exemplare, die nicht konvertiert werden sollen:
+# - makulierte Exemplare
+# - ACQ-Datensätze
 echo "Selektionsschlüssel E0XXb..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
   "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
   << "JSON"
-  [
-    {
-      "op": "core/column-addition",
-      "engineConfig": {
-        "facets": [
-          {
-            "type": "list",
-            "name": "E|EXNR",
-            "expression": "isBlank(value)",
-            "columnName": "E|EXNR",
-            "invert": false,
-            "omitBlank": false,
-            "omitError": false,
-            "selection": [
-              {
-                "v": {
-                  "v": false,
-                  "l": "false"
-                }
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|EXNR",
+          "expression": "isBlank(value)",
+          "columnName": "E|EXNR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
               }
-            ],
-            "selectBlank": false,
-            "selectError": false
-          }
-        ],
-        "mode": "row-based"
-      },
-      "baseColumnName": "File",
-      "expression": "grel:with(if(value=='DD',forNonBlank(cells['E|ZWGST'].value,v,v,value),value),x,x.toLowercase())",
-      "onError": "set-to-blank",
-      "newColumnName": "E0XXb",
-      "columnInsertIndex": 3
-    }
-  ]
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "E|EXSTA",
+          "expression": "value",
+          "columnName": "E|EXSTA",
+          "invert": true,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "M",
+                "l": "M"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "E|MEKZ",
+          "expression": "value",
+          "columnName": "E|MEKZ",
+          "invert": true,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "ACQ",
+                "l": "ACQ"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "File",
+    "expression": "grel:with(if(value=='DD',forNonBlank(cells['E|ZWGST'].value,v,v,value),value),x,'n'+x.toLowercase())",
+    "onError": "set-to-blank",
+    "newColumnName": "E0XXb",
+    "columnInsertIndex": 3
+  }
+]
 JSON
 then
   log "transformed ${p} (${projects[$p]})"
