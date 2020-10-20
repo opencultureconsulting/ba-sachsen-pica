@@ -663,7 +663,7 @@ if(
     value == 'P',
     forNonBlank(cells['M|MEDGR'].value,v,if(v == 'SPIEL', true, false),false)
   ),
-  'Ban',
+  'Van',
 if(
   value == 'P',
   'Lax',
