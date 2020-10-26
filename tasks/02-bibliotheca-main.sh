@@ -1629,6 +1629,57 @@ if curl -fs \
             "selection": [
               {
                 "v": {
+                  "v": "K",
+                  "l": "K"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100d",
+      "expression": "grel:'u'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "E|EXSTA",
+            "expression": "value",
+            "columnName": "E|EXSTA",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "E",
+                  "l": "E"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|ESORG",
+            "expression": "value",
+            "columnName": "E|ESORG",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
                   "v": "W",
                   "l": "W"
                 }
