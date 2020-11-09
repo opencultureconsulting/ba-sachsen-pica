@@ -1,5 +1,5 @@
 #!/bin/bash
-# bash-refine v1.3.3: bash-refine.sh, Felix Lohmeier, 2020-09-07
+# bash-refine v1.3.4: bash-refine.sh, Felix Lohmeier, 2020-11-02
 # https://gist.github.com/felixlohmeier/d76bd27fbc4b8ab6d683822cdf61f81d
 # license: MIT License https://choosealicense.com/licenses/mit/
 
@@ -150,7 +150,7 @@ function refine_store {
   # check if project contains at least one row (may be skipped to gain ~40ms)
   local rows
   rows=$(curl -fs --get \
-    --data project="${projects[$p]}" \
+    --data project="${projects[$1]}" \
     --data limit=0 \
     "${endpoint}/command/core/get-rows" \
     | tr "," "\n" | grep total | cut -d ":" -f 2)
