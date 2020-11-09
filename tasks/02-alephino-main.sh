@@ -83,7 +83,17 @@ if curl -fs \
     },
     {
       "op": "core/column-move",
-      "columnName": "M|001",
+      "columnName": "M|029",
+      "index": 0
+    },
+    {
+      "op": "core/column-move",
+      "columnName": "M|026f",
+      "index": 0
+    },
+    {
+      "op": "core/column-move",
+      "columnName": "M|IDN",
       "index": 0
     }
   ]
