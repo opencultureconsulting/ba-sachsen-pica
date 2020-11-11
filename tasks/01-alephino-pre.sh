@@ -100,6 +100,43 @@ echo
 
 checkpoint "Transform"; echo
 
+# --------------------------- Korrekturen Einzelfälle ------------------------ #
+
+echo "Korrekturen Einzelfälle..."
+if curl -fs \
+  --data project="${projects[$titel]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/mass-edit",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "columnName": "Column 1",
+      "expression": "value",
+      "edits": [
+        {
+          "from": [
+            "001st"
+          ],
+          "fromBlank": false,
+          "fromError": false,
+          "to": "001"
+        }
+      ],
+      "description": "Mass edit cells in column Column 1"
+    }
+  ]
+JSON
+then
+  log "transformed ${titel} (${projects[$titel]})"
+else
+  error "transform ${titel} (${projects[$titel]}) failed!"
+fi
+
 # ----------------------- Feldnamen um M bzw. E ergänzen --------------------- #
 
 echo "Feldnamen um M bzw. E ergänzen..."
@@ -120,7 +157,7 @@ if curl -fs \
       "onError": "keep-original",
       "repeat": false,
       "repeatCount": 10,
-      "description": "Text transform on cells in column Column 1 using expression grel:'M|' + value.trim()"
+      "description": "Text transform on cells in column Column 1 using expression grel:'M|' + value.replace(' ','')"
     }
   ]
 JSON
@@ -146,7 +183,7 @@ if curl -fs \
       "onError": "keep-original",
       "repeat": false,
       "repeatCount": 10,
-      "description": "Text transform on cells in column Column 1 using expression grel:'E|' + value.trim()"
+      "description": "Text transform on cells in column Column 1 using expression grel:'E|' + value.replace(' ','')"
     }
   ]
 JSON
