@@ -135,6 +135,37 @@ else
 fi
 echo
 
+# ------------------------------------ 7100a ---------------------------------- #
+
+# spec_A_E_01
+echo "Signatur..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "E|100",
+      "expression": "grel:value.split('\u001f')[0].slice(1)",
+      "onError": "set-to-blank",
+      "newColumnName": "7100a",
+      "columnInsertIndex": 5
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 # ================================== EXPORT ================================== #
 
 checkpoint "Export"; echo
