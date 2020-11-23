@@ -1330,6 +1330,94 @@ if curl -fs \
             ],
             "selectBlank": false,
             "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "BB",
+                  "l": "BB"
+                }
+              },
+              {
+                "v": {
+                  "v": "GC",
+                  "l": "GC"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100d",
+      "expression": "grel:'s'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "E|EXSTA",
+            "expression": "value",
+            "columnName": "E|EXSTA",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "P",
+                  "l": "P"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              },
+              {
+                "v": {
+                  "v": "BZ",
+                  "l": "BZ"
+                }
+              },
+              {
+                "v": {
+                  "v": "PL",
+                  "l": "PL"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
           }
         ],
         "mode": "row-based"
