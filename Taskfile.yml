@@ -73,7 +73,7 @@ tasks:
       INPUT: '{{.INPUT | default "input/bautzen.imp"}}'
     env:
       REFINE_MEMORY: '{{.REFINE_MEMORY | default "6G"}}'
-      REFINE_ENDPOINT: http://localhost:3335
+      REFINE_ENDPOINT: http://localhost:3334
       REFINE_WORKDIR: output/01-bibliotheca-pre
       REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_bautzen.log
 
@@ -123,7 +123,7 @@ tasks:
       EXEMPLARE: '{{.EXEMPLARE | default "input/leipzig-exemplare.txt"}}'
     env:
       REFINE_MEMORY: '{{.REFINE_MEMORY | default "7G"}}'
-      REFINE_ENDPOINT: http://localhost:3339
+      REFINE_ENDPOINT: http://localhost:3337
       REFINE_WORKDIR: output/01-alephino-pre
       REFINE_LOGFILE: log/01-alephino-pre/{{.DATE}}_leipzig.log
 
@@ -139,7 +139,7 @@ tasks:
       INPUT: '{{.INPUT | default "input/glauchau.imp"}}'
     env:
       REFINE_MEMORY: '{{.REFINE_MEMORY | default "4G"}}'
-      REFINE_ENDPOINT: http://localhost:3337
+      REFINE_ENDPOINT: http://localhost:3338
       REFINE_WORKDIR: output/01-bibliotheca-pre
       REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_glauchau.log
 
@@ -153,7 +153,7 @@ tasks:
       - output/01-bibliotheca-pre/plauen.tsv
     env:
       REFINE_MEMORY: '{{.REFINE_MEMORY | default "2G"}}'
-      REFINE_ENDPOINT: http://localhost:3338
+      REFINE_ENDPOINT: http://localhost:3339
       REFINE_WORKDIR: output/01-bibliotheca-pre
       REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_plauen.log
 
@@ -171,7 +171,7 @@ tasks:
       EXEMPLARE: '{{.EXEMPLARE | default "input/riesa-exemplare.txt"}}'
     env:
       REFINE_MEMORY: '{{.REFINE_MEMORY | default "7G"}}'
-      REFINE_ENDPOINT: http://localhost:3339
+      REFINE_ENDPOINT: http://localhost:3340
       REFINE_WORKDIR: output/01-alephino-pre
       REFINE_LOGFILE: log/01-alephino-pre/{{.DATE}}_riesa.log
 
