@@ -50,7 +50,7 @@ tasks:
       - task: breitenbrunn
       - task: dresden
       - task: glauchau
-      - task: plauen
+#     - task: plauen
       - tasks/02-bibliotheca-main.sh "output/01-bibliotheca-pre"
     sources:
       - output/01-bibliotheca-pre/*.tsv
