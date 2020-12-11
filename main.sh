@@ -11,7 +11,7 @@ if [[ -z "$(readlink -e "${task}")" ]]; then
   echo "Download task..."
   mkdir -p "$(dirname "${task}")"
   curl -L --output task.tar.gz \
-    "https://github.com/go-task/task/releases/download/v3.0.0-preview4/task_linux_amd64.tar.gz"
+    "https://github.com/go-task/task/releases/download/v3.0.0/task_linux_amd64.tar.gz"
   tar -xzf task.tar.gz -C "$(dirname "${task}")" task --totals
   rm -f task.tar.gz
 fi

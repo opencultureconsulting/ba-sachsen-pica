@@ -39,6 +39,7 @@ tasks:
 #     - output/02-alephino-main/alephino.csv
       - output/02-alephino-main/alephino.openrefine.tar.gz
     env:
+      REFINE_ENDPOINT: http://localhost:3334
       REFINE_WORKDIR: output/02-alephino-main
       REFINE_LOGFILE: log/02-alephino-main/{{.DATE}}.log
 
@@ -58,6 +59,7 @@ tasks:
       - output/02-bibliotheca-main/bibliotheca.csv
       - output/02-bibliotheca-main/bibliotheca.openrefine.tar.gz
     env:
+      REFINE_ENDPOINT: http://localhost:3335
       REFINE_WORKDIR: output/02-bibliotheca-main
       REFINE_LOGFILE: log/02-bibliotheca-main/{{.DATE}}.log
 
