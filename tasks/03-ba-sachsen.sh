@@ -536,7 +536,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['1140'].value, v, '013H' + ' a' + v + '\n', '')
 + forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A' + ' 0' + x + '\n').join(''), '')
 + forNonBlank(cells['2199'].value, v, forEach(v.split('␟'),x,'006Y' + ' 0' + x + '\n').join(''), '')
-+ forNonBlank(cells['4000'].value, v, '021A' + ' a' + v + '\n', '')
++ forNonBlank(cells['4000a'].value, v, '021A' + ' a' + v + '\n', '')
 ,'')
 }}{{
 if(isNonBlank(cells['E0XXb'].value),

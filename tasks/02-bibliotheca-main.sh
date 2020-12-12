@@ -2128,10 +2128,10 @@ else
 fi
 echo
 
-# ----------------------------------- 4000 ----------------------------------- #
+# ----------------------------------- 4000a ---------------------------------- #
 
 # spec_B_T_17
-echo "Haupttitel 4000..."
+echo "Haupttitel 4000a..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -2147,7 +2147,7 @@ if curl -fs \
       "baseColumnName": "M|HST",
       "expression": "grel:if(value.contains('¬'),with(value.split('¬'), v, v[0].trim() + ' @' + v[1].trim()),value)",
       "onError": "set-to-blank",
-      "newColumnName": "4000",
+      "newColumnName": "4000a",
       "columnInsertIndex": 3
     }
   ]
@@ -2162,7 +2162,7 @@ echo
 # ----------------------------------- 8200 ----------------------------------- #
 
 # spec_B_E_02
-echo "Verbuchungsnummer 4000..."
+echo "Verbuchungsnummer 8200..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -2194,6 +2194,7 @@ echo
 
 # spec_B_T_02
 # 1100a normiert mit zahlreichen Ersetzungen
+# TODO: Jahr (Ende) in Sortierform in 1100b
 echo "Jahresangaben 1100a und 1100n..."
 if curl -fs \
   --data project="${projects[$p]}" \
@@ -3389,7 +3390,7 @@ with(
     '1100n',
     '1140',
     '2000',
-    '4000',
+    '4000a',
     '7100j',
     '7100f',
     '7100a',
