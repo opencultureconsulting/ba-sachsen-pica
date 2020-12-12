@@ -279,18 +279,51 @@ else
 fi
 echo
 
-# ------------------------------------ 0100 ---------------------------------- #
+# -------------------------------- 0100 / 0110 ------------------------------- #
 
 # spec_B_T_01
-# TODO: Aufteilung in 0100 / 0110 nach Nummernkreisen
-# TODO: Korrekturen für <9 und >10-stellige
-echo "K10plus-PPNs in 0100..."
+# 8-stellige aus Dresden sind SWN ohne Prüfziffer, dort wird Prüfziffer ergänzt
+# Zuordnung 9-stellige abhängig von ersten Zeichen und M026 / M026k
+# Zuordnung 10-stellige abhängig von erstem Zeichen
+echo "PPNs in 0100 (K10plus) und 0110 (SWB)..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
   "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
   << "JSON"
-  [
+[
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value.length()",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": 8,
+                  "l": "8"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|IDNR",
+      "expression": "grel:value + with(11 - mod(sum(forRange(0,9,1,i,toNumber(value[i])*(9-i))),11),pz,if(pz == 11, '0', if(pz == 10, 'X', pz)))",
+      "onError": "set-to-blank",
+      "newColumnName": "0110",
+      "columnInsertIndex": 4
+    },
     {
       "op": "core/column-addition",
       "engineConfig": {
@@ -309,11 +342,126 @@ if curl -fs \
                   "v": 9,
                   "l": "9"
                 }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value[0,2]",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "53",
+                  "l": "53"
+                }
               },
               {
                 "v": {
-                  "v": 10,
-                  "l": "10"
+                  "v": "54",
+                  "l": "54"
+                }
+              },
+              {
+                "v": {
+                  "v": "55",
+                  "l": "55"
+                }
+              },
+              {
+                "v": {
+                  "v": "56",
+                  "l": "56"
+                }
+              },
+              {
+                "v": {
+                  "v": "57",
+                  "l": "57"
+                }
+              },
+              {
+                "v": {
+                  "v": "13",
+                  "l": "13"
+                }
+              },
+              {
+                "v": {
+                  "v": "14",
+                  "l": "14"
+                }
+              },
+              {
+                "v": {
+                  "v": "58",
+                  "l": "58"
+                }
+              },
+              {
+                "v": {
+                  "v": "15",
+                  "l": "15"
+                }
+              },
+              {
+                "v": {
+                  "v": "59",
+                  "l": "59"
+                }
+              },
+              {
+                "v": {
+                  "v": "16",
+                  "l": "16"
+                }
+              },
+              {
+                "v": {
+                  "v": "17",
+                  "l": "17"
+                }
+              },
+              {
+                "v": {
+                  "v": "18",
+                  "l": "18"
+                }
+              },
+              {
+                "v": {
+                  "v": "19",
+                  "l": "19"
+                }
+              },
+              {
+                "v": {
+                  "v": "21",
+                  "l": "21"
+                }
+              },
+              {
+                "v": {
+                  "v": "22",
+                  "l": "22"
+                }
+              },
+              {
+                "v": {
+                  "v": "23",
+                  "l": "23"
+                }
+              },
+              {
+                "v": {
+                  "v": "24",
+                  "l": "24"
                 }
               }
             ],
@@ -327,7 +475,539 @@ if curl -fs \
       "expression": "grel:value",
       "onError": "set-to-blank",
       "newColumnName": "0100",
-      "columnInsertIndex": 3
+      "columnInsertIndex": 4
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value.length()",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": 9,
+                  "l": "9"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value[0,1]",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "6",
+                  "l": "6"
+                }
+              },
+              {
+                "v": {
+                  "v": "7",
+                  "l": "7"
+                }
+              },
+              {
+                "v": {
+                  "v": "8",
+                  "l": "8"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0100",
+      "expression": "grel:cells['M|IDNR'].value",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value.length()",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": 9,
+                  "l": "9"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value[0,2]",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "00",
+                  "l": "00"
+                }
+              },
+              {
+                "v": {
+                  "v": "10",
+                  "l": "10"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0110",
+      "expression": "grel:cells['M|IDNR'].value",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value.length()",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": 9,
+                  "l": "9"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0100",
+            "expression": "isBlank(value)",
+            "columnName": "0100",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0110",
+            "expression": "isBlank(value)",
+            "columnName": "0110",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|026",
+            "expression": "grel:value[0,3]",
+            "columnName": "M|026",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "GBV",
+                  "l": "GBV"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|026k",
+            "expression": "grel:value == cells['M|IDNR'].value",
+            "columnName": "M|026k",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0100",
+      "expression": "grel:cells['M|IDNR'].value",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value.length()",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": 9,
+                  "l": "9"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0100",
+            "expression": "isBlank(value)",
+            "columnName": "0100",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0110",
+            "expression": "isBlank(value)",
+            "columnName": "0110",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|026",
+            "expression": "grel:value[0,3]",
+            "columnName": "M|026",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "HBZ",
+                  "l": "HBZ"
+                }
+              },
+              {
+                "v": {
+                  "v": "KXP",
+                  "l": "KXP"
+                }
+              },
+              {
+                "v": {
+                  "v": "OBV",
+                  "l": "OBV"
+                }
+              },
+              {
+                "v": {
+                  "v": "DNB",
+                  "l": "DNB"
+                }
+              },
+              {
+                "v": {
+                  "v": "BVB",
+                  "l": "BVB"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|026k",
+            "expression": "isBlank(value)",
+            "columnName": "M|026k",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0100",
+      "expression": "grel:cells['M|IDNR'].value",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value.length()",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": 9,
+                  "l": "9"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0100",
+            "expression": "isBlank(value)",
+            "columnName": "0100",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0110",
+            "expression": "isBlank(value)",
+            "columnName": "0110",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0110",
+      "expression": "grel:cells['M|IDNR'].value",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value.length()",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": 10,
+                  "l": "10"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value[0]",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "1",
+                  "l": "1"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0100",
+      "expression": "grel:cells['M|IDNR'].value",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value.length()",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": 10,
+                  "l": "10"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|IDNR",
+            "expression": "grel:value[0]",
+            "columnName": "M|IDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "9",
+                  "l": "9"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0110",
+      "expression": "grel:cells['M|IDNR'].value",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
     }
   ]
 JSON
@@ -3385,6 +4065,7 @@ with(
   [
     '2199',
     '0100',
+    '0110',
     '0500',
     '1100a',
     '1100n',

@@ -129,7 +129,6 @@ echo
 
 # -------------------------- PPN anreichern über ISBN ------------------------ #
 
-# TODO: Anreicherung für 0110
 # spec_Z_04
 echo "PPN anreichern über ISBN..."
 if curl -fs \
@@ -171,27 +170,8 @@ if curl -fs \
           {
             "type": "list",
             "name": "2199",
-            "expression": "isBlank(value)",
+            "expression": "grel:and(isNonBlank(cells['2199'].value),isBlank(cells['0100'].value),isBlank(cells['0110'].value))",
             "columnName": "2199",
-            "invert": false,
-            "omitBlank": false,
-            "omitError": false,
-            "selection": [
-              {
-                "v": {
-                  "v": false,
-                  "l": "false"
-                }
-              }
-            ],
-            "selectBlank": false,
-            "selectError": false
-          },
-          {
-            "type": "list",
-            "name": "0100",
-            "expression": "isBlank(value)",
-            "columnName": "0100",
             "invert": false,
             "omitBlank": false,
             "omitError": false,
@@ -222,27 +202,8 @@ if curl -fs \
           {
             "type": "list",
             "name": "2199",
-            "expression": "isBlank(value)",
+            "expression": "grel:and(isNonBlank(cells['2199'].value),isBlank(cells['0100'].value),isBlank(cells['0110'].value))",
             "columnName": "2199",
-            "invert": false,
-            "omitBlank": false,
-            "omitError": false,
-            "selection": [
-              {
-                "v": {
-                  "v": false,
-                  "l": "false"
-                }
-              }
-            ],
-            "selectBlank": false,
-            "selectError": false
-          },
-          {
-            "type": "list",
-            "name": "0100",
-            "expression": "isBlank(value)",
-            "columnName": "0100",
             "invert": false,
             "omitBlank": false,
             "omitError": false,
@@ -273,27 +234,8 @@ if curl -fs \
           {
             "type": "list",
             "name": "2199",
-            "expression": "isBlank(value)",
+            "expression": "grel:and(isNonBlank(cells['2199'].value),isBlank(cells['0100'].value),isBlank(cells['0110'].value))",
             "columnName": "2199",
-            "invert": false,
-            "omitBlank": false,
-            "omitError": false,
-            "selection": [
-              {
-                "v": {
-                  "v": false,
-                  "l": "false"
-                }
-              }
-            ],
-            "selectBlank": false,
-            "selectError": false
-          },
-          {
-            "type": "list",
-            "name": "0100",
-            "expression": "isBlank(value)",
-            "columnName": "0100",
             "invert": false,
             "omitBlank": false,
             "omitError": false,
@@ -324,27 +266,8 @@ if curl -fs \
           {
             "type": "list",
             "name": "2199",
-            "expression": "isBlank(value)",
+            "expression": "grel:and(isNonBlank(cells['2199'].value),isBlank(cells['0100'].value),isBlank(cells['0110'].value))",
             "columnName": "2199",
-            "invert": false,
-            "omitBlank": false,
-            "omitError": false,
-            "selection": [
-              {
-                "v": {
-                  "v": false,
-                  "l": "false"
-                }
-              }
-            ],
-            "selectBlank": false,
-            "selectError": false
-          },
-          {
-            "type": "list",
-            "name": "0100",
-            "expression": "isBlank(value)",
-            "columnName": "0100",
             "invert": false,
             "omitBlank": false,
             "omitError": false,
@@ -369,6 +292,134 @@ if curl -fs \
       "repeatCount": 10
     },
     {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "grel:and(isNonBlank(cells['2199'].value),isBlank(cells['0100'].value),isBlank(cells['0110'].value))",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0110",
+      "expression": "grel:forEach(cells['tmp 1'].value.cross('ba-sachsen','tmp 1'),r,forNonBlank(r.cells['0110'].value,v,v,null)).join('␟').split('␟')[0]",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "grel:and(isNonBlank(cells['2199'].value),isBlank(cells['0100'].value),isBlank(cells['0110'].value))",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0110",
+      "expression": "grel:forEach(cells['tmp 1'].value.cross('ba-sachsen','tmp 2'),r,forNonBlank(r.cells['0110'].value,v,v,null)).join('␟').split('␟')[0]",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "grel:and(isNonBlank(cells['2199'].value),isBlank(cells['0100'].value),isBlank(cells['0110'].value))",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0110",
+      "expression": "grel:forEach(cells['tmp 2'].value.cross('ba-sachsen','tmp 1'),r,forNonBlank(r.cells['0110'].value,v,v,null)).join('␟').split('␟')[0]",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "grel:and(isNonBlank(cells['2199'].value),isBlank(cells['0100'].value),isBlank(cells['0110'].value))",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0110",
+      "expression": "grel:forEach(cells['tmp 2'].value.cross('ba-sachsen','tmp 2'),r,forNonBlank(r.cells['0110'].value,v,v,null)).join('␟').split('␟')[0]",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
       "op": "core/column-removal",
       "columnName": "tmp 1"
     },
@@ -387,7 +438,6 @@ echo
 
 # ----------------------------- Exemplare clustern --------------------------- #
 
-# TODO: 0110 berücksichtigen
 # spec_Z_05
 echo "Exemplare clustern..."
 if curl -fs \
@@ -397,14 +447,46 @@ if curl -fs \
   << "JSON"
   [
     {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "isBlank(value)",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "2199",
+      "expression": "grel:forNonBlank(cells['0100'].value,v,v,cells['0110'].value)",
+      "onError": "set-to-blank",
+      "newColumnName": "ppn",
+      "columnInsertIndex": 1
+    },
+    {
       "op": "core/text-transform",
       "engineConfig": {
         "facets": [
           {
             "type": "list",
-            "name": "0100",
+            "name": "ppn",
             "expression": "isBlank(value)",
-            "columnName": "0100",
+            "columnName": "ppn",
             "invert": false,
             "omitBlank": false,
             "omitError": false,
@@ -422,7 +504,7 @@ if curl -fs \
         ],
         "mode": "row-based"
       },
-      "columnName": "0100",
+      "columnName": "ppn",
       "expression": "grel:row.record.cells[columnName].value[0]",
       "onError": "keep-original",
       "repeat": false,
@@ -435,7 +517,7 @@ if curl -fs \
         "criteria": [
           {
             "valueType": "string",
-            "column": "0100",
+            "column": "ppn",
             "blankPosition": 2,
             "errorPosition": 1,
             "reverse": false,
@@ -450,8 +532,8 @@ if curl -fs \
         "facets": [],
         "mode": "row-based"
       },
-      "baseColumnName": "0100",
-      "expression": "grel:forNonBlank(cells['0100'].value,v,v,forNonBlank(cells['2199'].value,v,v,''))",
+      "baseColumnName": "ppn",
+      "expression": "grel:forNonBlank(cells['ppn'].value,v,v,forNonBlank(cells['2199'].value,v,v,''))",
       "onError": "set-to-blank",
       "newColumnName": "id",
       "columnInsertIndex": 0
@@ -495,6 +577,10 @@ if curl -fs \
       "onError": "keep-original",
       "repeat": false,
       "repeatCount": 10
+    },
+    {
+      "op": "core/column-removal",
+      "columnName": "ppn"
     }
   ]
 JSON
@@ -532,6 +618,7 @@ if(row.index - row.record.fromRowIndex == 0,
 '' + '\n'
 + forNonBlank(cells['0500'].value, v, '002@' + ' 0' + v + '\n', '')
 + forNonBlank(cells['0100'].value, v, '003@' + ' 0' + v + '\n', '')
++ forNonBlank(cells['0110'].value, v, '003S' + ' 0' + v + '\n', '')
 + forNonBlank(cells['1100a'].value, v, '011@' + ' a' + v + forNonBlank(cells['1100n'].value, v, 'n' + v, '') + '\n', '')
 + forNonBlank(cells['1140'].value, v, '013H' + ' a' + v + '\n', '')
 + forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A' + ' 0' + x + '\n').join(''), '')
