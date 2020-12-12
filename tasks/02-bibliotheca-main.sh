@@ -402,7 +402,7 @@ echo
 
 # ----------------------------------- 7100f ---------------------------------- #
 
-# spec_B_E_13, spec_Z_03
+# spec_B_E_13, spec_Z_03 und spec_B_E_08
 echo "Zweigstelle 7100f"
 if curl -fs \
   --data project="${projects[$p]}" \
@@ -421,6 +421,1383 @@ if curl -fs \
       "onError": "set-to-blank",
       "newColumnName": "7100f",
       "columnInsertIndex": 3
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "BB",
+                  "l": "BB"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Medienschrank",
+                  "l": "Medienschrank"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' +'MS'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "BB",
+                  "l": "BB"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Medientrog",
+                  "l": "Medientrog"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'MT'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "BB",
+                  "l": "BB"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Thekenbereich",
+                  "l": "Thekenbereich"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'TH'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "BB",
+                  "l": "BB"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Tonwerkstatt",
+                  "l": "Tonwerkstatt"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'TW'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Andachtsraum",
+                  "l": "Andachtsraum"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Andacht'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "apfe",
+                  "l": "apfe"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'apfe'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Ausleihtheke",
+                  "l": "Ausleihtheke"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Theke'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Brückenkurs",
+                  "l": "Brückenkurs"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Bruecke'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "eFlex",
+                  "l": "eFlex"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Flex'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "GesundKompMigrantInnen",
+                  "l": "GesundKompMigrantInnen"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'GKM'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Handbestand Bibliothek",
+                  "l": "Handbestand Bibliothek"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'HBBib'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Integra",
+                  "l": "Integra"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Integra'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "IQ",
+                  "l": "IQ"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'IQ'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "KBS",
+                  "l": "KBS"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'KBS'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "KBZ",
+                  "l": "KBZ"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'KBZ'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Lehrbuchsammlung",
+                  "l": "Lehrbuchsammlung"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'LBS'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "MAV",
+                  "l": "MAV"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'MAV'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Mittendrin",
+                  "l": "Mittendrin"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Mitte'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Modulapparat",
+                  "l": "Modulapparat"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Modul'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Neuerwerbungsregal",
+                  "l": "Neuerwerbungsregal"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Neu'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "PRAWIMA",
+                  "l": "PRAWIMA"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Praw'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Silqua",
+                  "l": "Silqua"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Silqua'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "SmarteJugArb",
+                  "l": "SmarteJugArb"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'SJA'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Verwaltung",
+                  "l": "Verwaltung"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Verw'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Welcome",
+                  "l": "Welcome"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Wel'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "Wohnformen",
+                  "l": "Wohnformen"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Wohn'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "File",
+            "expression": "value",
+            "columnName": "File",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DD",
+                  "l": "DD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "ZUSe",
+                  "l": "ZUSe"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100f",
+      "expression": "grel:value + '-' + 'Zuse'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
     }
   ]
 JSON
@@ -1002,7 +2379,7 @@ echo
 
 # ----------------------------------- 7100d ---------------------------------- #
 
-# spec_B_E_04 und spec_B_E_05
+# spec_B_E_04, spec_B_E_05 und spec_B_E_08
 echo "Exemplarstatus 7100d..."
 if curl -fs \
   --data project="${projects[$p]}" \
@@ -1832,6 +3209,56 @@ if curl -fs \
       },
       "columnName": "7100d",
       "expression": "grel:'u'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "E|STA2",
+            "expression": "value",
+            "columnName": "E|STA2",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "MAV",
+                  "l": "MAV"
+                }
+              },
+              {
+                "v": {
+                  "v": "eFlex",
+                  "l": "eFlex"
+                }
+              },
+              {
+                "v": {
+                  "v": "Verwaltung",
+                  "l": "Verwaltung"
+                }
+              },
+              {
+                "v": {
+                  "v": "Tonwerkstatt",
+                  "l": "Tonwerkstatt"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "7100d",
+      "expression": "grel:'i'",
       "onError": "keep-original",
       "repeat": false,
       "repeatCount": 10
