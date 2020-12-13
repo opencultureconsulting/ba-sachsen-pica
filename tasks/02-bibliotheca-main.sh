@@ -4059,6 +4059,100 @@ else
 fi
 echo
 
+# ----------------------------------- 1500 ----------------------------------- #
+
+# spec_B_T_03
+echo "Sprachcode in 1500..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|SPRA",
+      "expression": "grel:forEach(value.split(/,|#|\\+|;/),v,forNonBlank(v.replace('.','').replace('-','').replace(' ','').\nreplace(/^arab$/,'ara').\nreplace(/^Arabisch$/,'ara').\nreplace(/^aram$/,'arc').\nreplace(/^daen$/,'dan').\nreplace(/^Deutsch$/,'ger').\nreplace(/^DEUTSCH$/,'ger').\nreplace(/^deutsch$/,'ger').\nreplace(/^dt$/,'ger').\nreplace(/^engl$/,'eng').\nreplace(/^Englisch$/,'eng').\nreplace(/^ENGLISCH$/,'eng').\nreplace(/^englisch$/,'eng').\nreplace(/^Finnisch$/,'fin').\nreplace(/^franz$/,'fre').\nreplace(/^Französisch$/,'fre').\nreplace(/^griech$/,'gre').\nreplace(/^hebr$/,'heb').\nreplace(/^hrv$/,'').\nreplace(/^ital$/,'ita').\nreplace(/^Italienisch$/,'ita').\nreplace(/^ITALIENISCH$/,'ita').\nreplace(/^Litauisch$/,'lit').\nreplace(/^n$/,'').\nreplace(/^Niederländisch$/,'dut').\nreplace(/^pers$/,'per').\nreplace(/^poln$/,'pol').\nreplace(/^Polnisch$/,'pol').\nreplace(/^polygl$/,'mul').\nreplace(/^portug$/,'por').\nreplace(/^Portugiesisch$/,'por').\nreplace(/^Portugisisch$/,'por').\nreplace(/^ru$/,'rus').\nreplace(/^Rumänisch$/,'rum').\nreplace(/^russ$/,'rus').\nreplace(/^Russisch$/,'rus').\nreplace(/^schwed$/,'swe').\nreplace(/^Schwedisch$/,'swe').\nreplace(/^slowak$/,'slo').\nreplace(/^sp$/,'spa').\nreplace(/^span$/,'spa').\nreplace(/^Spanisch$/,'spa').\nreplace(/^tschech$/,'cze').\nreplace(/^Tschechisch$/,'cze').\nreplace(/^tuerk$/,'tur').\nreplace(/^Türkisch$/,'tur').\nreplace(/^Ukrainisch$/,'ukr').\nreplace(/^ungar$/,'hun').\nreplace(/^Ungarisch$/,'hun')\n,x,x,null)).join('␟')",
+      "onError": "set-to-blank",
+      "newColumnName": "1500",
+      "columnInsertIndex": 3
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "columnName": "1500",
+      "expression": "grel:forEachIndex(value.split('␟'),i,v,if(i != 0, if(inArray(value.split('␟')[0,i],v),null,v), v)).join('␟')",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|MEDNR",
+            "expression": "isBlank(value)",
+            "columnName": "M|MEDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1500",
+            "expression": "isBlank(value)",
+            "columnName": "1500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1500",
+      "expression": "grel:'und'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 # ================================== EXPORT ================================== #
 
 checkpoint "Export"; echo
@@ -4093,6 +4187,7 @@ with(
     '1100b',
     '1100n',
     '1140',
+    '1500',
     '2000',
     '4000a',
     '7100j',
