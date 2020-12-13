@@ -2996,6 +2996,28 @@ if curl -fs \
       "onError": "keep-original",
       "repeat": false,
       "repeatCount": 10
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "text",
+            "name": "M|JAHR",
+            "columnName": "M|JAHR",
+            "query": "-",
+            "mode": "text",
+            "caseSensitive": false,
+            "invert": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|JAHR",
+      "expression": "grel:value.split('-')[1].replace('[','').replace(']','').replace('(','').replace(')','').replace(' ','').replace('?','').replace('.','')",
+      "onError": "set-to-blank",
+      "newColumnName": "1100b",
+      "columnInsertIndex": 3
     }
   ]
 JSON
@@ -4068,6 +4090,7 @@ with(
     '0110',
     '0500',
     '1100a',
+    '1100b',
     '1100n',
     '1140',
     '2000',
