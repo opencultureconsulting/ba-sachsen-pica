@@ -30,9 +30,8 @@ tasks:
 
   alephino:
     desc: Alephino Hauptverarbeitung
+    deps: [leipzig, riesa]
     cmds:
-      - task: leipzig
-      - task: riesa
       - tasks/02-alephino-main.sh "output/01-alephino-pre"
     sources:
       - tasks/02-alephino-main.sh
