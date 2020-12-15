@@ -145,14 +145,11 @@ else
 fi
 echo
 
-# --------------- Zeitschriften löschen (Breitenbrunn, Dresden) -------------- #
+# ------------------ Zeitschriften und Teile von MTM löschen ----------------- #
 
 # spec_Z_02
-# - M|ART > Facet > Text facet > "Z" und "GH"
-# -- show as: records
-# --- All > Edit rows > Remove all matching rows
-
-echo "Zeitschriften löschen (Breitenbrunn, Dresden)..."
+# siehe auch Spezifikation in CBS-Titeldaten Bibliotheca
+echo "Zeitschriften und Teile von MTM löschen..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -190,6 +187,104 @@ if curl -fs \
           }
         ],
         "mode": "record-based"
+      }
+    },
+    {
+      "op": "core/row-removal",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "G",
+                  "l": "G"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|UART",
+            "expression": "value",
+            "columnName": "M|UART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "R",
+                  "l": "R"
+                }
+              },
+              {
+                "v": {
+                  "v": "Z",
+                  "l": "Z"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      }
+    },
+    {
+      "op": "core/row-removal",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "G",
+                  "l": "G"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDNR",
+            "expression": "grel:forEach(value.cross('bibliotheca','M|NRPRE'),r,if(and(r.cells['File'].value == cells['File'].value, isNonBlank(r.cells['M|BANDB'].value)),'vorhanden','fehlt')).inArray('vorhanden')",
+            "columnName": "M|MEDNR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": true
+          }
+        ],
+        "mode": "row-based"
       }
     }
   ]
