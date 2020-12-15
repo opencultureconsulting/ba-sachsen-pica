@@ -62,71 +62,6 @@ echo
 
 checkpoint "Transform"; echo
 
-# ---------------------------- Titel ohne Exemplare -------------------------- #
-
-# TODO: Temporäres Löschen durch Generierung von Lax-Sätzen ersetzen
-echo "Titel ohne Exemplare löschen..."
-if curl -fs \
-  --data project="${projects[$p]}" \
-  --data-urlencode "operations@-" \
-  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
-  << "JSON"
-  [
-    {
-      "op": "core/row-removal",
-      "engineConfig": {
-        "facets": [
-          {
-            "type": "list",
-            "name": "2199",
-            "expression": "isBlank(value)",
-            "columnName": "2199",
-            "invert": false,
-            "omitBlank": false,
-            "omitError": false,
-            "selection": [
-              {
-                "v": {
-                  "v": false,
-                  "l": "false"
-                }
-              }
-            ],
-            "selectBlank": false,
-            "selectError": false
-          },
-          {
-            "type": "list",
-            "name": "E0XX",
-            "expression": "isBlank(value)",
-            "columnName": "E0XX",
-            "invert": false,
-            "omitBlank": false,
-            "omitError": false,
-            "selection": [
-              {
-                "v": {
-                  "v": true,
-                  "l": "true"
-                }
-              }
-            ],
-            "selectBlank": false,
-            "selectError": false
-          }
-        ],
-        "mode": "row-based"
-      }
-    }
-  ]
-JSON
-then
-  log "transformed ${p} (${projects[$p]})"
-else
-  error "transform ${p} (${projects[$p]}) failed!"
-fi
-echo
-
 # -------------------------- PPN anreichern über ISBN ------------------------ #
 
 # spec_Z_04
@@ -617,14 +552,19 @@ IFS= read -r -d '' template << "TEMPLATE"
 if(row.index - row.record.fromRowIndex == 0,
 '' + '\n'
 + forNonBlank(cells['0500'].value, v, '002@' + ' 0' + v + '\n', '')
++ forNonBlank(cells['0501a'].value, v, '002C' + ' a' + v + forNonBlank(cells['0501b'].value, v, 'b' + v, '') '\n', '')
++ forNonBlank(cells['0502a'].value, v, '002D' + ' a' + v + forNonBlank(cells['0502b'].value, v, 'b' + v, '') '\n', '')
++ forNonBlank(cells['0503a'].value, v, '002E' + ' a' + v + forNonBlank(cells['0503b'].value, v, 'b' + v, '') '\n', '')
 + forNonBlank(cells['0100'].value, v, '003@' + ' 0' + v + '\n', '')
 + forNonBlank(cells['0110'].value, v, '003S' + ' 0' + v + '\n', '')
 + forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A' + ' 0' + x + '\n').join(''), '')
 + forNonBlank(cells['2199'].value, v, forEach(v.split('␟'),x,'006Y' + ' 0' + x + '\n').join(''), '')
 + forNonBlank(cells['1500'].value, v, forEach(v.split('␟'),x,'010@' + ' a' + x + '\n').join(''), '')
 + forNonBlank(cells['1100a'].value, v, '011@' + ' a' + v + forNonBlank(cells['1100b'].value, v, 'b' + v, '') + forNonBlank(cells['1100n'].value, v, 'n' + v, '') + '\n', '')
++ forNonBlank(cells['1131'].value, v, '013D' + ' a' + v + '\n', '')
 + forNonBlank(cells['1140'].value, v, '013H' + ' a' + v + '\n', '')
 + forNonBlank(cells['4000a'].value, v, '021A' + ' a' + v + '\n', '')
++ forNonBlank(cells['0999'].value, v, '046W' + ' a' + v + '\n', '')
 ,'')
 }}{{
 if(isNonBlank(cells['E0XXb'].value),
@@ -634,6 +574,7 @@ with(with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i),e
 + forNonBlank(cells['8011'].value, v, '209B/' + exnr + ' a' + v + 'x11' + '\n', '')
 + forNonBlank(cells['8100'].value, v, '209C/' + exnr + ' a' + v + '\n', '')
 + forNonBlank(cells['8200'].value, v, '209G/' + exnr + ' a' + v + '\n', '')
++ forNonBlank(cells['8600'].value, v, '209O/' + exnr + ' a' + v + '\n', '')
 + forNonBlank(cells['8515'].value, v, '220B/' + exnr + ' a' + v + '\n', '')
 ), '')
 }}

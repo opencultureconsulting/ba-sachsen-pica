@@ -157,6 +157,38 @@ if curl -fs \
   << "JSON"
   [
     {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|BANDN",
+            "expression": "value",
+            "columnName": "M|BANDN",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "0",
+                  "l": "0"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "M|BANDN",
+      "expression": "grel:null",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
       "op": "core/row-removal",
       "engineConfig": {
         "facets": [
@@ -267,7 +299,7 @@ if curl -fs \
           {
             "type": "list",
             "name": "M|MEDNR",
-            "expression": "grel:forEach(value.cross('bibliotheca','M|NRPRE'),r,if(and(r.cells['File'].value == cells['File'].value, isNonBlank(r.cells['M|BANDB'].value)),'vorhanden','fehlt')).inArray('vorhanden')",
+            "expression": "grel:forEach(value.cross('bibliotheca','M|NRPRE'),r,if(and(r.cells['File'].value == cells['File'].value, or(isNonBlank(r.cells['M|BANDB'].value),isNonBlank(r.cells['M|BANDN'].value))),'vorhanden','fehlt')).inArray('vorhanden')",
             "columnName": "M|MEDNR",
             "invert": false,
             "omitBlank": false,
@@ -2703,6 +2735,7 @@ echo
 # leer für Exemplare, die nicht konvertiert werden sollen:
 # - makulierte Exemplare
 # - ACQ-Datensätze
+# TODO: Selektionsschlüssel für Abschlussarbeiten
 echo "Selektionsschlüssel E0XXb..."
 if curl -fs \
   --data project="${projects[$p]}" \
@@ -2789,48 +2822,11 @@ else
 fi
 echo
 
-# ----------------------------------- 0500 ----------------------------------- #
+# ------------------------------ 0500 und 1140 ------------------------------- #
 
-# spec_B_T_56
-# TODO: Differenzierung nach MEDGR
-echo "Gattung und Status 0500..."
-read -r -d '' expression << EXPRESSION
-if(
-  or(
-    value == 'M',
-    value == 'L'
-  ),
-  'Aan',
-if(
-  value == 'U',
-  'Asn',
-if(
-  or(
-    value == 'A',
-    value == 'V'
-  ),
-  'Ban',
-if(
-  and(
-    value == 'P',
-    forNonBlank(cells['M|MEDGR'].value,v,if(v == 'SPIEL', true, false),false)
-  ),
-  'Van',
-if(
-  value == 'P',
-  'Lax',
-if(
-  value == 'G',
-  'Acn',
-if(
-  value == 'S',
-  'AFn',
-if(
-  value == 'Z',
-  'Abn',
-null
-))))))))
-EXPRESSION
+# spec_B_T_56_1
+# TODO: ART = S
+echo "Gattung/Status 0500 und Veröffentlichungsart 1140..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -2840,14 +2836,2407 @@ if curl -fs \
     {
       "op": "core/column-addition",
       "engineConfig": {
-        "facets": [],
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|UART",
+            "expression": "value",
+            "columnName": "M|UART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "C",
+                  "l": "C"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": true,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "USB",
+                  "l": "USB"
+                }
+              },
+              {
+                "v": {
+                  "v": "BA",
+                  "l": "BA"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
         "mode": "row-based"
       },
-      "baseColumnName": "M|ART",
-      "expression": $(echo "grel:${expression}" | ${jq} -s -R '.'),
+      "baseColumnName": "File",
+      "expression": "grel:'San'",
       "onError": "set-to-blank",
       "newColumnName": "0500",
       "columnInsertIndex": 3
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|UART",
+            "expression": "value",
+            "columnName": "M|UART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "C",
+                  "l": "C"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "USB",
+                  "l": "USB"
+                }
+              },
+              {
+                "v": {
+                  "v": "BA",
+                  "l": "BA"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Lax'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|UART",
+            "expression": "value",
+            "columnName": "M|UART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'San'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|UART",
+            "expression": "value",
+            "columnName": "M|UART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "M",
+                  "l": "M"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": true,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "USB",
+                  "l": "USB"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Ban'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|UART",
+            "expression": "value",
+            "columnName": "M|UART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "M",
+                  "l": "M"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": true,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "USB",
+                  "l": "USB"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "File",
+      "expression": "grel:'muto'",
+      "onError": "set-to-blank",
+      "newColumnName": "1140",
+      "columnInsertIndex": 3
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|UART",
+            "expression": "value",
+            "columnName": "M|UART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "M",
+                  "l": "M"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "USB",
+                  "l": "USB"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Lax'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|UART",
+            "expression": "value",
+            "columnName": "M|UART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": true,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "BA",
+                  "l": "BA"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Ban'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|UART",
+            "expression": "value",
+            "columnName": "M|UART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": true,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "BA",
+                  "l": "BA"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'soto'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|UART",
+            "expression": "value",
+            "columnName": "M|UART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "BA",
+                  "l": "BA"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Lax'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "G",
+                  "l": "G"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": true,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DVD",
+                  "l": "DVD"
+                }
+              },
+              {
+                "v": {
+                  "v": "DI",
+                  "l": "DI"
+                }
+              },
+              {
+                "v": {
+                  "v": "CD-ROM",
+                  "l": "CD-ROM"
+                }
+              },
+              {
+                "v": {
+                  "v": "NOTEN",
+                  "l": "NOTEN"
+                }
+              },
+              {
+                "v": {
+                  "v": "LOSEBL",
+                  "l": "LOSEBL"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Acn'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "G",
+                  "l": "G"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "CD-ROM",
+                  "l": "CD-ROM"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Scn'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "G",
+                  "l": "G"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DVD",
+                  "l": "DVD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Bcn'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "G",
+                  "l": "G"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DVD",
+                  "l": "DVD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'vide'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "G",
+                  "l": "G"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "NOTEN",
+                  "l": "NOTEN"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Acn'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "G",
+                  "l": "G"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "NOTEN",
+                  "l": "NOTEN"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'muno'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "G",
+                  "l": "G"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "LOSEBL",
+                  "l": "LOSEBL"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Acn'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "G",
+                  "l": "G"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "LOSEBL",
+                  "l": "LOSEBL"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'lo'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "G",
+                  "l": "G"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DI",
+                  "l": "DI"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Lax'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "L",
+                  "l": "L"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Aan'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "L",
+                  "l": "L"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'lo'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "M",
+                  "l": "M"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": true,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DI",
+                  "l": "DI"
+                }
+              },
+              {
+                "v": {
+                  "v": "NOTEN",
+                  "l": "NOTEN"
+                }
+              },
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "KAR",
+                  "l": "KAR"
+                }
+              },
+              {
+                "v": {
+                  "v": "BA",
+                  "l": "BA"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Aan'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "M",
+                  "l": "M"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "NOTEN",
+                  "l": "NOTEN"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Aan'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "M",
+                  "l": "M"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "NOTEN",
+                  "l": "NOTEN"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'muno'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "M",
+                  "l": "M"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "KAR",
+                  "l": "KAR"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Aan'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "M",
+                  "l": "M"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "KAR",
+                  "l": "KAR"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'kart'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "M",
+                  "l": "M"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DI",
+                  "l": "DI"
+                }
+              },
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "BA",
+                  "l": "BA"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Lax'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "P",
+                  "l": "P"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Van'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": true,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "CD",
+                  "l": "CD"
+                }
+              },
+              {
+                "v": {
+                  "v": "DI",
+                  "l": "DI"
+                }
+              },
+              {
+                "v": {
+                  "v": "10 CD",
+                  "l": "10 CD"
+                }
+              },
+              {
+                "v": {
+                  "v": "CD-ROM",
+                  "l": "CD-ROM"
+                }
+              },
+              {
+                "v": {
+                  "v": "NOTEN",
+                  "l": "NOTEN"
+                }
+              },
+              {
+                "v": {
+                  "v": "LOSEBL",
+                  "l": "LOSEBL"
+                }
+              },
+              {
+                "v": {
+                  "v": "DVD",
+                  "l": "DVD"
+                }
+              },
+              {
+                "v": {
+                  "v": "KAR",
+                  "l": "KAR"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Aan'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "CD",
+                  "l": "CD"
+                }
+              },
+              {
+                "v": {
+                  "v": "10 CD",
+                  "l": "10 CD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Ban'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "CD",
+                  "l": "CD"
+                }
+              },
+              {
+                "v": {
+                  "v": "10 CD",
+                  "l": "10 CD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'muto'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "CD-ROM",
+                  "l": "CD-ROM"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'San'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DVD",
+                  "l": "DVD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Ban'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DVD",
+                  "l": "DVD"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'vide'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "NOTEN",
+                  "l": "NOTEN"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Aan'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "NOTEN",
+                  "l": "NOTEN"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'muno'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "KAR",
+                  "l": "KAR"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Aan'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "KAR",
+                  "l": "KAR"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'kart'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "LOSEBL",
+                  "l": "LOSEBL"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Aan'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "LOSEBL",
+                  "l": "LOSEBL"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'lo'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DI",
+                  "l": "DI"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Lax'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "U",
+                  "l": "U"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Aan'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "V",
+                  "l": "V"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0500",
+      "expression": "grel:'Ban'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|ART",
+            "expression": "value",
+            "columnName": "M|ART",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "V",
+                  "l": "V"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "1140",
+      "expression": "grel:'vide'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
     }
   ]
 JSON
@@ -2858,24 +5247,233 @@ else
 fi
 echo
 
-# ----------------------------------- 1140 ----------------------------------- #
+# spec_B_T_56_2
+echo "F/f für Überordnungen 0500..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << JSON
+[
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|NRPRE",
+          "expression": "grel:forEach(value.cross('bibliotheca','M|MEDNR'),r,if(and(r.cells['File'].value == cells['File'].value,or(isNonBlank(cells['M|BANDB'].value),isNonBlank(cells['M|BANDN'].value))),'vorhanden','fehlt')).inArray('vorhanden')",
+          "columnName": "M|NRPRE",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:if(isNonBlank(cells['M|HST'].value), value[0] + 'F' + value[2] ,value[0] + 'f' + value[2])",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  }
+]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
 
-# spec_B_T_53
-# TODO: Differenzierung nach MEDGR
-echo "Veröffentlichungsart 1140..."
-read -r -d '' expression << EXPRESSION
-if(
-  value == 'A',
-  'muto',
-if(
-  value == 'V',
-  'vide',
-if(
-  value == 'L',
-  'lo',
-null
-)))
-EXPRESSION
+# spec_B_T_56_3
+echo "Lax für Abschlussarbeiten 0500..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << JSON
+  [
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "BAC",
+                  "l": "BAC"
+                }
+              },
+              {
+                "v": {
+                  "v": "DIP",
+                  "l": "DIP"
+                }
+              },
+              {
+                "v": {
+                  "v": "DI",
+                  "l": "DI"
+                }
+              },
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "BA",
+                  "l": "BA"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "7100f",
+            "expression": "value",
+            "columnName": "7100f",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "BB",
+                  "l": "BB"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "E0XXb",
+      "expression": "grel:'d' + value[1,3]",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "DI",
+                  "l": "DI"
+                }
+              },
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "BA",
+                  "l": "BA"
+                }
+              },
+              {
+                "v": {
+                  "v": "BAC",
+                  "l": "BAC"
+                }
+              },
+              {
+                "v": {
+                  "v": "DIP",
+                  "l": "DIP"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "7100f",
+            "expression": "value",
+            "columnName": "7100f",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "EH",
+                  "l": "EH"
+                }
+              },
+              {
+                "v": {
+                  "v": "EH-Theke",
+                  "l": "EH-Theke"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "E0XXb",
+      "expression": "grel:'n' + value[1,3]",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# -------------------------- 0501, 0502, 0503, 0999 -------------------------- #
+
+# 0501a, 0501b, 0502a, 0502b, 0503a, 0503b, 0999
+# spec_B_T_50, spec_B_T_51, spec_B_T_52, spec_B_T_56
+echo "IMD-Felder 0501, 0502, 0503, 0999..."
 if curl -fs \
   --data project="${projects[$p]}" \
   --data-urlencode "operations@-" \
@@ -2885,13 +5483,1977 @@ if curl -fs \
     {
       "op": "core/column-addition",
       "engineConfig": {
-        "facets": [],
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
         "mode": "row-based"
       },
-      "baseColumnName": "M|ART",
-      "expression": $(echo "grel:${expression}" | ${jq} -s -R '.'),
+      "baseColumnName": "File",
+      "expression": "grel:'Text'",
       "onError": "set-to-blank",
-      "newColumnName": "1140",
+      "newColumnName": "0501a",
+      "columnInsertIndex": 3
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "File",
+      "expression": "grel:'txt'",
+      "onError": "set-to-blank",
+      "newColumnName": "0501b",
+      "columnInsertIndex": 3
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "File",
+      "expression": "grel:'ohne Hilfsmittel zu benutzen'",
+      "onError": "set-to-blank",
+      "newColumnName": "0502a",
+      "columnInsertIndex": 3
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "File",
+      "expression": "grel:'n'",
+      "onError": "set-to-blank",
+      "newColumnName": "0502b",
+      "columnInsertIndex": 3
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "File",
+      "expression": "grel:'Band'",
+      "onError": "set-to-blank",
+      "newColumnName": "0503a",
+      "columnInsertIndex": 3
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "A",
+                  "l": "A"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "File",
+      "expression": "grel:'nc'",
+      "onError": "set-to-blank",
+      "newColumnName": "0503b",
+      "columnInsertIndex": 3
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "lo",
+                  "l": "lo"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501a",
+      "expression": "grel:'Text'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "lo",
+                  "l": "lo"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501b",
+      "expression": "grel:'txt'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "lo",
+                  "l": "lo"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502a",
+      "expression": "grel:'ohne Hilfsmittel zu benutzen'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "lo",
+                  "l": "lo"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502b",
+      "expression": "grel:'n'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "lo",
+                  "l": "lo"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503a",
+      "expression": "grel:'Band'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "lo",
+                  "l": "lo"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503b",
+      "expression": "grel:'nc'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muto",
+                  "l": "muto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501a",
+      "expression": "grel:'aufgeführte Musik'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muto",
+                  "l": "muto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501b",
+      "expression": "grel:'prm'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muto",
+                  "l": "muto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502a",
+      "expression": "grel:'audio'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muto",
+                  "l": "muto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502b",
+      "expression": "grel:'s'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muto",
+                  "l": "muto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503a",
+      "expression": "grel:'Audiodisk'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muto",
+                  "l": "muto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503b",
+      "expression": "grel:'sd'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "soto",
+                  "l": "soto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501a",
+      "expression": "grel:'gesprochenes Wort'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "soto",
+                  "l": "soto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501b",
+      "expression": "grel:'spw'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "soto",
+                  "l": "soto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502a",
+      "expression": "grel:'audio'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "soto",
+                  "l": "soto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502b",
+      "expression": "grel:'s'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "soto",
+                  "l": "soto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503a",
+      "expression": "grel:'Audiodisk'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "soto",
+                  "l": "soto"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503b",
+      "expression": "grel:'sd'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "vide",
+                  "l": "vide"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501a",
+      "expression": "grel:'zweidimensionales bewegtes Bild'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "vide",
+                  "l": "vide"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501b",
+      "expression": "grel:'tdi'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "vide",
+                  "l": "vide"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502a",
+      "expression": "grel:'video'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "vide",
+                  "l": "vide"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502b",
+      "expression": "grel:'v'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "vide",
+                  "l": "vide"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503a",
+      "expression": "grel:'Videodisk'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "vide",
+                  "l": "vide"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503b",
+      "expression": "grel:'vd'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muno",
+                  "l": "muno"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501a",
+      "expression": "grel:'Noten'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muno",
+                  "l": "muno"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501b",
+      "expression": "grel:'ntm'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muno",
+                  "l": "muno"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502a",
+      "expression": "grel:'ohne Hilfsmittel zu benutzen'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muno",
+                  "l": "muno"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502b",
+      "expression": "grel:'n'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muno",
+                  "l": "muno"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503a",
+      "expression": "grel:'Band'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "muno",
+                  "l": "muno"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503b",
+      "expression": "grel:'nc'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "kart",
+                  "l": "kart"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501a",
+      "expression": "grel:'kartografisches Bild'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "kart",
+                  "l": "kart"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501b",
+      "expression": "grel:'cri'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "kart",
+                  "l": "kart"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502a",
+      "expression": "grel:'ohne Hilfsmittel zu benutzen'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "kart",
+                  "l": "kart"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502b",
+      "expression": "grel:'n'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "kart",
+                  "l": "kart"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503a",
+      "expression": "grel:'Band'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "kart",
+                  "l": "kart"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503b",
+      "expression": "grel:'nc'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501a",
+      "expression": "grel:'Computerdaten'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501b",
+      "expression": "grel:'cod'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502a",
+      "expression": "grel:'Computermedien'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502b",
+      "expression": "grel:'c'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503a",
+      "expression": "grel:'Computerdisk'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "S",
+                  "l": "S"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503b",
+      "expression": "grel:'cd'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "V",
+                  "l": "V"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501a",
+      "expression": "grel:'dreidimensionale Form'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "V",
+                  "l": "V"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0501b",
+      "expression": "grel:'tdf'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "V",
+                  "l": "V"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502a",
+      "expression": "grel:'ohne Hilfsmittel zu benutzen'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "V",
+                  "l": "V"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0502b",
+      "expression": "grel:'n'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "V",
+                  "l": "V"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503a",
+      "expression": "grel:'Gegenstand'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[0]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "V",
+                  "l": "V"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "1140",
+            "expression": "value",
+            "columnName": "1140",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [],
+            "selectBlank": true,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "0503b",
+      "expression": "grel:'nr'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "0501a",
+            "expression": "isBlank(value)",
+            "columnName": "0501a",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "File",
+      "expression": "grel:'IMD-Felder maschinell generiert (GBV)'",
+      "onError": "set-to-blank",
+      "newColumnName": "0999",
       "columnInsertIndex": 3
     }
   ]
@@ -4248,6 +8810,305 @@ else
 fi
 echo
 
+# ----------------------------------- 1131 ----------------------------------- #
+
+# spec_B_T_54
+echo "Text für Abschlussarbeiten in 1131..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "BAC",
+                  "l": "BAC"
+                }
+              },
+              {
+                "v": {
+                  "v": "DI",
+                  "l": "DI"
+                }
+              },
+              {
+                "v": {
+                  "v": "DIP",
+                  "l": "DIP"
+                }
+              },
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "BA",
+                  "l": "BA"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "7100f",
+            "expression": "value",
+            "columnName": "7100f",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "BB",
+                  "l": "BB"
+                }
+              },
+              {
+                "v": {
+                  "v": "EH",
+                  "l": "EH"
+                }
+              },
+              {
+                "v": {
+                  "v": "EH-Theke",
+                  "l": "EH-Theke"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "File",
+      "expression": "grel:'Hochschulschrift'",
+      "onError": "set-to-blank",
+      "newColumnName": "1131",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# ----------------------------------- 8600 ----------------------------------- #
+
+# spec_B_T_55
+echo "Text für Abschlussarbeiten in 8600..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "M|MEDGR",
+            "expression": "value",
+            "columnName": "M|MEDGR",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "BAC",
+                  "l": "BAC"
+                }
+              },
+              {
+                "v": {
+                  "v": "DI",
+                  "l": "DI"
+                }
+              },
+              {
+                "v": {
+                  "v": "DIP",
+                  "l": "DIP"
+                }
+              },
+              {
+                "v": {
+                  "v": "MA",
+                  "l": "MA"
+                }
+              },
+              {
+                "v": {
+                  "v": "BA",
+                  "l": "BA"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "7100f",
+            "expression": "value",
+            "columnName": "7100f",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "BB",
+                  "l": "BB"
+                }
+              },
+              {
+                "v": {
+                  "v": "EH",
+                  "l": "EH"
+                }
+              },
+              {
+                "v": {
+                  "v": "EH-Theke",
+                  "l": "EH-Theke"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "File",
+      "expression": "grel:'LOKMAT: Lah'",
+      "onError": "set-to-blank",
+      "newColumnName": "8600",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# ---------------------------- Titel ohne Exemplare -------------------------- #
+
+# ACHTUNG: Diese Transformationsregel muss ganz am Ende stehen
+# Mehrteilige Monografien sollen stehen bleiben, daher nur:
+# - wenn BANDB und BANDN nicht leer
+echo "Titel ohne Exemplare löschen..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/row-removal",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "2199",
+            "expression": "isBlank(value)",
+            "columnName": "2199",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "E0XX",
+            "expression": "isBlank(value)",
+            "columnName": "E0XX",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "M|BANDB",
+            "expression": "grel:or(isNonBlank(cells['M|BANDB'].value), isNonBlank(cells['M|BANDN'].value))",
+            "columnName": "M|BANDB",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": false,
+                  "l": "false"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "description": "Remove rows"
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 # ================================== EXPORT ================================== #
 
 checkpoint "Export"; echo
@@ -4278,9 +9139,17 @@ with(
     '0100',
     '0110',
     '0500',
+    '0501a',
+    '0501b',
+    '0502a',
+    '0502b',
+    '0503a',
+    '0503b',
+    '0999',
     '1100a',
     '1100b',
     '1100n',
+    '1131',
     '1140',
     '1500',
     '2000',
@@ -4293,6 +9162,7 @@ with(
     '8100',
     '8200',
     '8515',
+    '8600',
     'E0XX',
     'E0XXb'
   ],
