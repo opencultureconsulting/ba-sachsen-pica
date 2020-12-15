@@ -552,9 +552,9 @@ IFS= read -r -d '' template << "TEMPLATE"
 if(row.index - row.record.fromRowIndex == 0,
 '' + '\n'
 + forNonBlank(cells['0500'].value, v, '002@' + ' 0' + v + '\n', '')
-+ forNonBlank(cells['0501a'].value, v, '002C' + ' a' + v + forNonBlank(cells['0501b'].value, v, 'b' + v, '') '\n', '')
-+ forNonBlank(cells['0502a'].value, v, '002D' + ' a' + v + forNonBlank(cells['0502b'].value, v, 'b' + v, '') '\n', '')
-+ forNonBlank(cells['0503a'].value, v, '002E' + ' a' + v + forNonBlank(cells['0503b'].value, v, 'b' + v, '') '\n', '')
++ forNonBlank(cells['0501a'].value, v, '002C' + ' a' + v + forNonBlank(cells['0501b'].value, v, 'b' + v, '') + '\n', '')
++ forNonBlank(cells['0502a'].value, v, '002D' + ' a' + v + forNonBlank(cells['0502b'].value, v, 'b' + v, '') + '\n', '')
++ forNonBlank(cells['0503a'].value, v, '002E' + ' a' + v + forNonBlank(cells['0503b'].value, v, 'b' + v, '') + '\n', '')
 + forNonBlank(cells['0100'].value, v, '003@' + ' 0' + v + '\n', '')
 + forNonBlank(cells['0110'].value, v, '003S' + ' 0' + v + '\n', '')
 + forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A' + ' 0' + x + '\n').join(''), '')
