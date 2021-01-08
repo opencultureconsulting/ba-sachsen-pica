@@ -559,7 +559,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['0110'].value, v, '003S' + ' 0' + v + '\n', '')
 + forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A' + ' 0' + x + '\n').join(''), '')
 + forNonBlank(cells['2199'].value, v, forEach(v.split('␟'),x,'006Y' + ' 0' + x + '\n').join(''), '')
-+ forNonBlank(cells['1500'].value, v, forEach(v.split('␟'),x,'010@' + ' a' + x + '\n').join(''), '')
++ forNonBlank(cells['1500'].value, v, '010@ ' + forEach(v.split('␟'),x,'a' + x).join('') + '\n', '')
 + forNonBlank(cells['1100a'].value, v, '011@' + ' a' + v + forNonBlank(cells['1100b'].value, v, 'b' + v, '') + forNonBlank(cells['1100n'].value, v, 'n' + v, '') + '\n', '')
 + forNonBlank(cells['1131'].value, v, '013D' + ' a' + v + '\n', '')
 + forNonBlank(cells['1140'].value, v, '013H' + ' a' + v + '\n', '')
