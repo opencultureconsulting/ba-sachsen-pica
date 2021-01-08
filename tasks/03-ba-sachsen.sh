@@ -572,9 +572,9 @@ with(with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i),e
 '208@/' + exnr + ' a' + cells['E0XX'].value + 'b' + cells['E0XXb'].value + '\n'
 + '209A/' + exnr + ' b4736' + 'j' + cells['7100j'].value + 'f' + cells['7100f'].value + forNonBlank(cells['7100a'].value, v, 'a' + v, '') + forNonBlank(cells['7100d'].value, v, 'd' + v, '') + 'x00' + '\n'
 + forNonBlank(cells['8011'].value, v, '209B/' + exnr + ' a' + v + 'x11' + '\n', '')
-+ forNonBlank(cells['8100'].value, v, '209C/' + exnr + ' a' + v + '\n', '')
++ forNonBlank(cells['8100'].value, v, '209C/' + exnr + ' a' + v + 'x00' + '\n', '')
 + forNonBlank(cells['8200'].value, v, '209G/' + exnr + ' a' + v + '\n', '')
-+ forNonBlank(cells['8600'].value, v, '209O/' + exnr + ' a' + v + '\n', '')
++ forNonBlank(cells['8600'].value, v, '209O/' + exnr + ' a' + v + 'x00' + '\n', '')
 + forNonBlank(cells['8515'].value, v, '220B/' + exnr + ' a' + v + '\n', '')
 ), '')
 }}
