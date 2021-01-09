@@ -7438,6 +7438,57 @@ if curl -fs \
       "onError": "set-to-blank",
       "newColumnName": "4000a",
       "columnInsertIndex": 3
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "4000a",
+            "expression": "isBlank(value)",
+            "columnName": "4000a",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          },
+          {
+            "type": "list",
+            "name": "0500",
+            "expression": "grel:value[1]",
+            "columnName": "0500",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "a",
+                  "l": "a"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "4000a",
+      "expression": "grel:'Titel fehlt'",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
     }
   ]
 JSON
