@@ -328,54 +328,6 @@ else
 fi
 echo
 
-# ------------------------- Makulierte Medien löschen ------------------------ #
-
-# spec_Z_03
-# löscht alle Titel+Exemplare, die ausschließlich makulierte Ex. enthalten
-
-echo "Makulierte Medien löschen..."
-if curl -fs \
-  --data project="${projects[$p]}" \
-  --data-urlencode "operations@-" \
-  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
-  << "JSON"
-  [
-    {
-      "op": "core/row-removal",
-      "engineConfig": {
-        "facets": [
-          {
-            "type": "list",
-            "name": "E|EXSTA",
-            "expression": "grel:row.record.cells[columnName].value.uniques().join(',') == 'M'",
-            "columnName": "E|EXSTA",
-            "invert": false,
-            "omitBlank": false,
-            "omitError": false,
-            "selection": [
-              {
-                "v": {
-                  "v": true,
-                  "l": "true"
-                }
-              }
-            ],
-            "selectBlank": false,
-            "selectError": false
-          }
-        ],
-        "mode": "record-based"
-      }
-    }
-  ]
-JSON
-then
-  log "transformed ${p} (${projects[$p]})"
-else
-  error "transform ${p} (${projects[$p]}) failed!"
-fi
-echo
-
 # ------------------------------------ File ---------------------------------- #
 
 echo "Bibliothekskürzel aus Import-Dateiname..."
