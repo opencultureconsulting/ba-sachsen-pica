@@ -551,20 +551,20 @@ IFS= read -r -d '' template << "TEMPLATE"
 {{
 if(row.index - row.record.fromRowIndex == 0,
 '' + '\n'
-+ forNonBlank(cells['0500'].value, v, '002@' + ' 0' + v + '\n', '')
-+ forNonBlank(cells['0501a'].value, v, '002C' + ' a' + v + forNonBlank(cells['0501b'].value, v, 'b' + v, '') + '\n', '')
-+ forNonBlank(cells['0502a'].value, v, '002D' + ' a' + v + forNonBlank(cells['0502b'].value, v, 'b' + v, '') + '\n', '')
-+ forNonBlank(cells['0503a'].value, v, '002E' + ' a' + v + forNonBlank(cells['0503b'].value, v, 'b' + v, '') + '\n', '')
-+ forNonBlank(cells['0100'].value, v, '003@' + ' 0' + v + '\n', '')
-+ forNonBlank(cells['0110'].value, v, '003S' + ' 0' + v + '\n', '')
-+ forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A' + ' 0' + x + '\n').join(''), '')
-+ forNonBlank(cells['2199'].value, v, forEach(v.split('␟'),x,'006Y' + ' 0' + x + '\n').join(''), '')
++ forNonBlank(cells['0500'].value, v, '002@ ' + '0' + v + '\n', '')
++ forNonBlank(cells['0501a'].value, v, '002C ' + 'a' + v + forNonBlank(cells['0501b'].value, v, 'b' + v, '') + '\n', '')
++ forNonBlank(cells['0502a'].value, v, '002D ' + 'a' + v + forNonBlank(cells['0502b'].value, v, 'b' + v, '') + '\n', '')
++ forNonBlank(cells['0503a'].value, v, '002E ' + 'a' + v + forNonBlank(cells['0503b'].value, v, 'b' + v, '') + '\n', '')
++ forNonBlank(cells['0100'].value, v, '003@ ' + '0' + v + '\n', '')
++ forNonBlank(cells['0110'].value, v, '003S ' + '0' + v + '\n', '')
++ forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A ' + '0' + x + '\n').join(''), '')
++ forNonBlank(cells['2199'].value, v, forEach(v.split('␟'),x,'006Y ' + '0' + x + '\n').join(''), '')
 + forNonBlank(cells['1500'].value, v, '010@ ' + forEach(v.split('␟'),x,'a' + x).join('') + '\n', '')
-+ forNonBlank(cells['1100a'].value, v, '011@' + ' a' + v + forNonBlank(cells['1100b'].value, v, 'b' + v, '') + forNonBlank(cells['1100n'].value, v, 'n' + v, '') + '\n', '')
-+ forNonBlank(cells['1131'].value, v, '013D' + ' a' + v + '\n', '')
-+ forNonBlank(cells['1140'].value, v, '013H' + ' a' + v + '\n', '')
-+ forNonBlank(cells['4000a'].value, v, '021A' + ' a' + v + '\n', '')
-+ forNonBlank(cells['0999'].value, v, '046W' + ' a' + v + '\n', '')
++ forNonBlank(cells['1100a'].value, v, '011@ ' + 'a' + v + forNonBlank(cells['1100b'].value, v, 'b' + v, '') + forNonBlank(cells['1100n'].value, v, 'n' + v, '') + '\n', '')
++ forNonBlank(cells['1131'].value, v, '013D ' + 'a' + v + '\n', '')
++ forNonBlank(cells['1140'].value, v, '013H ' + 'a' + v + '\n', '')
++ forNonBlank(cells['4000a'].value, v, '021A ' + 'a' + v + '\n', '')
++ forNonBlank(cells['0999'].value, v, '046W ' + 'a' + v + '\n', '')
 ,'')
 }}{{
 if(isNonBlank(cells['E0XXb'].value),
