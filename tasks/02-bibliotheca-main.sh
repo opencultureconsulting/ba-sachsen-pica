@@ -7583,7 +7583,7 @@ if curl -fs \
       "baseColumnName": "M|VERL",
       "expression": "grel:value",
       "onError": "set-to-blank",
-      "newColumnName": "4020a",
+      "newColumnName": "4030n",
       "columnInsertIndex": 3
     }
   ]
@@ -7615,7 +7615,7 @@ if curl -fs \
       "baseColumnName": "M|VORT",
       "expression": "grel:value",
       "onError": "set-to-blank",
-      "newColumnName": "4020a",
+      "newColumnName": "4030p",
       "columnInsertIndex": 3
     }
   ]
@@ -7647,7 +7647,7 @@ if curl -fs \
       "baseColumnName": "M|VERL",
       "expression": "grel:value.split(' : ')[0]",
       "onError": "set-to-blank",
-      "newColumnName": "4020a",
+      "newColumnName": "4060a",
       "columnInsertIndex": 3
     }
   ]
