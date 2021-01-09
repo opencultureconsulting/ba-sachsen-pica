@@ -7499,6 +7499,166 @@ else
 fi
 echo
 
+# ----------------------------------- 4000d ---------------------------------- #
+
+# spec_B_T_18
+#TODO
+echo "Titelzusatz 4000d..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|HSTZU",
+      "expression": "grel:value",
+      "onError": "set-to-blank",
+      "newColumnName": "4000d",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# ----------------------------------- 4020a ---------------------------------- #
+
+# spec_B_T_20
+#TODO
+echo "Ausgabevermerk 4020a..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|AUFL",
+      "expression": "grel:value",
+      "onError": "set-to-blank",
+      "newColumnName": "4020a",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# ----------------------------------- 4030n ---------------------------------- #
+
+# spec_B_T_16
+#TODO
+echo "Verlagsname 4030n..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|VERL",
+      "expression": "grel:value",
+      "onError": "set-to-blank",
+      "newColumnName": "4020a",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# ----------------------------------- 4030p ---------------------------------- #
+
+# spec_B_T_21
+#TODO
+echo "Erscheinungsort 4030p..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|VORT",
+      "expression": "grel:value",
+      "onError": "set-to-blank",
+      "newColumnName": "4020a",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
+# ----------------------------------- 4060a ---------------------------------- #
+
+# spec_B_T_22
+#TODO
+echo "Umfang 4060a..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [],
+        "mode": "row-based"
+      },
+      "baseColumnName": "M|VERL",
+      "expression": "grel:value.split(' : ')[0]",
+      "onError": "set-to-blank",
+      "newColumnName": "4020a",
+      "columnInsertIndex": 3
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 # ----------------------------------- 8200 ----------------------------------- #
 
 # spec_B_E_02
@@ -9157,6 +9317,11 @@ with(
     '1500',
     '2000',
     '4000a',
+    '4000d',
+    '4020a',
+    '4030n',
+    '4030p',
+    '4060a',
     '7100j',
     '7100f',
     '7100a',
