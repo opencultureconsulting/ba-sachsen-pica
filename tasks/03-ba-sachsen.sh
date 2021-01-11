@@ -565,7 +565,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['1140'].value, v, '013H ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4000a'].value, v, '021A ' + 'a' + v + forNonBlank(cells['4000d'].value, v, 'd' + v, '') + '\n', '')
 + forNonBlank(cells['4020a'].value, v, '032@ ' + 'a' + v + '\n', '')
-+ if(or(isNonBlank(cells['4030n'].value),isNonBlank(cells['4030p'].value)),'033A ' + forNonBlank(cells['4030n'].value, v, 'n' + v,'') + forNonBlank(cells['4030p'].value, v, 'p' + v, '') + '\n', ''),'')
++ if(or(isNonBlank(cells['4030n'].value),isNonBlank(cells['4030p'].value)),'033A ' + forNonBlank(cells['4030n'].value, v, 'n' + v,'') + forNonBlank(cells['4030p'].value, v, 'p' + v, '') + '\n', '')
 + forNonBlank(cells['4060a'].value, v, '034D ' + 'a' + v + '\n', '')
 + forNonBlank(cells['0999'].value, v, '046W ' + 'a' + v + '\n', '')
 ,'')
