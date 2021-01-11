@@ -7644,7 +7644,7 @@ if curl -fs \
         "facets": [],
         "mode": "row-based"
       },
-      "baseColumnName": "M|AUFL",
+      "baseColumnName": "M|VERL",
       "expression": "grel:value.split(' : ')[0]",
       "onError": "set-to-blank",
       "newColumnName": "4060a",
