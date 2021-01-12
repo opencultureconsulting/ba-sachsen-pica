@@ -182,6 +182,125 @@ else
 fi
 echo
 
+# -------------------------- ACQ Datensätze löschen -------------------------- #
+
+# spec_Z_03
+# löscht alle Titel und deren Exemplare, die das Kennzeichen ACQ enthalten
+# löscht dann alle verbliebenen Exemplare mit Kennzeichen ACQ
+
+echo "ACQ Datensätze löschen..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "text",
+            "name": "Column 1",
+            "columnName": "Column 1",
+            "query": "*********M",
+            "mode": "text",
+            "caseSensitive": false,
+            "invert": false
+          }
+        ],
+        "mode": "record-based"
+      },
+      "baseColumnName": "Column 1",
+      "expression": "grel:value",
+      "onError": "set-to-blank",
+      "newColumnName": "tmp",
+      "columnInsertIndex": 1
+    },
+    {
+      "op": "core/column-move",
+      "columnName": "tmp",
+      "index": 0
+    },
+    {
+      "op": "core/row-removal",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "Column 1",
+            "expression": "grel:if(isNonBlank(cells['tmp'].value),with(row.record.cells[columnName].value.join('').find(/MEKZ ./).uniques().join(''),v,v),null)",
+            "columnName": "Column 1",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": "MEKZ ACQ",
+                  "l": "MEKZ ACQ"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "record-based"
+      }
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "text",
+            "name": "Column 1",
+            "columnName": "Column 1",
+            "query": "*********E",
+            "mode": "text",
+            "caseSensitive": false,
+            "invert": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "tmp",
+      "expression": "grel:cells['Column 1'].value",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/row-removal",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "text",
+            "name": "Column 1",
+            "columnName": "Column 1",
+            "query": "MEKZ ACQ",
+            "mode": "text",
+            "caseSensitive": false,
+            "invert": false
+          }
+        ],
+        "mode": "record-based"
+      }
+    },
+    {
+      "op": "core/column-removal",
+      "columnName": "tmp"
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 # ---------------------- Mehrzeilige Inhalte extrahieren --------------------- #
 
 # - Column 1 > Text filter > regular expression aktivieren > ^\* > invert

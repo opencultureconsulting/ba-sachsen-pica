@@ -2684,9 +2684,6 @@ echo
 # ----------------------------------- E0XXb ---------------------------------- #
 
 # spec_B_E_14, spec_Z_03, spec_B_E16
-# leer für Exemplare, die nicht konvertiert werden sollen:
-# - makulierte Exemplare
-# - ACQ-Datensätze
 # TODO: Selektionsschlüssel für Abschlussarbeiten
 echo "Selektionsschlüssel E0XXb..."
 if curl -fs \
@@ -2712,44 +2709,6 @@ if curl -fs \
               "v": {
                 "v": false,
                 "l": "false"
-              }
-            }
-          ],
-          "selectBlank": false,
-          "selectError": false
-        },
-        {
-          "type": "list",
-          "name": "E|EXSTA",
-          "expression": "value",
-          "columnName": "E|EXSTA",
-          "invert": true,
-          "omitBlank": false,
-          "omitError": false,
-          "selection": [
-            {
-              "v": {
-                "v": "M",
-                "l": "M"
-              }
-            }
-          ],
-          "selectBlank": false,
-          "selectError": false
-        },
-        {
-          "type": "list",
-          "name": "E|MEKZ",
-          "expression": "value",
-          "columnName": "E|MEKZ",
-          "invert": true,
-          "omitBlank": false,
-          "omitError": false,
-          "selection": [
-            {
-              "v": {
-                "v": "ACQ",
-                "l": "ACQ"
               }
             }
           ],
