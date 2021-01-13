@@ -55,6 +55,7 @@ tasks:
 #     - task: plauen
       - tasks/02-bibliotheca-main.sh "output/01-bibliotheca-pre"
     sources:
+      - tasks/01-bibliotheca-pre.sh
       - tasks/02-bibliotheca-main.sh
       - output/01-bibliotheca-pre/*.tsv
     generates:

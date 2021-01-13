@@ -237,8 +237,8 @@ if curl -fs \
             "selection": [
               {
                 "v": {
-                  "v": "MEKZ ACQ",
-                  "l": "MEKZ ACQ"
+                  "v": "MEKZ  ACQ",
+                  "l": "MEKZ  ACQ"
                 }
               }
             ],
@@ -279,7 +279,7 @@ if curl -fs \
             "type": "text",
             "name": "Column 1",
             "columnName": "Column 1",
-            "query": "MEKZ ACQ",
+            "query": "MEKZ  ACQ",
             "mode": "text",
             "caseSensitive": false,
             "invert": false
