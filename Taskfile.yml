@@ -14,8 +14,10 @@ env:
 tasks:
   default:
     desc: Generierung PICA+
-    deps: [bibliotheca, alephino]
+#   deps: [bibliotheca, alephino]
     cmds:
+      - task: alephino
+      - task: bibliotheca
       - tasks/03-ba-sachsen.sh "output/02-bibliotheca-main"
     sources:
       - tasks/03-ba-sachsen.sh
@@ -30,8 +32,10 @@ tasks:
 
   alephino:
     desc: Alephino Hauptverarbeitung
-    deps: [leipzig, riesa]
+#   deps: [leipzig, riesa]
     cmds:
+      - task: leipzig
+      - task: riesa
       - tasks/02-alephino-main.sh "output/01-alephino-pre"
     sources:
       - tasks/02-alephino-main.sh
@@ -200,3 +204,32 @@ tasks:
       - mkdir -p output/02-alephino-main log/02-alephino-main
       - mkdir -p output/02-bibliotheca-main log/02-bibliotheca-main
       - mkdir -p output/03-ba-sachsen log/03-ba-sachsen
+
+  barcodes:
+    desc: Ermitteln von Dubletten
+    deps: [default]
+    cmds:
+      - mkdir -p output/barcodes
+      # Bibliotheca Barcodes extrahieren
+      - for f in input/*.imp; do grep '^\*I BARCO ' "$f" | dos2unix | cut -c 10- | sort > "output/barcodes/$(f=${f##*/}; echo ${f%.*}).raw"; done
+      # Alephino Barcodes extrahieren
+      - for f in input/*-exemplare.txt; do grep '^120 ' "$f" | cut -c 6- | sort > "output/barcodes/$(f=${f##*/}; echo ${f%-*}).raw"; done
+      # Extrahierte Barcodes gegen generiertes PICA+ abgleichen
+      - grep '209G/' output/03-ba-sachsen/ba-sachsen.pic | cut -c 14- | sort > output/barcodes/pica
+      - for f in output/barcodes/*.raw; do comm -12 "$f" output/barcodes/pica > "output/barcodes/$(f=${f##*/}; echo ${f%.*}).filtered"; done
+      # Plauen, Leipzig, Riesa vorübergehend nicht filtern
+      - for f in leipzig riesa plauen; do cp output/barcodes/$f.raw output/barcodes/$f.filtered; done
+      # Dublette Barcodes Gesamtdubletten ermitteln
+      - sort output/barcodes/*.filtered | uniq -d > output/barcodes/duplicates
+      # Dubletten für jeden Teil ermitteln
+      - (cd output/barcodes && for f in *.filtered ; do grep -FxH -f duplicates "$f" | sort | join -o 2.1 -t ':' -a1 -2 2 duplicates - | cut -d '.' -f 1 > "${f}".tmp; done)
+      # Ergebnisse in Tabelle zusammenführen
+      - paste output/barcodes/duplicates output/barcodes/*.tmp | awk -F $'\t' '{sub($1, "\"&\""); print}' > output/barcodes/duplicates.tsv && rm output/barcodes/*.tmp
+      # Bearbeitungsstand
+      - 'echo "Seit Juli 2019 neu hinzugekommene Dubletten: $(comm -13 input/duplicates-2019-07-10.txt output/barcodes/duplicates | wc -l)"'
+      - 'echo "Seit Juli 2019 bearbeitete Dubletten: $(comm -23 input/duplicates-2019-07-10.txt output/barcodes/duplicates | wc -l)"'
+      - 'echo "Noch zu bearbeitende Dubletten: $(wc -l output/barcodes/duplicates)"'
+#    sources:
+#      - input/*
+#    generates:
+#      - output/barcodes/duplicates.tsv
