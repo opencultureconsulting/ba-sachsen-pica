@@ -228,7 +228,7 @@ tasks:
       # Bearbeitungsstand
       - 'echo "Seit Juli 2019 neu hinzugekommene Dubletten: $(comm -13 input/duplicates-2019-07-10.txt output/barcodes/duplicates | wc -l)"'
       - 'echo "Seit Juli 2019 bearbeitete Dubletten: $(comm -23 input/duplicates-2019-07-10.txt output/barcodes/duplicates | wc -l)"'
-      - 'echo "Noch zu bearbeitende Dubletten: $(wc -l output/barcodes/duplicates)"'
+      - 'echo "Noch zu bearbeitende Dubletten: $(wc -l < output/barcodes/duplicates)"'
 #    sources:
 #      - input/*
 #    generates:
