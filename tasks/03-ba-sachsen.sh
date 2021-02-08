@@ -526,6 +526,58 @@ else
 fi
 echo
 
+# ------------------------- Dublette Barcodes löschen ------------------------ #
+
+# spec_Z_06
+echo "Dublette Barcodes löschen..."
+if curl -fs \
+  --data project="${projects[$p]}" \
+  --data-urlencode "operations@-" \
+  "${endpoint}/command/core/apply-operations$(refine_csrf)" > /dev/null \
+  << "JSON"
+  [
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "list",
+            "name": "8200",
+            "expression": "facetCount(value, 'value', '8200') > 1",
+            "columnName": "8200",
+            "invert": false,
+            "omitBlank": false,
+            "omitError": false,
+            "selection": [
+              {
+                "v": {
+                  "v": true,
+                  "l": "true"
+                }
+              }
+            ],
+            "selectBlank": false,
+            "selectError": false
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "8200",
+      "expression": "null",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10,
+      "description": "Text transform on cells in column 8200 using expression null"
+    }
+  ]
+JSON
+then
+  log "transformed ${p} (${projects[$p]})"
+else
+  error "transform ${p} (${projects[$p]}) failed!"
+fi
+echo
+
 # ================================== EXPORT ================================== #
 
 checkpoint "Export"; echo
