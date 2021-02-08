@@ -7635,7 +7635,7 @@ if curl -fs \
         "mode": "row-based"
       },
       "baseColumnName": "E|BARCO",
-      "expression": "grel:cells['File'].value + value",
+      "expression": "grel:value",
       "onError": "set-to-blank",
       "newColumnName": "8200",
       "columnInsertIndex": 3
