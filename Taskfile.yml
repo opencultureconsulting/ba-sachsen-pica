@@ -215,8 +215,7 @@ tasks:
       # Alephino Barcodes extrahieren
       - for f in input/*-exemplare.txt; do grep '^120 ' "$f" | cut -c 6- | sort > "output/barcodes/$(f=${f##*/}; echo ${f%-*}).raw"; done
       # Extrahierte Barcodes gegen generiertes PICA+ abgleichen
-      - grep '209G/' output/03-ba-sachsen/ba-sachsen.pic | cut -c 14- | sort > output/barcodes/pica
-      - for f in output/barcodes/*.raw; do comm -12 "$f" output/barcodes/pica > "output/barcodes/$(f=${f##*/}; echo ${f%.*}).filtered"; done
+      - for f in output/barcodes/*.raw; do comm -12 "$f" <(sort output/03-ba-sachsen/barcodes.txt) > "output/barcodes/$(f=${f##*/}; echo ${f%.*}).filtered"; done
       # Plauen, Leipzig, Riesa vorübergehend nicht filtern
       - for f in leipzig riesa plauen; do cp output/barcodes/$f.raw output/barcodes/$f.filtered; done
       # Dublette Barcodes Gesamtdubletten ermitteln

@@ -529,6 +529,29 @@ echo
 # ------------------------- Dublette Barcodes löschen ------------------------ #
 
 # spec_Z_06
+format="txt"
+echo "Dublette Barcodes exportieren"
+IFS= read -r -d '' template << "TEMPLATE"
+{{
+forNonBlank(cells['8200'].value, v, v + '\n', '')
+}}
+TEMPLATE
+if echo "${template}" | head -c -2 | curl -fs \
+  --data project="${projects[$p]}" \
+  --data format="template" \
+  --data prefix="" \
+  --data suffix="" \
+  --data separator="" \
+  --data engine='{"facets":[],"mode":"row-based"}' \
+  --data-urlencode template@- \
+  "${endpoint}/command/core/export-rows" \
+  > "${workdir}/barcodes.${format}"
+then
+  log "exported ${p} (${projects[$p]}) to ${workdir}/barcodes.${format}"
+else
+  error "export of ${p} (${projects[$p]}) failed!"
+fi
+echo
 echo "Dublette Barcodes löschen..."
 if curl -fs \
   --data project="${projects[$p]}" \
