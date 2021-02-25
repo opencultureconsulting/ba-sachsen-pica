@@ -1,0 +1,148 @@
+[
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Column 1",
+          "expression": "value",
+          "columnName": "Column 1",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "M|025_",
+                "l": "M|025_"
+              }
+            },
+            {
+              "v": {
+                "v": "M|025e",
+                "l": "M|025e"
+              }
+            },
+            {
+              "v": {
+                "v": "M|004",
+                "l": "M|004"
+              }
+            },
+            {
+              "v": {
+                "v": "M|011",
+                "l": "M|011"
+              }
+            },
+            {
+              "v": {
+                "v": "M|026_",
+                "l": "M|026_"
+              }
+            },
+            {
+              "v": {
+                "v": "M|026a",
+                "l": "M|026a"
+              }
+            },
+            {
+              "v": {
+                "v": "M|026d",
+                "l": "M|026d"
+              }
+            },
+            {
+              "v": {
+                "v": "M|026g",
+                "l": "M|026g"
+              }
+            },
+            {
+              "v": {
+                "v": "M|030",
+                "l": "M|030"
+              }
+            },
+            {
+              "v": {
+                "v": "M|037z",
+                "l": "M|037z"
+              }
+            },
+            {
+              "v": {
+                "v": "M|038b",
+                "l": "M|038b"
+              }
+            },
+            {
+              "v": {
+                "v": "M|070",
+                "l": "M|070"
+              }
+            },
+            {
+              "v": {
+                "v": "M|073",
+                "l": "M|073"
+              }
+            },
+            {
+              "v": {
+                "v": "M|076z",
+                "l": "M|076z"
+              }
+            },
+            {
+              "v": {
+                "v": "M|080",
+                "l": "M|080"
+              }
+            },
+            {
+              "v": {
+                "v": "M|800s",
+                "l": "M|800s"
+              }
+            },
+            {
+              "v": {
+                "v": "M|802",
+                "l": "M|802"
+              }
+            },
+            {
+              "v": {
+                "v": "M|808b",
+                "l": "M|808b"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    }
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "text",
+          "name": "Column 1",
+          "columnName": "Column 1",
+          "query": "^M\\|9",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    }
+  }
+]

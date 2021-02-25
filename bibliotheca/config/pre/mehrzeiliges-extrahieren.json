@@ -1,0 +1,46 @@
+  [
+    {
+      "op": "core/column-addition",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "text",
+            "name": "Column 1",
+            "columnName": "Column 1",
+            "query": "^\\*",
+            "mode": "regex",
+            "caseSensitive": false,
+            "invert": true
+          }
+        ],
+        "mode": "row-based"
+      },
+      "baseColumnName": "Column 1",
+      "expression": "grel:value.slice(1)",
+      "onError": "set-to-blank",
+      "newColumnName": "value",
+      "columnInsertIndex": 1
+    },
+    {
+      "op": "core/text-transform",
+      "engineConfig": {
+        "facets": [
+          {
+            "type": "text",
+            "name": "Column 1",
+            "columnName": "Column 1",
+            "query": "^\\*",
+            "mode": "regex",
+            "caseSensitive": false,
+            "invert": true
+          }
+        ],
+        "mode": "row-based"
+      },
+      "columnName": "Column 1",
+      "expression": "grel:null",
+      "onError": "keep-original",
+      "repeat": false,
+      "repeatCount": 10
+    }
+  ]

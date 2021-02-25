@@ -1,0 +1,139 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|MEDNR",
+          "expression": "isBlank(value)",
+          "columnName": "M|MEDNR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|JAHR",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "1100n",
+    "columnInsertIndex": 3
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|MEDNR",
+          "expression": "isBlank(value)",
+          "columnName": "M|MEDNR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|JAHR",
+    "expression": "grel:with(with(with(value.replace('[','').replace(']','').replace('(','').replace(')','').replace(' ','').replace('?','').replace('.','').replace('ca','').replace('c','').replace('ff',''),x,forNonBlank(x.split('/')[1],v,v,x)),y,y.split('-')[0]),z,if(and(z.length()==4,isNumeric(z)),z,if(z=='19XX','19XX',null))))",
+    "onError": "set-to-blank",
+    "newColumnName": "1100a",
+    "columnInsertIndex": 3
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|MEDNR",
+          "expression": "isBlank(value)",
+          "columnName": "M|MEDNR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "1100a",
+          "expression": "isBlank(value)",
+          "columnName": "1100a",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "1100a",
+    "expression": "grel:if(cells['M|JAHR'].value.contains('19'),'19XX','20XX')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "text",
+          "name": "M|JAHR",
+          "columnName": "M|JAHR",
+          "query": "-",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|JAHR",
+    "expression": "grel:value.split('-')[1].replace('[','').replace(']','').replace('(','').replace(')','').replace(' ','').replace('?','').replace('.','')",
+    "onError": "set-to-blank",
+    "newColumnName": "1100b",
+    "columnInsertIndex": 3
+  }
+]

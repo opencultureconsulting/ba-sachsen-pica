@@ -1,234 +1,99 @@
-# https://taskfile.dev
+# https://github.com/opencultureconsulting/openrefine-task-runner
 
 version: '3'
 
-output: 'group'
+includes:
+  alephino: alephino
+  barcodes: barcodes
+  bibliotheca: bibliotheca
+  pica+: pica+
 
-vars:
-  DATE: '{{ now | date "20060102_150405"}}'
+silent: true
+output: prefixed
 
 env:
-  REFINE_MEMORY: 8g
-  REFINE_ENDPOINT: http://localhost:3334
+  OPENREFINE:
+    sh: readlink -m .openrefine/refine
+  CLIENT:
+    sh: readlink -m .openrefine/client
 
 tasks:
   default:
-    desc: Generierung PICA+
-#   deps: [bibliotheca, alephino]
+    desc: Datenverarbeitung sequentiell
     cmds:
-      - task: alephino
-      - task: bibliotheca
-      - tasks/03-ba-sachsen.sh "output/02-bibliotheca-main"
-    sources:
-      - tasks/03-ba-sachsen.sh
-#     - output/02-alephino-main/alephino.csv
-      - output/02-bibliotheca-main/bibliotheca.csv
-    generates:
-      - output/03-ba-sachsen/ba-sachsen.pic
-      - output/03-ba-sachsen/ba-sachsen.openrefine.tar.gz
-    env:
-      REFINE_WORKDIR: output/03-ba-sachsen
-      REFINE_LOGFILE: log/03-ba-sachsen/{{.DATE}}.log
+      - task: alephino:main
+      - task: bibliotheca:main
+      - task: pica+:refine
 
-  alephino:
-    desc: Alephino Hauptverarbeitung
-#   deps: [leipzig, riesa]
+  install:
+    desc: (re)install OpenRefine and openrefine-client into subdirectory .openrefine
     cmds:
-      - task: leipzig
-      - task: riesa
-      - tasks/02-alephino-main.sh "output/01-alephino-pre"
-    sources:
-      - tasks/02-alephino-main.sh
-      - output/01-alephino-pre/*.tsv
-    generates:
-#     - output/02-alephino-main/alephino.csv
-      - output/02-alephino-main/alephino.openrefine.tar.gz
-    env:
-      REFINE_ENDPOINT: http://localhost:3334
-      REFINE_WORKDIR: output/02-alephino-main
-      REFINE_LOGFILE: log/02-alephino-main/{{.DATE}}.log
+      - | # delete existing install and recreate folder
+        rm -rf .openrefine
+        mkdir -p .openrefine
+      - > # download OpenRefine archive
+        wget --no-verbose -O openrefine.tar.gz
+        https://github.com/OpenRefine/OpenRefine/releases/download/3.4.1/openrefine-linux-3.4.1.tar.gz
+      - | # install OpenRefine into subdirectory .openrefine
+        tar -xzf openrefine.tar.gz -C .openrefine --strip 1
+        rm openrefine.tar.gz
+      - | # optimize OpenRefine for batch processing
+        sed -i 's/cd `dirname $0`/cd "$(dirname "$0")"/' ".openrefine/refine" # fix path issue in OpenRefine startup file
+        sed -i '$ a JAVA_OPTIONS=-Drefine.headless=true' ".openrefine/refine.ini" # do not try to open OpenRefine in browser
+        sed -i 's/#REFINE_AUTOSAVE_PERIOD=60/REFINE_AUTOSAVE_PERIOD=1440/' ".openrefine/refine.ini" # set autosave period from 5 minutes to 25 hours
+      - > # download openrefine-client into subdirectory .openrefine
+        wget --no-verbose -O .openrefine/client
+        https://github.com/opencultureconsulting/openrefine-client/releases/download/v0.3.10/openrefine-client_0-3-10_linux
+      - chmod +x .openrefine/client # make client executable
 
-  bibliotheca:
-    desc: Bibliotheca Hauptverarbeitung
-#   deps: [bautzen, breitenbrunn, dresden, glauchau, plauen]
+  start:
+    dir: ./{{.DIR}}
     cmds:
-      - task: bautzen
-      - task: breitenbrunn
-      - task: dresden
-      - task: glauchau
-#     - task: plauen
-      - tasks/02-bibliotheca-main.sh "output/01-bibliotheca-pre"
-    sources:
-      - tasks/01-bibliotheca-pre.sh
-      - tasks/02-bibliotheca-main.sh
-      - output/01-bibliotheca-pre/*.tsv
-    generates:
-      - output/02-bibliotheca-main/bibliotheca.csv
-      - output/02-bibliotheca-main/bibliotheca.openrefine.tar.gz
-    env:
-      REFINE_ENDPOINT: http://localhost:3335
-      REFINE_WORKDIR: output/02-bibliotheca-main
-      REFINE_LOGFILE: log/02-bibliotheca-main/{{.DATE}}.log
+      - | # verify that OpenRefine is installed
+        if [ ! -f "$OPENREFINE" ]; then
+          echo 1>&2 "OpenRefine missing; try task install"; exit 1
+        fi
+      - | # delete temporary files and log file of previous run
+        rm -rf ./*.project* workspace.json
+        rm -rf "{{.PROJECT}}.log"
+      - > # launch OpenRefine with specific data directory and redirect its output to a log file
+        "$OPENREFINE" -v warn -p {{.PORT}} -m {{.RAM}}
+        -d ../{{.DIR}}
+        >> "{{.PROJECT}}.log" 2>&1 &
+      - | # wait until OpenRefine API is available
+        timeout 30s bash -c "until
+          wget -q -O - http://localhost:{{.PORT}} | cat | grep -q -o OpenRefine
+          do sleep 1
+        done"
 
-  bautzen:
-    desc: Bibliotheca Vorverarbeitung
+  stop:
+    dir: ./{{.DIR}}
     cmds:
-      - tasks/01-bibliotheca-pre.sh "{{.INPUT}}"
-    sources:
-      - tasks/01-bibliotheca-pre.sh
-      - '{{.INPUT}}'
-    generates:
-      - output/01-bibliotheca-pre/bautzen.tsv
-    vars:
-      INPUT: '{{.INPUT | default "input/bautzen.imp"}}'
-    env:
-      REFINE_MEMORY: '{{.REFINE_MEMORY | default "6G"}}'
-      REFINE_ENDPOINT: http://localhost:3334
-      REFINE_WORKDIR: output/01-bibliotheca-pre
-      REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_bautzen.log
+      - | # shut down OpenRefine gracefully
+        PID=$(lsof -t -i:{{.PORT}})
+        kill $PID
+        while ps -p $PID > /dev/null; do sleep 1; done
+      - > # archive the OpenRefine project
+        tar cfz
+        "{{.PROJECT}}.openrefine.tar.gz"
+        -C $(grep -l "{{.PROJECT}}" *.project/metadata.json | cut -d '/' -f 1)
+        .
+      - rm -rf ./*.project* workspace.json # delete temporary files
 
-  breitenbrunn:
-    desc: Bibliotheca Vorverarbeitung
+  kill:
+    dir: ./{{.DIR}}
     cmds:
-      - tasks/01-bibliotheca-pre.sh "{{.INPUT}}"
-    sources:
-      - tasks/01-bibliotheca-pre.sh
-      - '{{.INPUT}}'
-    generates:
-      - output/01-bibliotheca-pre/breitenbrunn.tsv
-    vars:
-      INPUT: '{{.INPUT | default "input/breitenbrunn.imp"}}'
-    env:
-      REFINE_MEMORY: '{{.REFINE_MEMORY | default "4G"}}'
-      REFINE_ENDPOINT: http://localhost:3335
-      REFINE_WORKDIR: output/01-bibliotheca-pre
-      REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_breitenbrunn.log
+      - | # shut down OpenRefine immediately to save time and disk space
+        PID=$(lsof -t -i:{{.PORT}})
+        kill -9 $PID
+        while ps -p $PID > /dev/null; do sleep 1; done
+      - rm -rf ./*.project* workspace.json # delete temporary files
 
-  dresden:
-    desc: Bibliotheca Vorverarbeitung
+  check:
+    desc: check OpenRefine log for any warnings and exit on error
+    dir: ./{{.DIR}}
     cmds:
-      - tasks/01-bibliotheca-pre.sh "{{.INPUT}}"
-    sources:
-      - tasks/01-bibliotheca-pre.sh
-      - '{{.INPUT}}'
-    generates:
-      - output/01-bibliotheca-pre/dresden.tsv
-    vars:
-      INPUT: '{{.INPUT | default "input/dresden.imp"}}'
-    env:
-      REFINE_MEMORY: '{{.REFINE_MEMORY | default "7G"}}'
-      REFINE_ENDPOINT: http://localhost:3336
-      REFINE_WORKDIR: output/01-bibliotheca-pre
-      REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_dresden.log
-
-  leipzig:
-    desc: Alephino Vorverarbeitung
-    cmds:
-      - tasks/01-alephino-pre.sh "{{.TITEL}}" "{{.EXEMPLARE}}"
-    sources:
-      - tasks/01-alephino-pre.sh
-      - '{{.TITEL}}'
-      - '{{.EXEMPLARE}}'
-    generates:
-      - output/01-alephino-pre/leipzig.tsv
-    vars:
-      TITEL: '{{.TITEL | default "input/leipzig-titel.txt"}}'
-      EXEMPLARE: '{{.EXEMPLARE | default "input/leipzig-exemplare.txt"}}'
-    env:
-      REFINE_MEMORY: '{{.REFINE_MEMORY | default "7G"}}'
-      REFINE_ENDPOINT: http://localhost:3337
-      REFINE_WORKDIR: output/01-alephino-pre
-      REFINE_LOGFILE: log/01-alephino-pre/{{.DATE}}_leipzig.log
-
-  glauchau:
-    desc: Bibliotheca Vorverarbeitung
-    cmds:
-      - tasks/01-bibliotheca-pre.sh "{{.INPUT}}"
-    sources:
-      - tasks/01-bibliotheca-pre.sh
-      - '{{.INPUT}}'
-    generates:
-      - output/01-bibliotheca-pre/glauchau.tsv
-    vars:
-      INPUT: '{{.INPUT | default "input/glauchau.imp"}}'
-    env:
-      REFINE_MEMORY: '{{.REFINE_MEMORY | default "4G"}}'
-      REFINE_ENDPOINT: http://localhost:3338
-      REFINE_WORKDIR: output/01-bibliotheca-pre
-      REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_glauchau.log
-
-  plauen:
-    desc: Bibliotheca Vorverarbeitung
-    cmds:
-      - tasks/01-bibliotheca-pre.sh "input/plauen.imp"
-    sources:
-      - tasks/01-bibliotheca-pre.sh
-      - input/plauen.imp
-    generates:
-      - output/01-bibliotheca-pre/plauen.tsv
-    env:
-      REFINE_MEMORY: '{{.REFINE_MEMORY | default "2G"}}'
-      REFINE_ENDPOINT: http://localhost:3339
-      REFINE_WORKDIR: output/01-bibliotheca-pre
-      REFINE_LOGFILE: log/01-bibliotheca-pre/{{.DATE}}_plauen.log
-
-  riesa:
-    desc: Alephino Vorverarbeitung
-    cmds:
-      - tasks/01-alephino-pre.sh "{{.TITEL}}" "{{.EXEMPLARE}}"
-    sources:
-      - tasks/01-alephino-pre.sh
-      - '{{.TITEL}}'
-      - '{{.EXEMPLARE}}'
-    generates:
-      - output/01-alephino-pre/riesa.tsv
-    vars:
-      TITEL: '{{.TITEL | default "input/riesa-titel.txt"}}'
-      EXEMPLARE: '{{.EXEMPLARE | default "input/riesa-exemplare.txt"}}'
-    env:
-      REFINE_MEMORY: '{{.REFINE_MEMORY | default "7G"}}'
-      REFINE_ENDPOINT: http://localhost:3340
-      REFINE_WORKDIR: output/01-alephino-pre
-      REFINE_LOGFILE: log/01-alephino-pre/{{.DATE}}_riesa.log
-
-  clean:
-    desc: Alle Daten löschen (reset auf Ausgangszustand)
-    cmds:
-      - rm -r lib log output
-
-  mkdir:
-    desc: Ordner erstellen
-    cmds:
-      - mkdir -p output/01-alephino-pre log/01-alephino-pre
-      - mkdir -p output/01-bibliotheca-pre log/01-bibliotheca-pre
-      - mkdir -p output/02-alephino-main log/02-alephino-main
-      - mkdir -p output/02-bibliotheca-main log/02-bibliotheca-main
-      - mkdir -p output/03-ba-sachsen log/03-ba-sachsen
-
-  barcodes:
-    desc: Ermitteln von Dubletten
-    deps: [default]
-    cmds:
-      - mkdir -p output/barcodes
-      # Bibliotheca Barcodes extrahieren
-      - for f in input/*.imp; do grep '^\*I BARCO ' "$f" | dos2unix | cut -c 10- | sort > "output/barcodes/$(f=${f##*/}; echo ${f%.*}).raw"; done
-      # Alephino Barcodes extrahieren
-      - for f in input/*-exemplare.txt; do grep '^120 ' "$f" | cut -c 6- | sort > "output/barcodes/$(f=${f##*/}; echo ${f%-*}).raw"; done
-      # Extrahierte Barcodes gegen generiertes PICA+ abgleichen
-      - for f in output/barcodes/*.raw; do comm -12 "$f" <(sort output/03-ba-sachsen/barcodes.txt) > "output/barcodes/$(f=${f##*/}; echo ${f%.*}).filtered"; done
-      # Plauen, Leipzig, Riesa vorübergehend nicht filtern
-      - for f in leipzig riesa plauen; do cp output/barcodes/$f.raw output/barcodes/$f.filtered; done
-      # Dublette Barcodes Gesamtdubletten ermitteln
-      - sort output/barcodes/*.filtered | uniq -d > output/barcodes/duplicates
-      # Dubletten für jeden Teil ermitteln
-      - (cd output/barcodes && for f in *.filtered ; do grep -FxH -f duplicates "$f" | sort | join -o 2.1 -t ':' -a1 -2 2 duplicates - | cut -d '.' -f 1 > "${f}".tmp; done)
-      # Ergebnisse in Tabelle zusammenführen
-      - paste output/barcodes/duplicates output/barcodes/*.tmp | awk -F $'\t' '{sub($1, "\"&\""); print}' > output/barcodes/duplicates.tsv && rm output/barcodes/*.tmp
-      # Bearbeitungsstand
-      - 'echo "Seit Juli 2019 neu hinzugekommene Dubletten: $(comm -13 input/duplicates-2019-07-10.txt output/barcodes/duplicates | wc -l)"'
-      - 'echo "Seit Juli 2019 bearbeitete Dubletten: $(comm -23 input/duplicates-2019-07-10.txt output/barcodes/duplicates | wc -l)"'
-      - 'echo "Noch zu bearbeitende Dubletten: $(wc -l < output/barcodes/duplicates)"'
-#    sources:
-#      - input/*
-#    generates:
-#      - output/barcodes/duplicates.tsv
+      - | # find log file(s) and check for "exception" or "error"
+        if grep -i 'exception\|error' $(find . -name '*.log'); then
+          echo 1>&2 "log contains warnings!"; exit 1
+        fi

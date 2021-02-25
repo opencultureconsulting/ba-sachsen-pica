@@ -1,0 +1,14 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|HSTZU",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "4000d",
+    "columnInsertIndex": 3
+  }
+]

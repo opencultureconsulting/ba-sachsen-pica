@@ -1,0 +1,15 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "E|BIB",
+    "expression": "grel:value.split('\u001f')[0].slice(1).replace(/^0+/,'')",
+    "onError": "set-to-blank",
+    "newColumnName": "titel_id",
+    "columnInsertIndex": 18,
+    "description": "Create column titel_id at index 18 based on column E|BIB using expression grel:value.split('\u001f')[0].slice(1).replace(/^0+/,'')"
+  }
+]

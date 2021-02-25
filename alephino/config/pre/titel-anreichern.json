@@ -1,0 +1,822 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|001'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|001",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|001",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|002a'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|002a",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|002a",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|003'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|003",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|003",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|004'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|004",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|004",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|027'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|027",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|027",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|030'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|030",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|030",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|050'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|050",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|050",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|100'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|100",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|100",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|115'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|115",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|115",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|120'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|120",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|120",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|123'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|123",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|123",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A02'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A02",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A02",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A72'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A72",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A72",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A73'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A73",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A73",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A87'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A87",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A87",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A91'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A91",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A91",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A95'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A95",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A95",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|BIB'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|BIB",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|BIB",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|CAT'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|CAT",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|CAT",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|FMT'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|FMT",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|FMT",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|IDN'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|IDN",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|IDN",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|LDR'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|LDR",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|LDR",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|STA'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|STA",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|STA",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|SUB'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|SUB",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|SUB",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|105'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|105",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|105",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|107'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|107",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|107",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A94'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A94",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A94",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|125'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|125",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|125",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|072'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|072",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|072",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A98'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A98",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A98",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|HOL'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|HOL",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|HOL",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A86'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A86",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A86",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A63'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A63",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A63",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A70'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A70",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A70",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A83'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A83",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A83",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A85'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A85",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A85",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|ABO'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|ABO",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|ABO",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A97'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A97",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A97",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A82'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|A82",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|A82",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|002'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|002",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|002",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|ORD'].value,v,v,'')).join('␞')",
+    "onError": "set-to-blank",
+    "newColumnName": "E|ORD",
+    "columnInsertIndex": 13
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E|ORD",
+    "keyColumnName": "M|001",
+    "mode": "separator",
+    "separator": "␞",
+    "regex": false
+  }
+]

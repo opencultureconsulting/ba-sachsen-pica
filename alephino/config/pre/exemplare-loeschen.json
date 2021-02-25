@@ -1,0 +1,65 @@
+[
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Column 1",
+          "expression": "value",
+          "columnName": "Column 1",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "E|A02",
+                "l": "E|A02"
+              }
+            },
+            {
+              "v": {
+                "v": "E|A86",
+                "l": "E|A86"
+              }
+            },
+            {
+              "v": {
+                "v": "E|SUB",
+                "l": "E|SUB"
+              }
+            },
+            {
+              "v": {
+                "v": "E|FMT",
+                "l": "E|FMT"
+              }
+            },
+            {
+              "v": {
+                "v": "E|CAT",
+                "l": "E|CAT"
+              }
+            },
+            {
+              "v": {
+                "v": "E|027",
+                "l": "E|027"
+              }
+            },
+            {
+              "v": {
+                "v": "E|123",
+                "l": "E|123"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    }
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "File",
+    "expression": "grel:with([ ['leipzig.tsv','LE'], ['riesa.tsv','RS'] ], mapping, forEach(mapping, m, if(value == m[0], m[1], '')).join(''))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  }
+]

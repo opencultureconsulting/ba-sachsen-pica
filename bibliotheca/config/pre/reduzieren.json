@@ -1,0 +1,29 @@
+[
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "key",
+          "expression": "grel:and(isNumeric(value[2,4].trim()), not(or(value[2,6] == '025z', value[2,6] == '026 ', value[2,6] == '026k', value[2,6] == '052 ', value[2,6] == '076b', value[2,6] == '076d')))",
+          "columnName": "key",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    }
+  }
+]

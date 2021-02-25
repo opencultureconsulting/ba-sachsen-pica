@@ -1,0 +1,17 @@
+[
+  {
+    "op": "core/column-move",
+    "columnName": "File",
+    "index": 0
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "E|EXNR",
+    "index": 0
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "M|MEDNR",
+    "index": 0
+  }
+]

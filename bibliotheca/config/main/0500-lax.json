@@ -1,0 +1,158 @@
+[
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|MEDGR",
+          "expression": "value",
+          "columnName": "M|MEDGR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "BAC",
+                "l": "BAC"
+              }
+            },
+            {
+              "v": {
+                "v": "DIP",
+                "l": "DIP"
+              }
+            },
+            {
+              "v": {
+                "v": "DI",
+                "l": "DI"
+              }
+            },
+            {
+              "v": {
+                "v": "MA",
+                "l": "MA"
+              }
+            },
+            {
+              "v": {
+                "v": "BA",
+                "l": "BA"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "7100f",
+          "expression": "value",
+          "columnName": "7100f",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "BB",
+                "l": "BB"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "E0XXb",
+    "expression": "grel:'d' + value[1,3]",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|MEDGR",
+          "expression": "value",
+          "columnName": "M|MEDGR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "DI",
+                "l": "DI"
+              }
+            },
+            {
+              "v": {
+                "v": "MA",
+                "l": "MA"
+              }
+            },
+            {
+              "v": {
+                "v": "BA",
+                "l": "BA"
+              }
+            },
+            {
+              "v": {
+                "v": "BAC",
+                "l": "BAC"
+              }
+            },
+            {
+              "v": {
+                "v": "DIP",
+                "l": "DIP"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "7100f",
+          "expression": "value",
+          "columnName": "7100f",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "EH",
+                "l": "EH"
+              }
+            },
+            {
+              "v": {
+                "v": "EH-Theke",
+                "l": "EH-Theke"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "E0XXb",
+    "expression": "grel:'n' + value[1,3]",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  }
+]

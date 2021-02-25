@@ -1,0 +1,15 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:value.replace(/^0+/,'')",
+    "onError": "set-to-blank",
+    "newColumnName": "id",
+    "columnInsertIndex": 12,
+    "description": "Create column id at index 12 based on column M|IDN using expression grel:value.replace(/^0+/,'')"
+  }
+]

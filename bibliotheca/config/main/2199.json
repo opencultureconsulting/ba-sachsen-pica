@@ -1,0 +1,14 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|MEDNR",
+    "expression": "grel:'BA' + cells['File'].value + value",
+    "onError": "set-to-blank",
+    "newColumnName": "2199",
+    "columnInsertIndex": 3
+  }
+]

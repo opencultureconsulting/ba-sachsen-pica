@@ -1,0 +1,204 @@
+version: '3'
+
+tasks:
+  main:
+    desc: Konvertierung von BIBLIOTHECA nach PICA3/CSV
+    vars:
+      DIR: '{{splitList ":" .TASK | first}}' # results in the task namespace, which is identical to the directory name
+    cmds:
+      - task: refine-pre
+        vars: {PROJECT: bautzen}
+      - task: refine-pre
+        vars: {PROJECT: breitenbrunn}
+      - task: refine-pre
+        vars: {PROJECT: dresden}
+      - task: refine-pre
+        vars: {PROJECT: glauchau}
+    # - task: refine-pre
+    #   vars: {PROJECT: plauen}
+      - task: refine-main
+
+  refine-pre:
+    dir: ./{{.DIR}}
+    label: '{{.TASK}}-{{.PROJECT}}'
+    vars:
+      DIR: '{{splitList ":" .TASK | first}}'
+      PORT: 3334 # assign a different port for each project
+      RAM: 8192M # maximum RAM for OpenRefine java heap space
+      LOG: '>(tee -a "log/{{.PROJECT}}.log") 2>&1'
+    cmds:
+      - echo "{{now | date "2006-01-02 15:04:05"}} {{.PROJECT}}"
+      - task: :start # launch OpenRefine
+        vars: {DIR: '{{.DIR}}/log', PROJECT: '{{.PROJECT}}', PORT: '{{.PORT}}', RAM: '{{.RAM}}'}
+      - > # Import
+        "$CLIENT" -P {{.PORT}}
+        --create "$(readlink -m input/{{.PROJECT}}.imp)"
+        --encoding ISO-8859-1
+        --ignoreLines 1
+        --storeBlankRows false
+        --projectName {{.PROJECT}}
+        > {{.LOG}}
+      - > # spec_Z_03: Makulierte Medien löschen; löscht alle Titel und deren Exemplare, die nur makulierte Ex. enthalten; löscht dann alle verbliebenen makulierten Ex.
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/pre/makuliert.json > {{.LOG}}
+      - > # ACQ Datensätze löschen; löscht alle Titel und deren Exemplare, die das Kennzeichen ACQ enthalten; löscht dann alle verbliebenen Exemplare mit Kennzeichen ACQ
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/pre/acq.json > {{.LOG}}
+      - > # Mehrzeilige Inhalte extrahieren
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/pre/mehrzeiliges-extrahieren.json > {{.LOG}}
+      - > # Leerzeilen löschen
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/pre/leerzeilen.json > {{.LOG}}
+      - > # Felder und Werte aufteilen
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/pre/feld-wert-separieren.json > {{.LOG}}
+      - > # Mehrzeilige Inhalte (mit #) zusammenführen; Trennzeichen: U+241F
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/pre/mehrzeiliges-zusammen.json > {{.LOG}}
+      - > # Feldnamen um M| oder E| ergänzen, weil gleiche Feldnamen in Medien und Exemplaren vorkommen
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/pre/feldname-prefix.json > {{.LOG}}
+      - > # Mehrfachbelegungen zusammenführen
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/pre/mehrfachbelegungen.json > {{.LOG}}
+      - > # Titeldaten-Felder mit Zahlen löschen (außer 025z 026 026k 052 076b 076d)
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/pre/reduzieren.json > {{.LOG}}
+      - > # Transponieren
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/pre/transponieren.json > {{.LOG}}
+      - mkdir -p output
+      - > # Export
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}}
+        --output "$(readlink -m output/{{.PROJECT}}.tsv)"
+        > {{.LOG}}
+      - | # print allocated system resources
+        PID="$(lsof -t -i:{{.PORT}})"
+        echo "used $(($(ps --no-headers -o rss -p "$PID") / 1024)) MB RAM" > {{.LOG}}
+        echo "used $(ps --no-headers -o cputime -p "$PID") CPU time" > {{.LOG}}
+      - task: :kill # shut down OpenRefine immediately to save time and disk space
+        vars: {DIR: '{{.DIR}}/log', PORT: '{{.PORT}}'}
+      - task: :check # check OpenRefine log for any warnings and exit on error
+        vars: {DIR: '{{.DIR}}'}
+    sources:
+      - Taskfile.yml
+      - input/{{.PROJECT}}.imp
+      - config/pre/**
+    generates:
+      - output/{{.PROJECT}}.tsv
+    ignore_error: true # workaround to avoid an orphaned Java process on error https://github.com/go-task/task/issues/141
+
+  refine-main:
+    dir: ./{{.DIR}}
+    vars:
+      DIR: '{{splitList ":" .TASK | first}}'
+      PROJECT: bibliotheca
+      PORT: 3334 # assign a different port for each project
+      RAM: 8192M # maximum RAM for OpenRefine java heap space
+      LOG: '>(tee -a "log/{{.PROJECT}}.log") 2>&1'
+    cmds:
+      - echo "{{now | date "2006-01-02 15:04:05"}} {{.PROJECT}}"
+      - task: :start # launch OpenRefine
+        vars: {DIR: '{{.DIR}}/log', PROJECT: '{{.PROJECT}}', PORT: '{{.PORT}}', RAM: '{{.RAM}}'}
+      - > # Zip-Archiv mit Output der Vorverarbeitung erstellen
+        zip -j tmp.zip
+        output/bautzen.tsv
+        output/breitenbrunn.tsv
+        output/dresden.tsv
+        output/glauchau.tsv
+      # output/plauen.tsv
+      - > # Import Zip-Archiv
+        "$CLIENT" -P {{.PORT}}
+        --create "$(readlink -m tmp.zip)"
+        --format tsv
+        --includeFileSources true
+        --projectName {{.PROJECT}}
+        > {{.LOG}}
+        && rm tmp.zip
+      - > # Spalten sortieren: Beginnen mit 1. M|MEDNR, 2. E|EXNR, 3. File, damit Records-Mode erhalten bleibt
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/sortieren.json > {{.LOG}}
+      - > # spec_Z_01: E-Books löschen (Bautzen)
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/ebooks.json > {{.LOG}}
+      - > # spec_Z_02: Zeitschriften und Teile von MTM löschen; siehe auch Spezifikation in CBS-Titeldaten Bibliotheca
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/zeitschriften.json > {{.LOG}}
+      - > # Bibliothekskürzel aus Import-Dateiname
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/file.json > {{.LOG}}
+      - > # spec_B_T_01: PPNs in 0100 (K10plus) und 0110 (SWB); 8-stellige aus Dresden sind SWN ohne Prüfziffer, dort wird Prüfziffer ergänzt; Zuordnung 9-stellige abhängig von ersten Zeichen und M026 / M026k; Zuordnung 10-stellige abhängig von erstem Zeichen
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/0100-0110.json > {{.LOG}}
+      - > # spec_B_T_49: Nummern aus Datenkonversion 2199
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2199.json > {{.LOG}}
+      - > # spec_B_E_15: Abteilungsnummer 7100j
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/7100j.json > {{.LOG}}
+      - > # spec_B_E_13, spec_Z_03 und spec_B_E_08: Zweigstelle 7100f
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/7100f.json > {{.LOG}}
+      - > # spec_B_E_07: Standort 7100a
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/7100a.json > {{.LOG}}
+      - > # spec_B_T_04, spec_B_T_05: ISBN 2000
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2000.json > {{.LOG}}
+        # TODO: ISMN in 2020
+      - > # spec_B_E_10: Zugangsdatum E0XX
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/e0xx.json > {{.LOG}}
+      - > # spec_B_E_14, spec_Z_03, spec_B_E16: Selektionsschlüssel E0XXb
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/e0xxb.json > {{.LOG}}
+        # TODO: Selektionsschlüssel für Abschlussarbeiten
+      - > # spec_B_T_56_1: Gattung/Status 0500 und Veröffentlichungsart 1140
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/0500-1140.json > {{.LOG}}
+        # TODO: ART = S
+      - > # spec_B_T_56_2: F/f für Überordnungen 0500
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/0500-ueber.json > {{.LOG}}
+      - > # spec_B_T_56_3: Lax für Abschlussarbeiten 0500
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/0500-lax.json > {{.LOG}}
+      - > # spec_B_T_50, spec_B_T_51, spec_B_T_52, spec_B_T_56: IMD-Felder 0501a, 0501b, 0502a, 0502b, 0503a, 0503b, 0999
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/0501-0502-0503-0999.json > {{.LOG}}
+      - > # spec_B_T_17: Haupttitel 4000a
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4000a.json > {{.LOG}}
+      - > # spec_B_T_18: Titelzusatz 4000d
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4000d.json > {{.LOG}}
+      - > # spec_B_T_20: Ausgabevermerk 4020a
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4020a.json > {{.LOG}}
+      - > # spec_B_T_16: Verlagsname 4030n
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4030n.json > {{.LOG}}
+      - > # spec_B_T_21: Erscheinungsort 4030p
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4030p.json > {{.LOG}}
+      - > # spec_B_T_22: Umfang 4060a
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4060a.json > {{.LOG}}
+      - > # spec_B_E_02: Verbuchungsnummer 8200
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/8200.json > {{.LOG}}
+      - > # spec_B_T_02: Jahresangaben 1100a und 1100n; 1100a normiert mit zahlreichen Ersetzungen
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/1100a-1100n.json > {{.LOG}}
+        # TODO: Jahr (Ende) in Sortierform in 1100b
+      - > # spec_B_E_01: Ausleihhinweis 8515; nur für Bautzen
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/8515.json > {{.LOG}}
+      - > # spec_B_E_04, spec_B_E_05 und spec_B_E_08: Exemplarstatus 7100d
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/7100d.json > {{.LOG}}
+      - > # spec_B_E_06: Mediengruppe 8011
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/8011.json > {{.LOG}}
+      - > # spec_B_E_11 und spec_B_E_12: Zugangsnummer 8100
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/8100.json > {{.LOG}}
+      - > # spec_B_T_03: Sprachcode 1500
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/1500.json > {{.LOG}}
+      - > # spec_B_T_54: Text für Abschlussarbeiten 1131
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/1131.json > {{.LOG}}
+      - > # spec_B_T_55: Text für Abschlussarbeiten 8600
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/8600.json > {{.LOG}}
+      # Die folgende Transformationsregel muss direkt vor dem Export stehen
+      - > # Abschließend Titel ohne Exemplare löschen; Mehrteilige Monografien sollen stehen bleiben, daher nur: wenn BANDB und BANDN nicht leer
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/abschluss.json > {{.LOG}}
+      - > # Export der PICA3-Spalten als CSV; Spalte 2199 muss vorne stehen, weil später für Sortierung benötigt
+        mkdir -p output &&
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}}
+        --output "$(readlink -m output/{{.PROJECT}}.csv)"
+        --template "$(< config/main/template.txt)"
+        --rowSeparator ""
+        > {{.LOG}}
+      - | # print allocated system resources
+        PID="$(lsof -t -i:{{.PORT}})"
+        echo "used $(($(ps --no-headers -o rss -p "$PID") / 1024)) MB RAM" > {{.LOG}}
+        echo "used $(ps --no-headers -o cputime -p "$PID") CPU time" > {{.LOG}}
+      - task: :stop # shut down OpenRefine and archive the OpenRefine project
+        vars: {DIR: '{{.DIR}}/log', PROJECT: '{{.PROJECT}}', PORT: '{{.PORT}}'}
+      - task: :check # check OpenRefine log for any warnings and exit on error
+        vars: {DIR: '{{.DIR}}'}
+    sources:
+      - Taskfile.yml
+      - output/*.tsv
+      - config/main/**
+    generates:
+      - log/{{.PROJECT}}.openrefine.tar.gz
+      - output/{{.PROJECT}}.csv
+    ignore_error: true # workaround to avoid an orphaned Java process on error https://github.com/go-task/task/issues/141
+
+  default: # enable standalone execution (running `task` in project directory)
+    cmds:
+      - DIR="${PWD##*/}:main" && cd .. && task "$DIR"

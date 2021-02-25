@@ -1,0 +1,80 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Column 1",
+          "expression": "value",
+          "columnName": "Column 1",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "M|IDN",
+                "l": "M|IDN"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "Column 2",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "id",
+    "columnInsertIndex": 2,
+    "description": "Create column id at index 2 based on column Column 2 using expression grel:value"
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "id",
+    "index": 0,
+    "description": "Move column id to position 0"
+  },
+  {
+    "op": "core/fill-down",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "id",
+    "description": "Fill down cells in column id"
+  },
+  {
+    "op": "core/row-reorder",
+    "mode": "row-based",
+    "sorting": {
+      "criteria": [
+        {
+          "valueType": "string",
+          "column": "id",
+          "blankPosition": 2,
+          "errorPosition": 1,
+          "reverse": false,
+          "caseSensitive": false
+        },
+        {
+          "valueType": "string",
+          "column": "Column 1",
+          "blankPosition": 2,
+          "errorPosition": 1,
+          "reverse": false,
+          "caseSensitive": false
+        }
+      ]
+    },
+    "description": "Reorder rows"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "id",
+    "description": "Remove column id"
+  }
+]

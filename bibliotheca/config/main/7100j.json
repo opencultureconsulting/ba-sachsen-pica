@@ -1,0 +1,14 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "File",
+    "expression": "grel:with(if(value=='DD',forNonBlank(cells['E|ZWGST'].value,v,v,value),value),x,x.replace('BB','0002').replace('BZ','0001').replace('DD','0003').replace('EH','0008').replace('GC','0004').replace('PL','0007'))",
+    "onError": "set-to-blank",
+    "newColumnName": "7100j",
+    "columnInsertIndex": 3
+  }
+]

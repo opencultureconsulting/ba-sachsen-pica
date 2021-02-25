@@ -1,0 +1,8 @@
+[
+  {
+    "op": "core/multivalued-cell-join",
+    "columnName": "value",
+    "keyColumnName": "key",
+    "separator": "␟"
+  }
+]

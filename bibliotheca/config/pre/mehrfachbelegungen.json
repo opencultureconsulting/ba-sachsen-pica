@@ -1,0 +1,16 @@
+[
+  {
+    "op": "core/blank-down",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "key"
+  },
+  {
+    "op": "core/multivalued-cell-join",
+    "columnName": "value",
+    "keyColumnName": "key",
+    "separator": "␟"
+  }
+]

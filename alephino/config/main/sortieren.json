@@ -1,0 +1,27 @@
+[
+  {
+    "op": "core/column-move",
+    "columnName": "File",
+    "index": 0
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "E|001",
+    "index": 0
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "M|029",
+    "index": 0
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "M|026f",
+    "index": 0
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "M|IDN",
+    "index": 0
+  }
+]

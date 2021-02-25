@@ -1,0 +1,14 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "E|BARCO",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "8200",
+    "columnInsertIndex": 3
+  }
+]

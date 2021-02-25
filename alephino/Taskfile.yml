@@ -1,0 +1,146 @@
+version: '3'
+
+tasks:
+  main:
+    desc: Konvertierung von Alephino nach PICA3/CSV
+    vars:
+      DIR: '{{splitList ":" .TASK | first}}' # results in the task namespace, which is identical to the directory name
+    cmds:
+      - task: refine-pre
+        vars: {PROJECT: leipzig}
+      - task: refine-pre
+        vars: {PROJECT: riesa}
+      - task: refine-main
+
+  refine-pre:
+    dir: ./{{.DIR}}
+    label: '{{.TASK}}-{{.PROJECT}}'
+    vars:
+      DIR: '{{splitList ":" .TASK | first}}'
+      PORT: 3335 # assign a different port for each project
+      RAM: 8192M # maximum RAM for OpenRefine java heap space
+      LOG: '>(tee -a "log/{{.PROJECT}}.log") 2>&1'
+    cmds:
+      - echo "{{now | date "2006-01-02 15:04:05"}} {{.PROJECT}}"
+      - task: :start # launch OpenRefine
+        vars: {DIR: '{{.DIR}}/log', PROJECT: '{{.PROJECT}}', PORT: '{{.PORT}}', RAM: '{{.RAM}}'}
+      - > # Import Titel
+        "$CLIENT" -P {{.PORT}}
+        --create "$(readlink -m input/{{.PROJECT}}-titel.txt)"
+        --format fixed-width
+        --encoding UTF-8
+        --columnWidths 5
+        --skipDataLines 0
+        --storeBlankRows false
+        --projectName titel
+        > {{.LOG}}
+      - > # Import Exemplare
+        "$CLIENT" -P {{.PORT}}
+        --create "$(readlink -m input/{{.PROJECT}}-exemplare.txt)"
+        --format fixed-width
+        --encoding UTF-8
+        --columnWidths 5
+        --skipDataLines 0
+        --storeBlankRows false
+        --projectName exemplare
+        > {{.LOG}}
+      - | # Titel: Korrekturen Einzelfälle
+        "$CLIENT" -P {{.PORT}} titel --apply config/pre/titel-einzelfaelle.json > {{.LOG}}
+      - | # Prefix M bzw. E für Feldnamen
+        "$CLIENT" -P {{.PORT}} titel --apply config/pre/titel-prefix.json > {{.LOG}}
+        "$CLIENT" -P {{.PORT}} exemplare --apply config/pre/exemplare-prefix.json > {{.LOG}}
+      - | # Datensätze und Feldnamen sortieren
+        "$CLIENT" -P {{.PORT}} titel --apply config/pre/titel-sortieren.json > {{.LOG}}
+        "$CLIENT" -P {{.PORT}} exemplare --apply config/pre/exemplare-sortieren.json > {{.LOG}}
+      - | # Mehrfachbelegungen zusammenführen
+        "$CLIENT" -P {{.PORT}} titel --apply config/pre/titel-mehrfachbelegungen.json > {{.LOG}}
+        "$CLIENT" -P {{.PORT}} exemplare --apply config/pre/exemplare-mehrfachbelegungen.json > {{.LOG}}
+      - | # Felder löschen
+        "$CLIENT" -P {{.PORT}} titel --apply config/pre/titel-loeschen.json > {{.LOG}}
+        "$CLIENT" -P {{.PORT}} exemplare --apply config/pre/exemplare-loeschen.json > {{.LOG}}
+      - | # Transponieren
+        "$CLIENT" -P {{.PORT}} titel --apply config/pre/titel-transponieren.json > {{.LOG}}
+        "$CLIENT" -P {{.PORT}} exemplare --apply config/pre/exemplare-transponieren.json > {{.LOG}}
+      - | # Titel-ID separieren 
+        "$CLIENT" -P {{.PORT}} titel --apply config/pre/titel-id-separieren.json > {{.LOG}}
+        "$CLIENT" -P {{.PORT}} exemplare --apply config/pre/exemplare-id-separieren.json > {{.LOG}}
+      - | # Titel: Exemplare anreichern
+        "$CLIENT" -P {{.PORT}} titel --apply config/pre/titel-anreichern.json > {{.LOG}}
+      - mkdir -p output
+      - > # Export
+        "$CLIENT" -P {{.PORT}} titel
+        --output "$(readlink -m output/{{.PROJECT}}.tsv)"
+        > {{.LOG}}
+      - | # print allocated system resources
+        PID="$(lsof -t -i:{{.PORT}})"
+        echo "used $(($(ps --no-headers -o rss -p "$PID") / 1024)) MB RAM" > {{.LOG}}
+        echo "used $(ps --no-headers -o cputime -p "$PID") CPU time" > {{.LOG}}
+      - task: :kill # shut down OpenRefine immediately to save time and disk space
+        vars: {DIR: '{{.DIR}}/log', PORT: '{{.PORT}}'}
+      - task: :check # check OpenRefine log for any warnings and exit on error
+        vars: {DIR: '{{.DIR}}'}
+    sources:
+      - Taskfile.yml
+      - input/{{.PROJECT}}.imp
+      - config/pre/**
+    generates:
+      - output/{{.PROJECT}}.tsv
+    ignore_error: true # workaround to avoid an orphaned Java process on error https://github.com/go-task/task/issues/141
+
+  refine-main:
+    dir: ./{{.DIR}}
+    vars:
+      DIR: '{{splitList ":" .TASK | first}}'
+      PROJECT: alephino
+      PORT: 3335 # assign a different port for each project
+      RAM: 8192M # maximum RAM for OpenRefine java heap space
+      LOG: '>(tee -a "log/{{.PROJECT}}.log") 2>&1'
+    cmds:
+      - echo "{{now | date "2006-01-02 15:04:05"}} {{.PROJECT}}"
+      - task: :start # launch OpenRefine
+        vars: {DIR: '{{.DIR}}/log', PROJECT: '{{.PROJECT}}', PORT: '{{.PORT}}', RAM: '{{.RAM}}'}
+      - > # Zip-Archiv mit Output der Vorverarbeitung erstellen
+        zip -j tmp.zip
+        output/leipzig.tsv
+        output/riesa.tsv
+      - > # Import Zip-Archiv
+        "$CLIENT" -P {{.PORT}}
+        --create "$(readlink -m tmp.zip)"
+        --format tsv
+        --includeFileSources true
+        --projectName {{.PROJECT}}
+        > {{.LOG}}
+        && rm tmp.zip
+      - > # Spalten sortieren: Beginnen mit 1. M|001, 2. E|001, 3. File; damit Records-Mode erhalten bleibt
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/sortieren.json > {{.LOG}}
+      - > # Bibliothekskürzel aus Import-Dateiname
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/file.json > {{.LOG}}
+      - > # spec_A_E_01: Signatur 7100a
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/7100a.json > {{.LOG}}
+#     - > # Export der PICA3-Spalten als CSV; Spalte 2199 muss vorne stehen, weil später für Sortierung benötigt
+#       mkdir -p output &&
+#       "$CLIENT" -P {{.PORT}} {{.PROJECT}}
+#       --output "$(readlink -m output/{{.PROJECT}}.csv)"
+#       --template "$(< config/main/template.txt)"
+#       --rowSeparator ""
+#       > {{.LOG}}
+      - | # print allocated system resources
+        PID="$(lsof -t -i:{{.PORT}})"
+        echo "used $(($(ps --no-headers -o rss -p "$PID") / 1024)) MB RAM" > {{.LOG}}
+        echo "used $(ps --no-headers -o cputime -p "$PID") CPU time" > {{.LOG}}
+      - task: :stop # shut down OpenRefine and archive the OpenRefine project
+        vars: {DIR: '{{.DIR}}/log', PROJECT: '{{.PROJECT}}', PORT: '{{.PORT}}'}
+      - task: :check # check OpenRefine log for any warnings and exit on error
+        vars: {DIR: '{{.DIR}}'}
+    sources:
+      - Taskfile.yml
+      - output/*.tsv
+      - config/main/**
+    generates:
+      - log/{{.PROJECT}}.openrefine.tar.gz
+#     - output/{{.PROJECT}}.csv
+    ignore_error: true # workaround to avoid an orphaned Java process on error https://github.com/go-task/task/issues/141
+
+  default: # enable standalone execution (running `task` in project directory)
+    cmds:
+      - DIR="${PWD##*/}:main" && cd .. && task "$DIR"

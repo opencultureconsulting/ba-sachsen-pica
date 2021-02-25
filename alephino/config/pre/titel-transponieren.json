@@ -1,0 +1,9 @@
+[
+  {
+    "op": "core/key-value-columnize",
+    "keyColumnName": "Column 1",
+    "valueColumnName": "Column 2",
+    "noteColumnName": "",
+    "description": "Columnize by key column Column 1 and value column Column 2 with note column "
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|VORT",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "4030p",
+    "columnInsertIndex": 3
+  }
+]

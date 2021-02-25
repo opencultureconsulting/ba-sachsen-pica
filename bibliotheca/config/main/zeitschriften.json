@@ -1,0 +1,165 @@
+[
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|BANDN",
+          "expression": "value",
+          "columnName": "M|BANDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "0",
+                "l": "0"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "M|BANDN",
+    "expression": "grel:null",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|ART",
+          "expression": "value",
+          "columnName": "M|ART",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "GH",
+                "l": "GH"
+              }
+            },
+            {
+              "v": {
+                "v": "Z",
+                "l": "Z"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    }
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|ART",
+          "expression": "value",
+          "columnName": "M|ART",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "G",
+                "l": "G"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|UART",
+          "expression": "value",
+          "columnName": "M|UART",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "R",
+                "l": "R"
+              }
+            },
+            {
+              "v": {
+                "v": "Z",
+                "l": "Z"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    }
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|ART",
+          "expression": "value",
+          "columnName": "M|ART",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "G",
+                "l": "G"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|MEDNR",
+          "expression": "grel:forEach(value.cross('bibliotheca','M|NRPRE'),r,if(and(r.cells['File'].value == cells['File'].value, or(isNonBlank(r.cells['M|BANDB'].value),isNonBlank(r.cells['M|BANDN'].value))),'vorhanden','fehlt')).inArray('vorhanden')",
+          "columnName": "M|MEDNR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": true
+        }
+      ],
+      "mode": "row-based"
+    }
+  }
+]

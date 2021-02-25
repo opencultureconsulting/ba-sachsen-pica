@@ -1,0 +1,14 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "E|MEDGR",
+    "expression": "grel:'MEDGR: ' + value",
+    "onError": "set-to-blank",
+    "newColumnName": "8011",
+    "columnInsertIndex": 3
+  }
+]

@@ -1,5 +1,6 @@
-input
-lib
-log
-output
 .task
+.openrefine
+*/input
+*/output
+*/tmp
+*/log/*

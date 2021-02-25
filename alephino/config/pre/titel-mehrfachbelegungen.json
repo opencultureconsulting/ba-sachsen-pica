@@ -1,0 +1,18 @@
+[
+  {
+    "op": "core/blank-down",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Column 1",
+    "description": "Blank down cells in column Column 1"
+  },
+  {
+    "op": "core/multivalued-cell-join",
+    "columnName": "Column 2",
+    "keyColumnName": "Column 1",
+    "separator": "␟",
+    "description": "Join multi-valued cells in column Column 2"
+  }
+]

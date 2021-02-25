@@ -1,0 +1,14 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "E|100",
+    "expression": "grel:value.split('\u001f')[0].slice(1)",
+    "onError": "set-to-blank",
+    "newColumnName": "7100a",
+    "columnInsertIndex": 5
+  }
+]

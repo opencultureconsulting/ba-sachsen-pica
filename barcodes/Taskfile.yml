@@ -1,0 +1,38 @@
+version: '3'
+
+tasks:
+  main:
+    desc: Ermitteln von dubletten Barcodes
+    dir: ./{{.DIR}}
+    vars:
+      DIR: '{{splitList ":" .TASK | first}}'
+    cmds:
+      - rm -rf tmp
+      - mkdir -p tmp output
+      # Bibliotheca Barcodes extrahieren
+      - for f in ../bibliotheca/input/*.imp; do grep '^\*I BARCO ' "$f" | dos2unix | cut -c 10- | sort > "tmp/$(f=${f##*/}; echo ${f%.*}).raw"; done
+      # Alephino Barcodes extrahieren
+      - for f in ../alephino/input/*-exemplare.txt; do grep '^120 ' "$f" | cut -c 6- | sort > "tmp/$(f=${f##*/}; echo ${f%-*}).raw"; done
+      # Extrahierte Barcodes gegen generiertes PICA+ abgleichen
+      - for f in tmp/*.raw; do comm -12 "$f" <(sort ../pica+/output/barcodes.txt) > "tmp/$(f=${f##*/}; echo ${f%.*}).filtered"; done
+      # Plauen, Leipzig, Riesa vorübergehend nicht filtern
+      - for f in leipzig riesa plauen; do cp tmp/$f.raw tmp/$f.filtered; done
+      # Dublette Barcodes Gesamtdubletten ermitteln
+      - sort tmp/*.filtered | uniq -d > tmp/duplicates
+      # Dubletten für jeden Teil ermitteln
+      - (cd tmp && for f in *.filtered ; do grep -FxH -f duplicates "$f" | sort | join -o 2.1 -t ':' -a1 -2 2 duplicates - | cut -d '.' -f 1 > "${f}".tmp; done)
+      # Ergebnisse in Tabelle zusammenführen
+      - paste tmp/duplicates tmp/*.tmp | awk -F $'\t' '{sub($1, "\"&\""); print}' > output/duplicates.tsv
+      # Datei mit Gesamtdubletten in Verzeichnis output schieben
+      - mv tmp/duplicates output/duplicates
+      # Bearbeitungsstand ausgeben
+      - 'echo "Seit Juli 2019 neu hinzugekommene Dubletten: $(comm -13 input/duplicates-2019-07-10.txt output/duplicates | wc -l)"'
+      - 'echo "Seit Juli 2019 bearbeitete Dubletten: $(comm -23 input/duplicates-2019-07-10.txt output/duplicates | wc -l)"'
+      - 'echo "Noch zu bearbeitende Dubletten: $(wc -l < output/duplicates)"'
+    preconditions:
+      - sh: test -f ../pica+/output/barcodes.txt
+        msg: Barcode-Datei fehlt; versuche "task default"
+
+  default: # enable standalone execution (running `task` in project directory)
+    cmds:
+      - DIR="${PWD##*/}:main" && cd .. && task "$DIR"

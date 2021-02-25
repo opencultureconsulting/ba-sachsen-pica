@@ -1,0 +1,34 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|EXNR",
+          "expression": "isBlank(value)",
+          "columnName": "E|EXNR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "E|ZUDAT",
+    "expression": "grel:forNonBlank(value,v,v[0,2] + '-' + v[3,5] + '-' + v[8,10],'22-07-20')",
+    "onError": "set-to-blank",
+    "newColumnName": "E0XX",
+    "columnInsertIndex": 3
+  }
+]
