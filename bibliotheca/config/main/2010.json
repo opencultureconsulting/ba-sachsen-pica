@@ -1,0 +1,34 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|ISSN",
+          "expression": "isBlank(value)",
+          "columnName": "M|ISSN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|ISSN",
+    "expression": "grel:value.replace('-','')",
+    "onError": "set-to-blank",
+    "newColumnName": "2010",
+    "columnInsertIndex": 3,
+  }
+]

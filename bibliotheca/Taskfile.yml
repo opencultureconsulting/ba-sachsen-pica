@@ -128,6 +128,8 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2000.json > {{.LOG}}
       - > # spec_B_T_04, spec_B_T_05: ISMN 2020
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2020.json > {{.LOG}}
+      - > # spec_B_T_29: ISSN 2010
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2010.json > {{.LOG}}
       - > # spec_B_E_10: Zugangsdatum E0XX
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/e0xx.json > {{.LOG}}
       - > # spec_B_E_14, spec_Z_03, spec_B_E16: Selektionsschlüssel E0XXb
