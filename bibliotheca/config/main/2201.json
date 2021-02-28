@@ -1,0 +1,34 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|EAN",
+          "expression": "grel:and(value.length() == 13, isNumeric(value))",
+          "columnName": "M|EAN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|EAN",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "2201",
+    "columnInsertIndex": 3,
+  }
+]
