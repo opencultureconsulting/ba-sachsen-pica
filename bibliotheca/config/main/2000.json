@@ -6,7 +6,7 @@
       "mode": "record-based"
     },
     "baseColumnName": "M|ISBN",
-    "expression": "grel:[ forNonBlank(cells['M|ISBN'].value,v,if(isNumeric(v[0]),v,null),null), forNonBlank(cells['M|ISBN2'].value,v,if(isNumeric(v[0]),v,null),null) ].uniques().join('␟').replace('-','').toUppercase()",
+    "expression": "grel:[ forNonBlank(cells['M|ISBN'].value.replace('-',''),v,if(and(isNumeric(v), or(v.length() == 10, v.length() == 13)), v, null), null), forNonBlank(cells['M|ISBN2'].value.replace('-',''),v,if(and(isNumeric(v), or(v.length() == 10, v.length() == 13)), v, null), null) ].uniques().join('␟').toUppercase()",
     "onError": "set-to-blank",
     "newColumnName": "2000",
     "columnInsertIndex": 3
