@@ -1,0 +1,34 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|026",
+          "expression": "grel:value[0,3]",
+          "columnName": "M|026",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "ZDB",
+                "l": "ZDB"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|026",
+    "expression": "grel:value.slice(3)",
+    "onError": "set-to-blank",
+    "newColumnName": "2240",
+    "columnInsertIndex": 3,
+  }
+]

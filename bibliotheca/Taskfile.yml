@@ -132,6 +132,8 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2010.json > {{.LOG}}
       - > # spec_B_T_06: EAN 2201
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2201.json > {{.LOG}}
+      - > # spec_B_T_55: ZDB-ID 2240
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2240.json > {{.LOG}}
       - > # spec_B_E_10: Zugangsdatum E0XX
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/e0xx.json > {{.LOG}}
       - > # spec_B_E_14, spec_Z_03, spec_B_E16: Selektionsschlüssel E0XXb
