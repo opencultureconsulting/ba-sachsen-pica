@@ -125,6 +125,8 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/7100a.json > {{.LOG}}
       - > # spec_B_T_04, spec_B_T_05: ISBN 2000
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2000.json > {{.LOG}}
+      - > # spec_B_T_57: Formal falsche ISBNs in 2009 verschieben
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2009.json > {{.LOG}}
       - > # spec_B_T_04, spec_B_T_05: ISMN 2020
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2020.json > {{.LOG}}
       - > # spec_B_T_29: ISSN 2010

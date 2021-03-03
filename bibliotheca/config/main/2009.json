@@ -1,0 +1,25 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "baseColumnName": "2000",
+    "expression": "grel:forEach(value.split('␟'), isbn, if(isbn.length() == 10, if(with(round(sum(forRange(1,10,1,i,toNumber(isbn[i-1])*i))%11),x,if(x == 10, 'X', x)).toString() == isbn[9], null, isbn), if(isbn.length() == 13, if(((10-(sum(forRange(0,12,1,i,toNumber(isbn[i])*(1+(i%2*2)) )) %10)) %10).toString()[0] == isbn[12], null, isbn), null))).join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "2009",
+    "columnInsertIndex": 4
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "2000",
+    "expression": "grel:forEach(value.split('␟'), isbn, if(isbn.length() == 10, if(with(round(sum(forRange(1,10,1,i,toNumber(isbn[i-1])*i))%11),x,if(x == 10, 'X', x)).toString() == isbn[9], isbn, null), if(isbn.length() == 13, if(((10-(sum(forRange(0,12,1,i,toNumber(isbn[i])*(1+(i%2*2)) )) %10)) %10).toString()[0] == isbn[12], isbn, null), null))).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  }
+]
