@@ -80,7 +80,6 @@ tasks:
       - task: :check # check OpenRefine log for any warnings and exit on error
         vars: {DIR: '{{.DIR}}'}
     sources:
-      - Taskfile.yml
       - input/{{.PROJECT}}.imp
       - config/pre/**
     generates:
@@ -133,7 +132,6 @@ tasks:
       - task: :check # check OpenRefine log for any warnings and exit on error
         vars: {DIR: '{{.DIR}}'}
     sources:
-      - Taskfile.yml
       - output/*.tsv
       - config/main/**
     generates:
