@@ -29,6 +29,6 @@
     "expression": "grel:value.replace('-','')",
     "onError": "set-to-blank",
     "newColumnName": "2010",
-    "columnInsertIndex": 3,
+    "columnInsertIndex": 3
   }
 ]

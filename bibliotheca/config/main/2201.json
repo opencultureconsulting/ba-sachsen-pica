@@ -29,6 +29,6 @@
     "expression": "grel:value",
     "onError": "set-to-blank",
     "newColumnName": "2201",
-    "columnInsertIndex": 3,
+    "columnInsertIndex": 3
   }
 ]

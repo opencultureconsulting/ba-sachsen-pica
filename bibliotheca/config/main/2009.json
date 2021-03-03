@@ -10,6 +10,7 @@
     "onError": "set-to-blank",
     "newColumnName": "2009",
     "columnInsertIndex": 4
+  },
   {
     "op": "core/text-transform",
     "engineConfig": {
