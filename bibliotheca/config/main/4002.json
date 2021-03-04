@@ -1,0 +1,35 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|PST",
+          "expression": "isBlank(value)",
+          "columnName": "M|PST",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "baseColumnName": "M|PST",
+    "expression": "grel:if(value.contains('¬'),with(value.split('¬'), v, v[0].trim() + ' @' + v[1].trim()),value)",
+    "onError": "set-to-blank",
+    "newColumnName": "4002",
+    "columnInsertIndex": 127,
+    "description": "Create column 4002 at index 127 based on column M|PST using expression grel:if(value.contains('¬'),with(value.split('¬'), v, v[0].trim() + ' @' + v[1].trim()),value)"
+  }
+]
