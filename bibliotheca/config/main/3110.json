@@ -1,0 +1,101 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "tmp",
+          "expression": "isBlank(value)",
+          "columnName": "tmp",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|URH1",
+    "expression": "grel:[ cells['M|URH1'].value, cells['M|URH2'].value, cells['M|URH3'].value ].join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "3110",
+    "columnInsertIndex": 110,
+    "description": "Create column 3110 at index 110 based on column M|URH1 using expression grel:[ cells['M|URH1'].value, cells['M|URH2'].value, cells['M|URH3'].value ].join('␟')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "tmp",
+          "expression": "isBlank(value)",
+          "columnName": "tmp",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3110",
+    "expression": "grel:forEach(value.split('␟'),v,v.replace(/\\s¬?\\[.*/,'')).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3110 using expression grel:forEach(value.split('␟'),v,v.replace(/\\s¬?\\[.*/,'')).join('␟')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "tmp",
+          "expression": "isBlank(value)",
+          "columnName": "tmp",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3110",
+    "expression": "grel:forEach(value.split('␟'), v,\nforNonBlank(v.split('/')[0].replace(/<.*>/,'').trim(), x, '\u001fa' + x, '')\n+ forNonBlank(v.split('/')[0].find(/<.+>/)[0].replace('<','').replace('>',''), x, '\u001fc' + x, '')\n+ forNonBlank(v.split('/')[1].trim(), x, '\u001fb' + x, '')\n).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3110 using expression grel:forEach(value.split('␟'), v,\nforNonBlank(v.split('/')[0].replace(/<.*>/,'').trim(), x, '\u001fa' + x, '')\n+ forNonBlank(v.split('/')[0].find(/<.+>/)[0].replace('<','').replace('>',''), x, '\u001fc' + x, '')\n+ forNonBlank(v.split('/')[1].trim(), x, '\u001fb' + x, '')\n).join('␟')"
+  }
+]

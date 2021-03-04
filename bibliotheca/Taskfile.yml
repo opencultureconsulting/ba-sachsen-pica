@@ -137,6 +137,8 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2240.json > {{.LOG}}
       - > # spec_B_T_07, spec_B_T_08: 1. Verfasser in 3000 und weitere in 3100; Ausnahme Glauchau: PERS1 bis PERS5 vorher leeren
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/3000-3010.json > {{.LOG}}
+      - > # spec_B_T_10: Urheber (Körperschaft) in 3110
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/3110.json > {{.LOG}}
       - > # spec_B_E_10: Zugangsdatum E0XX
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/e0xx.json > {{.LOG}}
       - > # spec_B_E_14, spec_Z_03, spec_B_E16: Selektionsschlüssel E0XXb
