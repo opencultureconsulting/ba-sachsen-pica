@@ -1,0 +1,409 @@
+[
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "GC",
+                "l": "GC"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|PERS1",
+          "expression": "isBlank(value)",
+          "columnName": "M|PERS1",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "M|PERS1",
+          "columnName": "M|PERS1",
+          "query": ",",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "M|PERS1",
+          "columnName": "M|PERS1",
+          "query": "^Alain|^Anonymous|^Aristoteles|^Brüder Grimm ¬[ErwähnteR]¬|^Bstan-vdzin-rgya-mtsho <Dalai Lama XIV.>|^Domenica|^Eckart (Meister)|^Eckehart (Meister)|^El Bocho|^Epictetus|^Epicurus|^Eusebius <Caesariensis>|^Gabo|^Hildegard von Bingen|^Hildegardis <Bingensis>|^Hippocrates|^Ignatius <Antiochenus>|^Ishmael|^Janosch|^Johannes <Apostolus>|^Johannes Paul II.|^Kuba|^Laotse|^Le Corbusier|^Leila|^Muhammad|^Muhammad Ali|^Paul VI.|^Piero|^Plato|^Platon|^Polycarpus <Smyrnaeus>|^Sick [VerfasserIn]|^Starhawk|^Sting <Musiker>|^Sunyata ¬[IllustratorIn]¬|^Tintoretto|^Tom|^Trio Virilent|^Xenophon",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "M|PERS1",
+    "expression": "grel:null",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column M|PERS1 using expression grel:null"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "GC",
+                "l": "GC"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|PERS2",
+          "expression": "isBlank(value)",
+          "columnName": "M|PERS2",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "M|PERS2",
+          "columnName": "M|PERS2",
+          "query": ",",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "M|PERS2",
+          "columnName": "M|PERS2",
+          "query": "^Alain|^Anonymous|^Aristoteles|^Brüder Grimm ¬[ErwähnteR]¬|^Bstan-vdzin-rgya-mtsho <Dalai Lama XIV.>|^Domenica|^Eckart (Meister)|^Eckehart (Meister)|^El Bocho|^Epictetus|^Epicurus|^Eusebius <Caesariensis>|^Gabo|^Hildegard von Bingen|^Hildegardis <Bingensis>|^Hippocrates|^Ignatius <Antiochenus>|^Ishmael|^Janosch|^Johannes <Apostolus>|^Johannes Paul II.|^Kuba|^Laotse|^Le Corbusier|^Leila|^Muhammad|^Muhammad Ali|^Paul VI.|^Piero|^Plato|^Platon|^Polycarpus <Smyrnaeus>|^Sick [VerfasserIn]|^Starhawk|^Sting <Musiker>|^Sunyata ¬[IllustratorIn]¬|^Tintoretto|^Tom|^Trio Virilent|^Xenophon",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "M|PERS2",
+    "expression": "grel:null",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column M|PERS2 using expression grel:null"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "GC",
+                "l": "GC"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|PERS3",
+          "expression": "isBlank(value)",
+          "columnName": "M|PERS3",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "M|PERS3",
+          "columnName": "M|PERS3",
+          "query": ",",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "M|PERS3",
+          "columnName": "M|PERS3",
+          "query": "^Alain|^Anonymous|^Aristoteles|^Brüder Grimm ¬[ErwähnteR]¬|^Bstan-vdzin-rgya-mtsho <Dalai Lama XIV.>|^Domenica|^Eckart (Meister)|^Eckehart (Meister)|^El Bocho|^Epictetus|^Epicurus|^Eusebius <Caesariensis>|^Gabo|^Hildegard von Bingen|^Hildegardis <Bingensis>|^Hippocrates|^Ignatius <Antiochenus>|^Ishmael|^Janosch|^Johannes <Apostolus>|^Johannes Paul II.|^Kuba|^Laotse|^Le Corbusier|^Leila|^Muhammad|^Muhammad Ali|^Paul VI.|^Piero|^Plato|^Platon|^Polycarpus <Smyrnaeus>|^Sick [VerfasserIn]|^Starhawk|^Sting <Musiker>|^Sunyata ¬[IllustratorIn]¬|^Tintoretto|^Tom|^Trio Virilent|^Xenophon",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "M|PERS3",
+    "expression": "grel:null",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column M|PERS3 using expression grel:null"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "GC",
+                "l": "GC"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|PERS4",
+          "expression": "isBlank(value)",
+          "columnName": "M|PERS4",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "M|PERS4",
+          "columnName": "M|PERS4",
+          "query": ",",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "M|PERS4",
+          "columnName": "M|PERS4",
+          "query": "^Alain|^Anonymous|^Aristoteles|^Brüder Grimm ¬[ErwähnteR]¬|^Bstan-vdzin-rgya-mtsho <Dalai Lama XIV.>|^Domenica|^Eckart (Meister)|^Eckehart (Meister)|^El Bocho|^Epictetus|^Epicurus|^Eusebius <Caesariensis>|^Gabo|^Hildegard von Bingen|^Hildegardis <Bingensis>|^Hippocrates|^Ignatius <Antiochenus>|^Ishmael|^Janosch|^Johannes <Apostolus>|^Johannes Paul II.|^Kuba|^Laotse|^Le Corbusier|^Leila|^Muhammad|^Muhammad Ali|^Paul VI.|^Piero|^Plato|^Platon|^Polycarpus <Smyrnaeus>|^Sick [VerfasserIn]|^Starhawk|^Sting <Musiker>|^Sunyata ¬[IllustratorIn]¬|^Tintoretto|^Tom|^Trio Virilent|^Xenophon",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "M|PERS4",
+    "expression": "grel:null",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column M|PERS4 using expression grel:null"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "GC",
+                "l": "GC"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|PERS5",
+          "expression": "isBlank(value)",
+          "columnName": "M|PERS5",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "M|PERS5",
+          "columnName": "M|PERS5",
+          "query": ",",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "M|PERS5",
+          "columnName": "M|PERS5",
+          "query": "^Alain|^Anonymous|^Aristoteles|^Brüder Grimm ¬[ErwähnteR]¬|^Bstan-vdzin-rgya-mtsho <Dalai Lama XIV.>|^Domenica|^Eckart (Meister)|^Eckehart (Meister)|^El Bocho|^Epictetus|^Epicurus|^Eusebius <Caesariensis>|^Gabo|^Hildegard von Bingen|^Hildegardis <Bingensis>|^Hippocrates|^Ignatius <Antiochenus>|^Ishmael|^Janosch|^Johannes <Apostolus>|^Johannes Paul II.|^Kuba|^Laotse|^Le Corbusier|^Leila|^Muhammad|^Muhammad Ali|^Paul VI.|^Piero|^Plato|^Platon|^Polycarpus <Smyrnaeus>|^Sick [VerfasserIn]|^Starhawk|^Sting <Musiker>|^Sunyata ¬[IllustratorIn]¬|^Tintoretto|^Tom|^Trio Virilent|^Xenophon",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "M|PERS5",
+    "expression": "grel:null",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column M|PERS5 using expression grel:null"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|VERF1",
+    "expression": "grel:[ cells['M|VERF1'].value, cells['M|VERF2'].value, cells['M|VERF3'].value, cells['M|PERS1'].value, cells['M|PERS2'].value, cells['M|PERS3'].value, cells['M|PERS4'].value, cells['M|PERS5'].value ].join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "tmp",
+    "columnInsertIndex": 103,
+    "description": "Create column tmp at index 103 based on column M|VERF1 using expression grel:[ cells['M|VERF1'].value, cells['M|VERF2'].value, cells['M|VERF3'].value, cells['M|PERS1'].value, cells['M|PERS2'].value, cells['M|PERS3'].value, cells['M|PERS4'].value, cells['M|PERS5'].value ].join('␟')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "tmp",
+    "expression": "grel:forEach(value.split('␟'),v,v.replace(/\\s¬?\\[.*/,'')).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column tmp using expression grel:forEach(value.split('␟'),v,v.replace(/\\s¬?\\[.*/,'')).join('␟')"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "tmp",
+    "expression": "grel:forEach(value.split('␟').slice(0,1), v, if(v.contains(','), '\u001fa' + v.split(',')[0].trim() + '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(value.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x, ''), '\u001fP' + v)).join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "3000",
+    "columnInsertIndex": 104,
+    "description": "Create column 3000 at index 104 based on column tmp using expression grel:forEach(value.split('␟').slice(0,1), v, if(v.contains(','), '\u001fa' + v.split(',')[0].trim() + '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(value.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x, ''), '\u001fP' + v)).join('␟')"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "tmp",
+    "expression": "grel:forEach(value.split('␟').slice(1), v, if(v.contains(','), '\u001fa' + v.split(',')[0].trim() + '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(value.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x, ''), '\u001fP' + v)).join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "3010",
+    "columnInsertIndex": 104,
+    "description": "Create column 3010 at index 104 based on column tmp using expression grel:forEach(value.split('␟').slice(1), v, if(v.contains(','), '\u001fa' + v.split(',')[0].trim() + '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(value.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x, ''), '\u001fP' + v)).join('␟')"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "tmp",
+    "description": "Remove column tmp"
+  }
+]
