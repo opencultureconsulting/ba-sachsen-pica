@@ -157,6 +157,8 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4000a.json > {{.LOG}}
       - > # spec_B_T_18: Titelzusatz 4000d
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4000d.json > {{.LOG}}
+      - > # spec_B_T_19: Verfasserangabe zum Haupttitel 4000h
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4000h.json > {{.LOG}}
       - > # spec_B_T_20: Ausgabevermerk 4020a
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4020a.json > {{.LOG}}
       - > # spec_B_T_16: Verlagsname 4030n

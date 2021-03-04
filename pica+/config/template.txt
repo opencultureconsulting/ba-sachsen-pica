@@ -18,7 +18,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['1100a'].value, v, '011@ ' + 'a' + v + forNonBlank(cells['1100b'].value, v, 'b' + v, '') + forNonBlank(cells['1100n'].value, v, 'n' + v, '') + '\n', '')
 + forNonBlank(cells['1131'].value, v, '013D ' + 'a' + v + '\n', '')
 + forNonBlank(cells['1140'].value, v, '013H ' + 'a' + v + '\n', '')
-+ forNonBlank(cells['4000a'].value, v, '021A ' + 'a' + v + forNonBlank(cells['4000d'].value, v, 'd' + v, '') + '\n', '')
++ forNonBlank(cells['4000a'].value, v, '021A ' + 'a' + v + forNonBlank(cells['4000d'].value, v, 'd' + v, '') + forNonBlank(cells['4000h'].value, v, 'h' + v, '') + '\n', '')
 + forNonBlank(cells['3000'].value, v, '028A ' + v + '\n', '')
 + forNonBlank(cells['3100'].value, v, forEach(v.split('␟'),x,'028C ' + x + '\n').join(''), '')
 + forNonBlank(cells['3110'].value, v, forEach(v.split('␟'),x,'029F ' + x + '\n').join(''), '')

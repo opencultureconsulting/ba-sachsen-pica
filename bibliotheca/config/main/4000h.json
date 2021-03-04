@@ -1,0 +1,35 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "tmp",
+          "expression": "isBlank(value)",
+          "columnName": "tmp",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|VERFA",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "4000h",
+    "columnInsertIndex": 54,
+    "description": "Create column 4000h at index 54 based on column M|VERFA using expression grel:value"
+  }
+]
