@@ -1,0 +1,14 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|EST",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "3210",
+    "columnInsertIndex": 3
+  }
+]

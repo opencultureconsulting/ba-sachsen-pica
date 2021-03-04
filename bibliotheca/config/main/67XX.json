@@ -1,0 +1,66 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "BB",
+                "l": "BB"
+              }
+            },
+            {
+              "v": {
+                "v": "BZ",
+                "l": "BZ"
+              }
+            },
+            {
+              "v": {
+                "v": "GC",
+                "l": "GC"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|SYST",
+          "expression": "isBlank(value)",
+          "columnName": "M|SYST",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "baseColumnName": "M|SYST",
+    "expression": "grel:row.record.cells[columnName].value[0]",
+    "onError": "set-to-blank",
+    "newColumnName": "67XX",
+    "columnInsertIndex": 69,
+    "description": "Create column 67xx at index 69 based on column M|SYST using expression grel:row.record.cells[columnName].value[0]"
+  }
+]

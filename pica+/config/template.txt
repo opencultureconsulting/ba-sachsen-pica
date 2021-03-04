@@ -19,6 +19,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['1131'].value, v, '013D ' + 'a' + v + '\n', '')
 + forNonBlank(cells['1140'].value, v, '013H ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4000a'].value, v, '021A ' + 'a' + v + forNonBlank(cells['4000d'].value, v, 'd' + v, '') + forNonBlank(cells['4000h'].value, v, 'h' + v, '') + '\n', '')
++ forNonBlank(cells['3210'].value, v, '022A/00 ' + 'a' + v + '\n', '')
 + forNonBlank(cells['3000'].value, v, '028A ' + v + '\n', '')
 + forNonBlank(cells['3100'].value, v, forEach(v.split('␟'),x,'028C ' + x + '\n').join(''), '')
 + forNonBlank(cells['3110'].value, v, forEach(v.split('␟'),x,'029F ' + x + '\n').join(''), '')
@@ -40,5 +41,6 @@ with(with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i),e
 + forNonBlank(cells['8200'].value, v, '209G/' + exnr + ' a' + v + '\n', '')
 + forNonBlank(cells['8600'].value, v, '209O/' + exnr + ' a' + v + 'x00' + '\n', '')
 + forNonBlank(cells['8515'].value, v, '220B/' + exnr + ' a' + v + '\n', '')
++ forNonBlank(cells['67XX'].value, v, '245Z/' + exnr + ' a' + v + '\n', '')
 ), '')
 }}

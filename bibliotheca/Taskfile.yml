@@ -192,6 +192,10 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/8600.json > {{.LOG}}
       - > # spec_B_T_24: Hochschulschriftenvermerk für Abschlussarbeiten 4204
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4204.json > {{.LOG}}
+      - > # spec_B_T_25: Einheitssachtitel 3210
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/3210.json > {{.LOG}}
+      - > # spec_B_T_48: Lokale Systematik in 67XX (Exemplarsatz!) für BB, BZ, GC
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/67XX.json > {{.LOG}}
       # Die folgende Transformationsregel muss direkt vor dem Export stehen
       - > # Abschließend Titel ohne Exemplare löschen; Mehrteilige Monografien sollen stehen bleiben, daher nur: wenn BANDB und BANDN nicht leer
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/abschluss.json > {{.LOG}}
