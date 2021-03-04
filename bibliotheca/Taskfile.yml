@@ -165,8 +165,12 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4030n.json > {{.LOG}}
       - > # spec_B_T_21: Erscheinungsort 4030p
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4030p.json > {{.LOG}}
-      - > # spec_B_T_22: Umfang 4060a
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4060a.json > {{.LOG}}
+      - > # spec_B_T_22: Umfang 4060
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4060.json > {{.LOG}}
+      - > # spec_B_T_22: Illustrationsangabe 4061
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4061.json > {{.LOG}}
+      - > # spec_B_T_23: Formatangabe 4062
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4062.json > {{.LOG}}
       - > # spec_B_E_02: Verbuchungsnummer 8200
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/8200.json > {{.LOG}}
       - > # spec_B_T_02: Jahresangaben 1100a und 1100n; 1100a normiert mit zahlreichen Ersetzungen

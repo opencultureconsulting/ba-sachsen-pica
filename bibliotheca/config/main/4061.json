@@ -1,0 +1,14 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|UMF",
+    "expression": "grel:value.split(' : ')[1]",
+    "onError": "set-to-blank",
+    "newColumnName": "4061",
+    "columnInsertIndex": 3
+  }
+]

@@ -8,7 +8,7 @@
     "baseColumnName": "M|UMF",
     "expression": "grel:value.split(' : ')[0]",
     "onError": "set-to-blank",
-    "newColumnName": "4060a",
+    "newColumnName": "4060",
     "columnInsertIndex": 3
   }
 ]
