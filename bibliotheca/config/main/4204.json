@@ -1,0 +1,89 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|MEDGR",
+          "expression": "value",
+          "columnName": "M|MEDGR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "BAC",
+                "l": "BAC"
+              }
+            },
+            {
+              "v": {
+                "v": "DI",
+                "l": "DI"
+              }
+            },
+            {
+              "v": {
+                "v": "DIP",
+                "l": "DIP"
+              }
+            },
+            {
+              "v": {
+                "v": "MA",
+                "l": "MA"
+              }
+            },
+            {
+              "v": {
+                "v": "BA",
+                "l": "BA"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "7100f",
+          "expression": "value",
+          "columnName": "7100f",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "BB",
+                "l": "BB"
+              }
+            },
+            {
+              "v": {
+                "v": "EH",
+                "l": "EH"
+              }
+            },
+            {
+              "v": {
+                "v": "EH-Theke",
+                "l": "EH-Theke"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|FUSSN",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "4204",
+    "columnInsertIndex": 3
+  }
+]
