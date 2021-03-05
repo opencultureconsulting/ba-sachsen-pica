@@ -2,6 +2,19 @@
   {
     "op": "core/column-addition",
     "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "baseColumnName": "M|MEDNR",
+    "expression": "grel:cells['File'].value + value",
+    "onError": "set-to-blank",
+    "newColumnName": "id",
+    "columnInsertIndex": 3,
+    "description": "Create column id at index 3 based on column M|MEDNR using expression grel:cells['File'].value + value"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
       "facets": [
         {
           "type": "list",
@@ -45,11 +58,11 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|NRPRE",
-    "expression": "grel:forEach(value.cross('bibliotheca','M|MEDNR'),r,if(and(r.cells['File'].value == cells['File'].value, r.cells['M|ART'].value == 'G'), cells['M|NRPRE'].value, null)).join(',')",
+    "expression": "grel:with(cells['File'].value + value, v, forEach(v.cross('bibliotheca','id'), r, if(r.cells['M|ART'].value == 'G', r.cells['id'].value, null)).join(','))",
     "onError": "set-to-blank",
     "newColumnName": "ueber",
-    "columnInsertIndex": 72,
-    "description": "Create column ueber at index 72 based on column M|NRPRE using expression grel:forEach(value.cross('bibliotheca','M|MEDNR'),r,if(and(r.cells['File'].value == cells['File'].value, r.cells['M|ART'].value == 'G'), cells['M|NRPRE'].value, null)).join(',')"
+    "columnInsertIndex": 3,
+    "description": "Create column ueber at index 72 based on column M|NRPRE using expression grel:with(cells['File'].value + value, v, forEach(v.cross('bibliotheca','id'), r, if(r.cells['M|ART'].value == 'G', r.cells['id'].value, null)).join(','))"
   },
   {
     "op": "core/column-addition",
@@ -57,12 +70,12 @@
       "facets": [],
       "mode": "row-based"
     },
-    "baseColumnName": "M|MEDNR",
-    "expression": "grel:forEach(value.cross('bibliotheca','ueber'),r,if(r.cells['File'].value == cells['File'].value,r.cells['M|MEDNR'].value,null)).join(',')",
+    "baseColumnName": "id",
+    "expression": "grel:forEach(value.cross('bibliotheca','ueber'), r, r.cells['id'].value).join(',')",
     "onError": "set-to-blank",
     "newColumnName": "unter",
-    "columnInsertIndex": 1,
-    "description": "Create column unter at index 1 based on column M|MEDNR using expression grel:forEach(value.cross('bibliotheca','ueber'),r,if(r.cells['File'].value == cells['File'].value,r.cells['M|MEDNR'].value,null)).join(',')"
+    "columnInsertIndex": 3,
+    "description": "Create column unter at index 1 based on column M|MEDNR using expression grel:forEach(value.cross('bibliotheca','ueber'), r, r.cells['id'].value).join(',')"
   },
   {
     "op": "core/row-removal",

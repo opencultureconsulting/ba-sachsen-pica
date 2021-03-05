@@ -29,7 +29,7 @@
     "expression": "grel:if(value.contains('¬'),with(value.split('¬'), v, v[0].trim() + ' @' + v[1].trim()),value)",
     "onError": "set-to-blank",
     "newColumnName": "4002",
-    "columnInsertIndex": 127,
-    "description": "Create column 4002 at index 127 based on column M|PST using expression grel:if(value.contains('¬'),with(value.split('¬'), v, v[0].trim() + ' @' + v[1].trim()),value)"
+    "columnInsertIndex": 3,
+    "description": "Create column 4002 at index 3 based on column M|PST using expression grel:if(value.contains('¬'),with(value.split('¬'), v, v[0].trim() + ' @' + v[1].trim()),value)"
   }
 ]

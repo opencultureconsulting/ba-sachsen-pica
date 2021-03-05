@@ -29,8 +29,8 @@
     "expression": "grel:[ cells['M|URH1'].value, cells['M|URH2'].value, cells['M|URH3'].value ].join('␟')",
     "onError": "set-to-blank",
     "newColumnName": "3110",
-    "columnInsertIndex": 110,
-    "description": "Create column 3110 at index 110 based on column M|URH1 using expression grel:[ cells['M|URH1'].value, cells['M|URH2'].value, cells['M|URH3'].value ].join('␟')"
+    "columnInsertIndex": 3,
+    "description": "Create column 3110 at index 3 based on column M|URH1 using expression grel:[ cells['M|URH1'].value, cells['M|URH2'].value, cells['M|URH3'].value ].join('␟')"
   },
   {
     "op": "core/text-transform",

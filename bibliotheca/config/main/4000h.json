@@ -29,7 +29,7 @@
     "expression": "grel:value",
     "onError": "set-to-blank",
     "newColumnName": "4000h",
-    "columnInsertIndex": 54,
-    "description": "Create column 4000h at index 54 based on column M|VERFA using expression grel:value"
+    "columnInsertIndex": 3,
+    "description": "Create column 4000h at index 3 based on column M|VERFA using expression grel:value"
   }
 ]

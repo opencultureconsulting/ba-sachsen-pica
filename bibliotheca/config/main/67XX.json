@@ -60,7 +60,7 @@
     "expression": "grel:row.record.cells[columnName].value[0]",
     "onError": "set-to-blank",
     "newColumnName": "67XX",
-    "columnInsertIndex": 69,
-    "description": "Create column 67xx at index 69 based on column M|SYST using expression grel:row.record.cells[columnName].value[0]"
+    "columnInsertIndex": 3,
+    "description": "Create column 67XX at index 3 based on column M|SYST using expression grel:row.record.cells[columnName].value[0]"
   }
 ]

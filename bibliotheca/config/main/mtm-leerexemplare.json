@@ -1,0 +1,170 @@
+[
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "grel:value[1]",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "c",
+                "l": "c"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "E0XXb",
+    "expression": "grel:forEach(cells['unter'].value.split(','), v, v.cross('bibliotheca','id')[0].cells['E0XXb'].value).uniques().join(',')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column E0XXb using expression grel:forEach(cells['unter'].value.split(','), v, v.cross('bibliotheca','id')[0].cells['E0XXb'].value).uniques().join(',')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "grel:value[1]",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "c",
+                "l": "c"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "E0XX",
+    "expression": "grel:forEach(forEach(cells['unter'].value.split(','), v, v.cross('bibliotheca','id')[0].cells['E0XXb'].value).uniques(),x,'31-12-20').join(',')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column E0XX using expression grel:forEach(forEach(cells['unter'].value.split(','), v, v.cross('bibliotheca','id')[0].cells['E0XXb'].value).uniques(),x,'31-12-20').join(',')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "grel:value[1]",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "c",
+                "l": "c"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "7100f",
+    "expression": "grel:forEach(cells['unter'].value.split(','), v, v.cross('bibliotheca','id')[0].cells['7100f'].value).uniques().join(',')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 7100f using expression grel:forEach(cells['unter'].value.split(','), v, v.cross('bibliotheca','id')[0].cells['7100f'].value).uniques().join(',')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "grel:value[1]",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "c",
+                "l": "c"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "7100j",
+    "expression": "grel:forEach(cells['unter'].value.split(','), v, v.cross('bibliotheca','id')[0].cells['7100j'].value).uniques().join(',')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 7100j using expression grel:forEach(cells['unter'].value.split(','), v, v.cross('bibliotheca','id')[0].cells['7100j'].value).uniques().join(',')"
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E0XXb",
+    "keyColumnName": "M|MEDNR",
+    "mode": "separator",
+    "separator": ",",
+    "regex": false,
+    "description": "Split multi-valued cells in column E0XXb"
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "E0XX",
+    "keyColumnName": "M|MEDNR",
+    "mode": "separator",
+    "separator": ",",
+    "regex": false,
+    "description": "Split multi-valued cells in column E0XX"
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "7100f",
+    "keyColumnName": "M|MEDNR",
+    "mode": "separator",
+    "separator": ",",
+    "regex": false,
+    "description": "Split multi-valued cells in column 7100f"
+  },
+  {
+    "op": "core/multivalued-cell-split",
+    "columnName": "7100j",
+    "keyColumnName": "M|MEDNR",
+    "mode": "separator",
+    "separator": ",",
+    "regex": false,
+    "description": "Split multi-valued cells in column 7100j"
+  }
+]
