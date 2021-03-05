@@ -5,17 +5,17 @@
       "facets": [
         {
           "type": "list",
-          "name": "M|NRPRE",
-          "expression": "grel:forEach(value.cross('bibliotheca','M|MEDNR'),r,if(and(r.cells['File'].value == cells['File'].value,or(isNonBlank(cells['M|BANDB'].value),isNonBlank(cells['M|BANDN'].value))),'vorhanden','fehlt')).inArray('vorhanden')",
-          "columnName": "M|NRPRE",
+          "name": "ueber",
+          "expression": "isBlank(value)",
+          "columnName": "ueber",
           "invert": false,
           "omitBlank": false,
           "omitError": false,
           "selection": [
             {
               "v": {
-                "v": true,
-                "l": "true"
+                "v": false,
+                "l": "false"
               }
             }
           ],

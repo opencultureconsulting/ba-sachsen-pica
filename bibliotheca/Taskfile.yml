@@ -111,6 +111,8 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/ebooks.json > {{.LOG}}
       - > # spec_Z_02: Zeitschriften und Reihen löschen; siehe auch Spezifikation in CBS-Titeldaten Bibliotheca
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/zeitschriften.json > {{.LOG}}
+      - > # spec_B_T_32: MTM Überordnungen löschen, wenn keine Unterordnung mit BANDB/BANDN über NRPRE darauf verweist; erstellt Felder "ueber" und "unter"; siehe auch Spezifikation in CBS-Titeldaten Bibliotheca
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/nrpre.json > {{.LOG}}
       - > # Bibliothekskürzel aus Import-Dateiname
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/file.json > {{.LOG}}
       - > # spec_B_T_01: PPNs in 0100 (K10plus) und 0110 (SWB); 8-stellige aus Dresden sind SWN ohne Prüfziffer, dort wird Prüfziffer ergänzt; Zuordnung 9-stellige abhängig von ersten Zeichen und M026 / M026k; Zuordnung 10-stellige abhängig von erstem Zeichen
@@ -147,7 +149,7 @@ tasks:
       - > # spec_B_T_56_1: Gattung/Status 0500 und Veröffentlichungsart 1140
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/0500-1140.json > {{.LOG}}
         # TODO: ART = S
-      - > # spec_B_T_56_2: F/f für Überordnungen 0500
+      - > # spec_B_T_56_2: F/f für Überordnungen 0500; abhängig von Feld "ueber" aus spec_B_T_32
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/0500-ueber.json > {{.LOG}}
       - > # spec_B_T_56_3: Lax für Abschlussarbeiten 0500
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/0500-lax.json > {{.LOG}}
@@ -198,8 +200,6 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/3210.json > {{.LOG}}
       - > # spec_B_T_48: Lokale Systematik in 67XX (Exemplarsatz!) für BB, BZ, GC
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/67XX.json > {{.LOG}}
-      - > # spec_B_T_32: MTM Überordnungen löschen, wenn keine Unterordnung mit BANDB/BANDN über NRPRE darauf verweist; siehe auch Spezifikation in CBS-Titeldaten Bibliotheca
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/nrpre.json > {{.LOG}}
       # Die folgende Transformationsregel muss direkt vor dem Export stehen
       - > # Abschließend Titel ohne Exemplare löschen
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/abschluss.json > {{.LOG}}
