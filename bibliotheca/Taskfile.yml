@@ -109,7 +109,7 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/sortieren.json > {{.LOG}}
       - > # spec_Z_01: E-Books löschen (Bautzen)
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/ebooks.json > {{.LOG}}
-      - > # spec_Z_02: Zeitschriften und Teile von MTM löschen; siehe auch Spezifikation in CBS-Titeldaten Bibliotheca
+      - > # spec_Z_02: Zeitschriften und Reihen löschen; siehe auch Spezifikation in CBS-Titeldaten Bibliotheca
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/zeitschriften.json > {{.LOG}}
       - > # Bibliothekskürzel aus Import-Dateiname
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/file.json > {{.LOG}}
@@ -198,8 +198,10 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/3210.json > {{.LOG}}
       - > # spec_B_T_48: Lokale Systematik in 67XX (Exemplarsatz!) für BB, BZ, GC
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/67XX.json > {{.LOG}}
+      - > # spec_B_T_32: MTM Überordnungen löschen, wenn keine Unterordnung mit BANDB/BANDN über NRPRE darauf verweist; siehe auch Spezifikation in CBS-Titeldaten Bibliotheca
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/nrpre.json > {{.LOG}}
       # Die folgende Transformationsregel muss direkt vor dem Export stehen
-      - > # Abschließend Titel ohne Exemplare löschen; Mehrteilige Monografien sollen stehen bleiben, daher nur: wenn BANDB und BANDN nicht leer
+      - > # Abschließend Titel ohne Exemplare löschen
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/abschluss.json > {{.LOG}}
       - > # Export der PICA3-Spalten als CSV; Spalte 2199 muss vorne stehen, weil später für Sortierung benötigt
         mkdir -p output &&

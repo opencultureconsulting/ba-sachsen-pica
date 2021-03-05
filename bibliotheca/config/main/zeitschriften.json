@@ -115,51 +115,5 @@
       ],
       "mode": "row-based"
     }
-  },
-  {
-    "op": "core/row-removal",
-    "engineConfig": {
-      "facets": [
-        {
-          "type": "list",
-          "name": "M|ART",
-          "expression": "value",
-          "columnName": "M|ART",
-          "invert": false,
-          "omitBlank": false,
-          "omitError": false,
-          "selection": [
-            {
-              "v": {
-                "v": "G",
-                "l": "G"
-              }
-            }
-          ],
-          "selectBlank": false,
-          "selectError": false
-        },
-        {
-          "type": "list",
-          "name": "M|MEDNR",
-          "expression": "grel:forEach(value.cross('bibliotheca','M|NRPRE'),r,if(and(r.cells['File'].value == cells['File'].value, or(isNonBlank(r.cells['M|BANDB'].value),isNonBlank(r.cells['M|BANDN'].value))),'vorhanden','fehlt')).inArray('vorhanden')",
-          "columnName": "M|MEDNR",
-          "invert": false,
-          "omitBlank": false,
-          "omitError": false,
-          "selection": [
-            {
-              "v": {
-                "v": false,
-                "l": "false"
-              }
-            }
-          ],
-          "selectBlank": false,
-          "selectError": true
-        }
-      ],
-      "mode": "row-based"
-    }
   }
 ]

@@ -40,25 +40,6 @@
           ],
           "selectBlank": false,
           "selectError": false
-        },
-        {
-          "type": "list",
-          "name": "M|BANDB",
-          "expression": "grel:or(isNonBlank(cells['M|BANDB'].value), isNonBlank(cells['M|BANDN'].value))",
-          "columnName": "M|BANDB",
-          "invert": false,
-          "omitBlank": false,
-          "omitError": false,
-          "selection": [
-            {
-              "v": {
-                "v": false,
-                "l": "false"
-              }
-            }
-          ],
-          "selectBlank": false,
-          "selectError": false
         }
       ],
       "mode": "row-based"

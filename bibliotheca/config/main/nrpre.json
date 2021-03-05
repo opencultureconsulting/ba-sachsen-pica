@@ -1,0 +1,114 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|BANDB",
+          "expression": "grel:or(isNonBlank(cells['M|BANDB'].value), isNonBlank(cells['M|BANDN'].value))",
+          "columnName": "M|BANDB",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|NRPRE",
+          "expression": "isBlank(value)",
+          "columnName": "M|NRPRE",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|NRPRE",
+    "expression": "grel:forEach(value.cross('bibliotheca','M|MEDNR'),r,if(and(r.cells['File'].value == cells['File'].value, r.cells['M|ART'].value == 'G'), cells['M|NRPRE'].value, null)).join(',')",
+    "onError": "set-to-blank",
+    "newColumnName": "ueber",
+    "columnInsertIndex": 72,
+    "description": "Create column ueber at index 72 based on column M|NRPRE using expression grel:forEach(value.cross('bibliotheca','M|MEDNR'),r,if(and(r.cells['File'].value == cells['File'].value, r.cells['M|ART'].value == 'G'), cells['M|NRPRE'].value, null)).join(',')"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|MEDNR",
+    "expression": "grel:forEach(value.cross('bibliotheca','ueber'),r,if(r.cells['File'].value == cells['File'].value,r.cells['M|MEDNR'].value,null)).join(',')",
+    "onError": "set-to-blank",
+    "newColumnName": "unter",
+    "columnInsertIndex": 1,
+    "description": "Create column unter at index 1 based on column M|MEDNR using expression grel:forEach(value.cross('bibliotheca','ueber'),r,if(r.cells['File'].value == cells['File'].value,r.cells['M|MEDNR'].value,null)).join(',')"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|ART",
+          "expression": "value",
+          "columnName": "M|ART",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "G",
+                "l": "G"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "unter",
+          "expression": "isBlank(value)",
+          "columnName": "unter",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "description": "Remove rows"
+  }
+]
