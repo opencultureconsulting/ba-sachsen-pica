@@ -204,8 +204,8 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/mtm-leerexemplare.json > {{.LOG}}
       - > # spec_B_T_34: MTM: Anreicherungen der Unterordnungen mit 4150 und 4160; abhängig von Feld "ueber" aus spec_B_T_32
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4150-4160.json > {{.LOG}}
-      - > # spec_B_T_35: Schriftrenreihen: GT-Felder für Reihenstücktitel in 4170
-#TODO        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4170.json > {{.LOG}}
+      - > # spec_B_T_35: Schriftrenreihen: GT-Felder für Reihenstücktitel in 4170_1 und 4170_2
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4170.json > {{.LOG}}
       # Die folgende Transformationsregel muss direkt vor dem Export stehen
       - > # Abschließend Titel ohne Exemplare löschen
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/abschluss.json > {{.LOG}}
