@@ -26,11 +26,11 @@
       "mode": "row-based"
     },
     "baseColumnName": "ueber",
-    "expression": "grel:with(value.cross('bibliotheca','id')[0], r, forNonBlank(r.cells['M|HST'].value, v, '\u001fa' + v, '') + forNonBlank(r.cells['M|HSTZU'].value, v, '\u001fd' + v, '') + forNonBlank(r.cells['M|VERFA'].value, v, '\u001fh' + v, '') + forNonBlank(cells['M|BANDB'].value, v, '\u001fI' + v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(cells['M|BANDN'].value, v, '\u001fI' + v, '')))",
+    "expression": "grel:with(value.cross('bibliotheca','id')[0], r, forNonBlank(r.cells['M|HST'].value, v, '\u001fa' + v, '') + forNonBlank(r.cells['M|HSTZU'].value, v, '\u001fd' + v, '') + forNonBlank(r.cells['M|VERFA'].value, v, '\u001fh' + v, '') + forNonBlank(cells['M|BANDB'].value, v, '\u001fl' + v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(cells['M|BANDN'].value, v, '\u001fl' + v, '')))",
     "onError": "set-to-blank",
     "newColumnName": "4150",
     "columnInsertIndex": 3,
-    "description": "Create column 4150 at index 3 based on column ueber using expression grel:with(value.cross('bibliotheca','id')[0], r, forNonBlank(r.cells['M|HST'].value, v, '\u001fa' + v, '') + forNonBlank(r.cells['M|HSTZU'].value, v, '\u001fd' + v, '') + forNonBlank(r.cells['M|VERFA'].value, v, '\u001fh' + v, '') + forNonBlank(cells['M|BANDB'].value, v, '\u001fI' + v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(cells['M|BANDN'].value, v, '\u001fI' + v, '')))"
+    "description": "Create column 4150 at index 3 based on column ueber using expression grel:with(value.cross('bibliotheca','id')[0], r, forNonBlank(r.cells['M|HST'].value, v, '\u001fa' + v, '') + forNonBlank(r.cells['M|HSTZU'].value, v, '\u001fd' + v, '') + forNonBlank(r.cells['M|VERFA'].value, v, '\u001fh' + v, '') + forNonBlank(cells['M|BANDB'].value, v, '\u001fl' + v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(cells['M|BANDN'].value, v, '\u001fl' + v, '')))"
   },
   {
     "op": "core/column-addition",
@@ -59,10 +59,10 @@
       "mode": "row-based"
     },
     "baseColumnName": "ueber",
-    "expression": "grel:with(value.cross('bibliotheca','id')[0], r, forNonBlank(r.cells['2199'].value, v, '\u001f7' + v, '') + forNonBlank(cells['M|BANDB'].value, v, '\u001fI' + v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(cells['M|BANDN'].value, v, '\u001fI' + v, '')) + '\u001fx' + forNonBlank(cells['M|BANDN'].value, v, v, forNonBlank(cells['M|BANDB'].value, v, v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(r.cells['M|HST'].value, v, v[0,2], ''))) + forNonBlank(cells['M|AUFL'].value[0], v, v + '.', '') + forNonBlank(cells['1100a'].value, v, v, ''))",
+    "expression": "grel:with(value.cross('bibliotheca','id')[0], r, forNonBlank(r.cells['2199'].value, v, '\u001f7' + v, '') + forNonBlank(cells['M|BANDB'].value, v, '\u001fl' + v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(cells['M|BANDN'].value, v, '\u001fl' + v, '')) + '\u001fx' + forNonBlank(cells['M|BANDN'].value, v, v, forNonBlank(cells['M|BANDB'].value, v, v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(r.cells['M|HST'].value, v, v[0,2], ''))) + forNonBlank(cells['M|AUFL'].value[0], v, v + '.', '') + forNonBlank(cells['1100a'].value, v, v, ''))",
     "onError": "set-to-blank",
     "newColumnName": "4160",
     "columnInsertIndex": 3,
-    "description": "Create column 4160 at index 3 based on column ueber using expression grel:with(value.cross('bibliotheca','id')[0], r, forNonBlank(r.cells['2199'].value, v, '\u001f7' + v, '') + forNonBlank(cells['M|BANDB'].value, v, '\u001fI' + v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(cells['M|BANDN'].value, v, '\u001fI' + v, '')) + '\u001fx' + forNonBlank(cells['M|BANDN'].value, v, v, forNonBlank(cells['M|BANDB'].value, v, v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(r.cells['M|HST'].value, v, v[0,2], ''))) + forNonBlank(cells['M|AUFL'].value[0], v, v + '.', '') + forNonBlank(cells['1100a'].value, v, v, ''))"
+    "description": "Create column 4160 at index 3 based on column ueber using expression grel:with(value.cross('bibliotheca','id')[0], r, forNonBlank(r.cells['2199'].value, v, '\u001f7' + v, '') + forNonBlank(cells['M|BANDB'].value, v, '\u001fl' + v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(cells['M|BANDN'].value, v, '\u001fl' + v, '')) + '\u001fx' + forNonBlank(cells['M|BANDN'].value, v, v, forNonBlank(cells['M|BANDB'].value, v, v.replace(/\\.$/,'').replace('(','').replace(')',''), forNonBlank(r.cells['M|HST'].value, v, v[0,2], ''))) + forNonBlank(cells['M|AUFL'].value[0], v, v + '.', '') + forNonBlank(cells['1100a'].value, v, v, ''))"
   }
 ]
