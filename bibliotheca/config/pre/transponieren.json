@@ -1,8 +1,123 @@
 [
   {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "text",
+          "name": "key",
+          "columnName": "key",
+          "query": "M|MEDNR",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "key",
+    "expression": "grel:rowIndex+1",
+    "onError": "set-to-blank",
+    "newColumnName": "index",
+    "columnInsertIndex": 1,
+    "description": "Create column index at index 1 based on column key using expression grel:rowIndex+1"
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "index",
+    "index": 0,
+    "description": "Move column index to position 0"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "key",
+          "expression": "value",
+          "columnName": "key",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "E|EXNR ",
+                "l": "E|EXNR "
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "value",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "exnr",
+    "columnInsertIndex": 3,
+    "description": "Create column exnr at index 3 based on column value using expression grel:value"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "key",
+          "expression": "value",
+          "columnName": "key",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "E|EXNR ",
+                "l": "E|EXNR "
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "index",
+    "expression": "grel:if(row.record.cells['exnr'].value[0] == cells['value'].value, null, rowIndex+1)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column index using expression grel:if(row.record.cells['exnr'].value[0] == cells['value'].value, null, rowIndex+1)"
+  },
+  {
+    "op": "core/fill-down",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "index",
+    "description": "Fill down cells in column index"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "exnr",
+    "description": "Remove column exnr"
+  },
+  {
     "op": "core/key-value-columnize",
     "keyColumnName": "key",
     "valueColumnName": "value",
-    "noteColumnName": ""
+    "noteColumnName": "",
+    "description": "Columnize by key column key and value column value with note column "
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "index",
+    "description": "Remove column index"
   }
 ]
