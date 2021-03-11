@@ -6,7 +6,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "E|ZUNR",
-    "expression": "grel:cells['File'].value + ' ' + value.replace('-','/')",
+    "expression": "grel:if(cells['File'].value=='DD',forNonBlank(cells['E|ZWGST'].value,v,v,cells['File'].value),cells['File'].value) + ' ' + value.replace('-','/')",
     "onError": "set-to-blank",
     "newColumnName": "8100",
     "columnInsertIndex": 3
