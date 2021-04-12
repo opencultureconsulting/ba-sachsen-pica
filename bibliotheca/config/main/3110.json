@@ -92,10 +92,10 @@
       "mode": "row-based"
     },
     "columnName": "3110",
-    "expression": "grel:forEach(value.split('␟'), v,\nforNonBlank(v.split('/')[0].replace(/<.*>/,'').trim(), x, '\u001fa' + x, '')\n+ forNonBlank(v.split('/')[0].find(/<.+>/)[0].replace('<','').replace('>',''), x, '\u001fc' + x, '')\n+ forNonBlank(v.split('/')[1].trim(), x, '\u001fb' + x, '')\n).join('␟')",
+    "expression": "grel:forEach(value.split('␟'), v,\nforNonBlank(v.split('/')[0].replace(/<.*>/,'').trim(), x, '\u001fa' + x, '')\n+ forNonBlank(v.split('/')[0].find(/<.+>/)[0].replace('<','').replace('>',''), x, '\u001fx' + x, '')\n+ forNonBlank(v.split('/')[1].trim(), x, '\u001fb' + x, '')\n).join('␟')",
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
-    "description": "Text transform on cells in column 3110 using expression grel:forEach(value.split('␟'), v,\nforNonBlank(v.split('/')[0].replace(/<.*>/,'').trim(), x, '\u001fa' + x, '')\n+ forNonBlank(v.split('/')[0].find(/<.+>/)[0].replace('<','').replace('>',''), x, '\u001fc' + x, '')\n+ forNonBlank(v.split('/')[1].trim(), x, '\u001fb' + x, '')\n).join('␟')"
+    "description": "Text transform on cells in column 3110 using expression grel:forEach(value.split('␟'), v,\nforNonBlank(v.split('/')[0].replace(/<.*>/,'').trim(), x, '\u001fa' + x, '')\n+ forNonBlank(v.split('/')[0].find(/<.+>/)[0].replace('<','').replace('>',''), x, '\u001fx' + x, '')\n+ forNonBlank(v.split('/')[1].trim(), x, '\u001fb' + x, '')\n).join('␟')"
   }
 ]
