@@ -59,11 +59,11 @@
       "mode": "row-based"
     },
     "columnName": "3110",
-    "expression": "grel:forEach(value.split('␟'),v,v.replace(/\\s¬?\\[.*/,'')).join('␟')",
+    "expression": "grel:forEach(value.split('␟'),v,v.replace(/\\s(¬?|::)\\[.*/,'')).join('␟')",
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
-    "description": "Text transform on cells in column 3110 using expression grel:forEach(value.split('␟'),v,v.replace(/\\s¬?\\[.*/,'')).join('␟')"
+    "description": "Text transform on cells in column 3110 using expression grel:forEach(value.split('␟'),v,v.replace(/\\s(¬?|::)\\[.*/,'')).join('␟')"
   },
   {
     "op": "core/text-transform",
