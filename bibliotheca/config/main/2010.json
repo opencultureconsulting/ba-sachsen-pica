@@ -26,7 +26,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|ISSN",
-    "expression": "grel:value.replace('-','')",
+    "expression": "grel:value",
     "onError": "set-to-blank",
     "newColumnName": "2010",
     "columnInsertIndex": 3
