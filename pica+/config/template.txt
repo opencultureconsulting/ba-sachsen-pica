@@ -25,7 +25,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['3100'].value, v, forEach(v.split('␟'),x,'028C ' + x + '\n').join(''), '')
 + forNonBlank(cells['3110'].value, v, forEach(v.split('␟'),x,'029F ' + x + '\n').join(''), '')
 + forNonBlank(cells['4020a'].value, v, '032@ ' + 'a' + v + '\n', '')
-+ if(or(isNonBlank(cells['4030n'].value),isNonBlank(cells['4030p'].value)),'033A ' + forNonBlank(cells['4030n'].value, v, 'n' + v,'') + forNonBlank(cells['4030p'].value, v, 'p' + v, '') + '\n', '')
++ if(or(isNonBlank(cells['4030n'].value),isNonBlank(cells['4030p'].value)),'033A ' + forNonBlank(cells['4030p'].value, v, 'p' + v, '') + forNonBlank(cells['4030n'].value, v, 'n' + v,'') + '\n', '')
 + forNonBlank(cells['4060'].value, v, '034D ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4062'].value, v, '034I ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4061'].value, v, '034M ' + 'a' + v + '\n', '')
