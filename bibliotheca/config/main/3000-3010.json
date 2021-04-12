@@ -382,11 +382,11 @@
       "mode": "row-based"
     },
     "baseColumnName": "tmp",
-    "expression": "grel:forEach(value.split('␟').slice(0,1), v, if(v.contains(','), '\u001fa' + v.split(',')[0].trim() + '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(v.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x, ''), '\u001fP' + v)).join('␟')",
+    "expression": "grel:forEach(value.split('␟').slice(0,1), v, if(v.contains(','), '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(v.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x + '\u001fa' + v.split(',')[0].trim(), ''), '\u001fP' + v)).join('␟')",
     "onError": "set-to-blank",
     "newColumnName": "3000",
     "columnInsertIndex": 3,
-    "description": "Create column 3000 at index 3 based on column tmp using expression grel:forEach(value.split('␟').slice(0,1), v, if(v.contains(','), '\u001fa' + v.split(',')[0].trim() + '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(v.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x, ''), '\u001fP' + v)).join('␟')"
+    "description": "Create column 3000 at index 3 based on column tmp using expression grel:forEach(value.split('␟').slice(0,1), v, if(v.contains(','), '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(v.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x + '\u001fa' + v.split(',')[0].trim(), ''), '\u001fP' + v)).join('␟')"
   },
   {
     "op": "core/column-addition",
@@ -395,11 +395,11 @@
       "mode": "row-based"
     },
     "baseColumnName": "tmp",
-    "expression": "grel:forEach(value.split('␟').slice(1), v, if(v.contains(','), '\u001fa' + v.split(',')[0].trim() + '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(v.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x, ''), '\u001fP' + v)).join('␟')",
+    "expression": "grel:forEach(value.split('␟').slice(1), v, if(v.contains(','), '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(v.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x + '\u001fa' + v.split(',')[0].trim(), ''), '\u001fP' + v)).join('␟')",
     "onError": "set-to-blank",
     "newColumnName": "3010",
     "columnInsertIndex": 3,
-    "description": "Create column 3010 at index 3 based on column tmp using expression grel:forEach(value.split('␟').slice(1), v, if(v.contains(','), '\u001fa' + v.split(',')[0].trim() + '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(v.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x, ''), '\u001fP' + v)).join('␟')"
+    "description": "Create column 3010 at index 3 based on column tmp using expression grel:forEach(value.split('␟').slice(1), v, if(v.contains(','), '\u001fd' + v.split(',')[1].replace(/¬.*¬/,'').trim() + forNonBlank(v.find(/¬.+¬/)[0].replace('¬',''), x, '\u001fc' + x + '\u001fa' + v.split(',')[0].trim(), ''), '\u001fP' + v)).join('␟')"
   },
   {
     "op": "core/column-removal",
