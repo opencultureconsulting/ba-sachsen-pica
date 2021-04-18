@@ -2,11 +2,31 @@
   {
     "op": "core/column-addition",
     "engineConfig": {
-      "facets": [],
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|MEDNR",
+          "expression": "isBlank(value)",
+          "columnName": "M|MEDNR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
       "mode": "row-based"
     },
     "baseColumnName": "M|VORT",
-    "expression": "grel:value",
+    "expression": "grel:forNonBlank(value,v,v,'[Erscheinungsort nicht ermittelbar]')",
     "onError": "set-to-blank",
     "newColumnName": "4030p",
     "columnInsertIndex": 3
