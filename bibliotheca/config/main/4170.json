@@ -45,11 +45,11 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|GT1",
-    "expression": "grel:with(value.split(' ; '), x, forNonBlank(x[0].split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(x[0].split(': ')[1], v, '\u001fh' + v.trim(), '') + forNonBlank(x[1].split(' : ')[0], v, '\u001fI' + v.trim(), '') + forNonBlank(x[1].split(' : ')[1], v, '\u001fp' + v.trim(), '') )",
+    "expression": "grel:with(value.split(' ; '), x, forNonBlank(x[0].split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(x[0].split(': ')[1], v, '\u001fh' + v.trim(), '') + forNonBlank(x[1].split(' : ')[0], v, '\u001fl' + v.trim(), '') + forNonBlank(x[1].split(' : ')[1], v, '\u001fp' + v.trim(), '') )",
     "onError": "set-to-blank",
     "newColumnName": "4170_1",
     "columnInsertIndex": 80,
-    "description": "Create column 4170_1 at index 80 based on column M|GT1 using expression grel:with(value.split(' ; '), x, forNonBlank(x[0].split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(x[0].split(': ')[1], v, '\u001fh' + v.trim(), '') + forNonBlank(x[1].split(' : ')[0], v, '\u001fI' + v.trim(), '') + forNonBlank(x[1].split(' : ')[1], v, '\u001fp' + v.trim(), '') )"
+    "description": "Create column 4170_1 at index 80 based on column M|GT1 using expression grel:with(value.split(' ; '), x, forNonBlank(x[0].split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(x[0].split(': ')[1], v, '\u001fh' + v.trim(), '') + forNonBlank(x[1].split(' : ')[0], v, '\u001fl' + v.trim(), '') + forNonBlank(x[1].split(' : ')[1], v, '\u001fp' + v.trim(), '') )"
   },
   {
     "op": "core/text-transform",
@@ -97,11 +97,11 @@
       "mode": "row-based"
     },
     "columnName": "4170_1",
-    "expression": "grel:forNonBlank(cells['M|GT1B'].value.split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(cells['M|GT1B'].value.split(': ')[1], v, '\u001fh' + v.trim(), '') +\nforNonBlank(cells['M|GT1Z'].value.split(' : ')[0], v, '\u001fI' + v.trim(), '') + forNonBlank(cells['M|GT1Z'].value.split(' : ')[1], v, '\u001fp' + v.trim(), '')",
+    "expression": "grel:forNonBlank(cells['M|GT1B'].value.split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(cells['M|GT1B'].value.split(': ')[1], v, '\u001fh' + v.trim(), '') +\nforNonBlank(cells['M|GT1Z'].value.split(' : ')[0], v, '\u001fl' + v.trim(), '') + forNonBlank(cells['M|GT1Z'].value.split(' : ')[1], v, '\u001fp' + v.trim(), '')",
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
-    "description": "Text transform on cells in column 4170_1 using expression grel:forNonBlank(cells['M|GT1B'].value.split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(cells['M|GT1B'].value.split(': ')[1], v, '\u001fh' + v.trim(), '') +\nforNonBlank(cells['M|GT1Z'].value.split(' : ')[0], v, '\u001fI' + v.trim(), '') + forNonBlank(cells['M|GT1Z'].value.split(' : ')[1], v, '\u001fp' + v.trim(), '')"
+    "description": "Text transform on cells in column 4170_1 using expression grel:forNonBlank(cells['M|GT1B'].value.split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(cells['M|GT1B'].value.split(': ')[1], v, '\u001fh' + v.trim(), '') +\nforNonBlank(cells['M|GT1Z'].value.split(' : ')[0], v, '\u001fl' + v.trim(), '') + forNonBlank(cells['M|GT1Z'].value.split(' : ')[1], v, '\u001fp' + v.trim(), '')"
   },
   {
     "op": "core/column-addition",
@@ -149,11 +149,11 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|GT2",
-    "expression": "grel:with(value.split(' ; '), x, forNonBlank(x[0].split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(x[0].split(': ')[1], v, '\u001fh' + v.trim(), '') + forNonBlank(x[1].split(' : ')[0], v, '\u001fI' + v.trim(), '') + forNonBlank(x[1].split(' : ')[1], v, '\u001fp' + v.trim(), '') )",
+    "expression": "grel:with(value.split(' ; '), x, forNonBlank(x[0].split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(x[0].split(': ')[1], v, '\u001fh' + v.trim(), '') + forNonBlank(x[1].split(' : ')[0], v, '\u001fl' + v.trim(), '') + forNonBlank(x[1].split(' : ')[1], v, '\u001fp' + v.trim(), '') )",
     "onError": "set-to-blank",
     "newColumnName": "4170_2",
     "columnInsertIndex": 80,
-    "description": "Create column 4170_2 at index 80 based on column M|GT2 using expression grel:with(value.split(' ; '), x, forNonBlank(x[0].split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(x[0].split(': ')[1], v, '\u001fh' + v.trim(), '') + forNonBlank(x[1].split(' : ')[0], v, '\u001fI' + v.trim(), '') + forNonBlank(x[1].split(' : ')[1], v, '\u001fp' + v.trim(), '') )"
+    "description": "Create column 4170_2 at index 80 based on column M|GT2 using expression grel:with(value.split(' ; '), x, forNonBlank(x[0].split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(x[0].split(': ')[1], v, '\u001fh' + v.trim(), '') + forNonBlank(x[1].split(' : ')[0], v, '\u001fl' + v.trim(), '') + forNonBlank(x[1].split(' : ')[1], v, '\u001fp' + v.trim(), '') )"
   },
   {
     "op": "core/text-transform",
@@ -201,10 +201,10 @@
       "mode": "row-based"
     },
     "columnName": "4170_2",
-    "expression": "grel:forNonBlank(cells['M|GT2B'].value.split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(cells['M|GT2B'].value.split(': ')[1], v, '\u001fh' + v.trim(), '') +\nforNonBlank(cells['M|GT2Z'].value.split(' : ')[0], v, '\u001fI' + v.trim(), '') + forNonBlank(cells['M|GT2Z'].value.split(' : ')[1], v, '\u001fp' + v.trim(), '')",
+    "expression": "grel:forNonBlank(cells['M|GT2B'].value.split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(cells['M|GT2B'].value.split(': ')[1], v, '\u001fh' + v.trim(), '') +\nforNonBlank(cells['M|GT2Z'].value.split(' : ')[0], v, '\u001fl' + v.trim(), '') + forNonBlank(cells['M|GT2Z'].value.split(' : ')[1], v, '\u001fp' + v.trim(), '')",
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
-    "description": "Text transform on cells in column 4170_2 using expression grel:forNonBlank(cells['M|GT2B'].value.split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(cells['M|GT2B'].value.split(': ')[1], v, '\u001fh' + v.trim(), '') +\nforNonBlank(cells['M|GT2Z'].value.split(' : ')[0], v, '\u001fI' + v.trim(), '') + forNonBlank(cells['M|GT2Z'].value.split(' : ')[1], v, '\u001fp' + v.trim(), '')"
+    "description": "Text transform on cells in column 4170_2 using expression grel:forNonBlank(cells['M|GT2B'].value.split(': ')[0], v, '\u001fa' + v.trim(), '') + forNonBlank(cells['M|GT2B'].value.split(': ')[1], v, '\u001fh' + v.trim(), '') +\nforNonBlank(cells['M|GT2Z'].value.split(' : ')[0], v, '\u001fl' + v.trim(), '') + forNonBlank(cells['M|GT2Z'].value.split(' : ')[1], v, '\u001fp' + v.trim(), '')"
   }
 ]
