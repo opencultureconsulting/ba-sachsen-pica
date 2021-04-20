@@ -30,7 +30,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['4062'].value, v, '034I ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4061'].value, v, '034M ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4150'].value, v, '036C/00 ' + v + '\n', '')
-+ forNonBlank(cells['4160'].value, v, '036D/00 ' + v + '\n', '')
++ forNonBlank(cells['4160'].value, v, '036D ' + v + '\n', '')
 + forNonBlank(cells['4170_1'].value, v, '036E/00 ' + v + '\n', '')
 + forNonBlank(cells['4170_2'].value, v, '036E/01 ' + v + '\n', '')
 + forNonBlank(cells['4204'].value, v, '037C ' + 'a' + v + '\n', '')
