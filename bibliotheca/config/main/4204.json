@@ -45,37 +45,6 @@
           ],
           "selectBlank": false,
           "selectError": false
-        },
-        {
-          "type": "list",
-          "name": "7100f",
-          "expression": "value",
-          "columnName": "7100f",
-          "invert": false,
-          "omitBlank": false,
-          "omitError": false,
-          "selection": [
-            {
-              "v": {
-                "v": "BB",
-                "l": "BB"
-              }
-            },
-            {
-              "v": {
-                "v": "EH",
-                "l": "EH"
-              }
-            },
-            {
-              "v": {
-                "v": "EH-Theke",
-                "l": "EH-Theke"
-              }
-            }
-          ],
-          "selectBlank": false,
-          "selectError": false
         }
       ],
       "mode": "row-based"

@@ -202,5 +202,43 @@
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|MEDGR",
+          "expression": "value",
+          "columnName": "M|MEDGR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "BAC",
+                "l": "BAC"
+              }
+            },
+            {
+              "v": {
+                "v": "DIP",
+                "l": "DIP"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "4170_1",
+    "expression": "grel:null",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
   }
 ]

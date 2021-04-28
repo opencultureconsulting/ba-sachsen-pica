@@ -35,6 +35,94 @@
     "expression": "grel:value",
     "onError": "set-to-blank",
     "newColumnName": "6800",
-    "columnInsertIndex": 124
+    "columnInsertIndex": 3
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|MEDGR",
+          "expression": "value",
+          "columnName": "M|MEDGR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "DI",
+                "l": "DI"
+              }
+            },
+            {
+              "v": {
+                "v": "MA",
+                "l": "MA"
+              }
+            },
+            {
+              "v": {
+                "v": "BA",
+                "l": "BA"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "6800",
+    "expression": "grel:cells['M|SYST'].value",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|MEDGR",
+          "expression": "value",
+          "columnName": "M|MEDGR",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "DI",
+                "l": "DI"
+              }
+            },
+            {
+              "v": {
+                "v": "MA",
+                "l": "MA"
+              }
+            },
+            {
+              "v": {
+                "v": "BA",
+                "l": "BA"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "6800",
+    "expression": "grel:value + forNonBlank(cells['M|SW0'].value, v, '␟' + v,'')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
   }
 ]
