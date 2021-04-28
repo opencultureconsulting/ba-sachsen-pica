@@ -191,6 +191,8 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/8600.json > {{.LOG}}
       - > # spec_B_T_24: Hochschulschriftenvermerk für Abschlussarbeiten 4204
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/4204.json > {{.LOG}}
+      - > # Exemplarspezifisches Schlagwort aus GT1B für Abschlussarbeiten aus Breitenbrunn in 6800
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/6800.json > {{.LOG}}
       - > # spec_B_T_25: Einheitssachtitel 3210
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/3210.json > {{.LOG}}
       - > # spec_B_T_48: Lokale Systematik in 67XX (Exemplarsatz!) für BB, BZ, GC
