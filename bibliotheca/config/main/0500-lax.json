@@ -23,43 +23,6 @@
                 "v": "DIP",
                 "l": "DIP"
               }
-            },
-            {
-              "v": {
-                "v": "DI",
-                "l": "DI"
-              }
-            },
-            {
-              "v": {
-                "v": "MA",
-                "l": "MA"
-              }
-            },
-            {
-              "v": {
-                "v": "BA",
-                "l": "BA"
-              }
-            }
-          ],
-          "selectBlank": false,
-          "selectError": false
-        },
-        {
-          "type": "list",
-          "name": "7100f",
-          "expression": "value",
-          "columnName": "7100f",
-          "invert": false,
-          "omitBlank": false,
-          "omitError": false,
-          "selection": [
-            {
-              "v": {
-                "v": "BB",
-                "l": "BB"
-              }
             }
           ],
           "selectBlank": false,
@@ -103,18 +66,6 @@
               "v": {
                 "v": "BA",
                 "l": "BA"
-              }
-            },
-            {
-              "v": {
-                "v": "BAC",
-                "l": "BAC"
-              }
-            },
-            {
-              "v": {
-                "v": "DIP",
-                "l": "DIP"
               }
             }
           ],
