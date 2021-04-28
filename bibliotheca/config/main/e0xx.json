@@ -26,7 +26,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "E|ZUDAT",
-    "expression": "grel:forNonBlank(value,v,v[0,2] + '-' + v[3,5] + '-' + v[8,10],'22-07-20')",
+    "expression": "grel:forNonBlank(value,v,v[0,2] + '-' + v[3,5] + '-' + v[8,10],'26-04-21')",
     "onError": "set-to-blank",
     "newColumnName": "E0XX",
     "columnInsertIndex": 3
