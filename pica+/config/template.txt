@@ -11,7 +11,6 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['2009'].value, v, forEach(v.split('␟'),x,'004D ' + '0' + x + '\n').join(''), '')
 + forNonBlank(cells['2020'].value, v, '004F ' + '0' + v + '\n', '')
 + forNonBlank(cells['2201'].value, v, '004L ' + '0' + v + '\n', '')
-+ forNonBlank(cells['2010'].value, v, '005A ' + '0' + v + '\n', '')
 + forNonBlank(cells['2199'].value, v, forEach(v.split('␟'),x,'006Y ' + '0' + x + '\n').join(''), '')
 + forNonBlank(cells['2240'].value, v, '007G ' + 'iZDB' + '0' + v + '\n', '')
 + forNonBlank(cells['1500'].value, v, '010@ ' + forEach(v.split('␟'),x,'a' + x).join('') + '\n', '')
