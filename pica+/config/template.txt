@@ -45,7 +45,7 @@ with(with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i),e
 + forNonBlank(cells['8200'].value, v, '209G/' + exnr + ' a' + v + '\n', '')
 + forNonBlank(cells['8600'].value, v, '209O/' + exnr + ' a' + v + 'x00' + '\n', '')
 + forNonBlank(cells['8515'].value, v, '220B/' + exnr + ' a' + v + '\n', '')
-+ forNonBlank(cells['6800'].value, v, forEachIndex(v.split('␟'), i, x, '244Z/' + exnr + ' a' + x.trim() + 'x' + '00'[0,2-i.split('␟').length().length()] + i.split('␟').length() + '\n').join(''), '')
-+ forNonBlank(cells['67XX'].value, v, forEachIndex(v.split('||'), i, x, '245Z/' + exnr + ' a' + x.trim() + 'x' + '00'[0,2-i.split('␟').length().length()] + i.split('␟').length() + '\n').join(''), '')
++ forNonBlank(cells['6800'].value, v, forEachIndex(v.split('␟'), i, x, '244Z/' + exnr + ' a' + x.trim() + 'x' + '00'[0,2-i.split('␟').length().length()] + i + '\n').join(''), '')
++ forNonBlank(cells['67XX'].value, v, forEachIndex(v.split('||'), i, x, '245Z/' + exnr + ' a' + x.trim() + 'x' + '00'[0,2-i.split('␟').length().length()] + i + '\n').join(''), '')
 ), '')
 }}
