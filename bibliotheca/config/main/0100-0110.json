@@ -598,6 +598,12 @@
             },
             {
               "v": {
+                "v": "HEB",
+                "l": "HEB"
+              }
+            },
+            {
+              "v": {
                 "v": "KXP",
                 "l": "KXP"
               }
@@ -647,7 +653,7 @@
       "mode": "row-based"
     },
     "columnName": "0100",
-    "expression": "grel:cells['M|IDNR'].value",
+    "expression": "grel:cells['M|026k'].value",
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10
@@ -726,6 +732,12 @@
               "v": {
                 "v": "BSZ",
                 "l": "BSZ"
+              }
+            },
+            {
+              "v": {
+                "v": "ZDB",
+                "l": "ZDB"
               }
             }
           ],
@@ -815,6 +827,12 @@
               "v": {
                 "v": "HBZ",
                 "l": "HBZ"
+              }
+            },
+            {
+              "v": {
+                "v": "HEB",
+                "l": "HEB"
               }
             },
             {
