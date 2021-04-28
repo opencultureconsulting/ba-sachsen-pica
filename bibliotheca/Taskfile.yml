@@ -143,10 +143,8 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/e0xx.json > {{.LOG}}
       - > # spec_B_E_14, spec_Z_03, spec_B_E16: Selektionsschlüssel E0XXb
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/e0xxb.json > {{.LOG}}
-        # TODO: Selektionsschlüssel für Abschlussarbeiten
       - > # spec_B_T_56_1: Gattung/Status 0500 und Veröffentlichungsart 1140
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/0500-1140.json > {{.LOG}}
-        # TODO: ART = S
       - > # spec_B_T_56_2: F/f für Überordnungen 0500; abhängig von Feld "ueber" aus spec_B_T_32
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/0500-ueber.json > {{.LOG}}
       - > # spec_B_T_56_3: Lax für Abschlussarbeiten 0500
@@ -177,7 +175,6 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/8200.json > {{.LOG}}
       - > # spec_B_T_02: Jahresangaben 1100a und 1100n; 1100a normiert mit zahlreichen Ersetzungen
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/1100a-1100n.json > {{.LOG}}
-        # TODO: Jahr (Ende) in Sortierform in 1100b
       - > # spec_B_E_01: Ausleihhinweis 8515; nur für Bautzen
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/8515.json > {{.LOG}}
       - > # spec_B_E_04, spec_B_E_05 und spec_B_E_08: Exemplarstatus 7100d
