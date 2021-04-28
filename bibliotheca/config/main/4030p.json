@@ -26,7 +26,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|VORT",
-    "expression": "grel:forNonBlank(value,v,v,'[Erscheinungsort nicht ermittelbar]')",
+    "expression": "grel:forNonBlank(value,v,forEach(v.split(';'), x, x.trim()).join('\u001fp'),'[Erscheinungsort nicht ermittelbar]')",
     "onError": "set-to-blank",
     "newColumnName": "4030p",
     "columnInsertIndex": 3
