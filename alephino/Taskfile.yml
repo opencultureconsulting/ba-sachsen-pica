@@ -116,13 +116,26 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/file.json > {{.LOG}}
       - > # spec_A_E_01: Signatur 7100a
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/7100a.json > {{.LOG}}
-#     - > # Export der PICA3-Spalten als CSV; Spalte 2199 muss vorne stehen, weil später für Sortierung benötigt
-#       mkdir -p output &&
-#       "$CLIENT" -P {{.PORT}} {{.PROJECT}}
-#       --output "$(readlink -m output/{{.PROJECT}}.csv)"
-#       --template "$(< config/main/template.txt)"
-#       --rowSeparator ""
-#       > {{.LOG}}
+#     - > # TODO: Spalte 2199 muss vorne stehen, weil für Sortierung benötigt
+      - > # spec_Z_04: PPN anreichern über ISBN
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/ppn.json > {{.LOG}}
+      - > # spec_Z_05: Exemplare clustern
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/clustern.json > {{.LOG}}
+      - mkdir -p output
+      - > # Export dubletter Barcodes; golang requires strange escaping https://stackoverflow.com/questions/17641887/how-do-i-escape-and-delimiters-in-go-templates/17642427#17642427
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}}
+        --output "$(readlink -m output/barcodes.txt)"
+        --template "{{"{{"}}forNonBlank(cells['8200'].value, v, v + '\n', ''){{"}}"}}"
+        --rowSeparator ""
+        > {{.LOG}}
+      - > # spec_Z_06: Dublette Barcodes löschen
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/dedup.json > {{.LOG}}
+      - > # Export als PICA+
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}}
+        --output "$(readlink -m output/{{.PROJECT}}.txt)"
+        --template "$(< config/template.txt)"
+        --rowSeparator ""
+        > {{.LOG}}
       - | # print allocated system resources
         PID="$(lsof -t -i:{{.PORT}})"
         echo "used $(($(ps --no-headers -o rss -p "$PID") / 1024)) MB RAM" > {{.LOG}}

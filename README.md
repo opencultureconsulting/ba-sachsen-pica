@@ -55,6 +55,10 @@ Analyse dubletter Barcodes
 task barcodes:main
 ```
 
+## Hinweise
+
+* Ursprünglich war eine Zusammenführung der Daten aus Bibliotheca und Alephino bei der Datenmigration geplant. Der Task "pica+" ist dafür ausgelegt, aber wurde letztlich nur für Bibliotheca genutzt. Für Alephino erfolgt der Export in pica+ direkt im Job "Alephino" ohne Zwischenschritt.
+
 ## Systemvoraussetzungen
 
 * GNU/Linux (getestet auf Fedora 32)
