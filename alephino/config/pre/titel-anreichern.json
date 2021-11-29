@@ -6,7 +6,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|001'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|001'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|001",
     "columnInsertIndex": 13
@@ -20,13 +20,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|001",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|002a'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|002a'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|002a",
     "columnInsertIndex": 13
@@ -40,13 +52,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|002a",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|003'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|003'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|003",
     "columnInsertIndex": 13
@@ -60,13 +84,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|003",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|004'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|004'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|004",
     "columnInsertIndex": 13
@@ -80,13 +116,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|004",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|027'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|027'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|027",
     "columnInsertIndex": 13
@@ -100,13 +148,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|027",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|030'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|030'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|030",
     "columnInsertIndex": 13
@@ -120,13 +180,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|030",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|050'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|050'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|050",
     "columnInsertIndex": 13
@@ -140,13 +212,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|050",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|100'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|100'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|100",
     "columnInsertIndex": 13
@@ -160,13 +244,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|100",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|115'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|115'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|115",
     "columnInsertIndex": 13
@@ -180,13 +276,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|115",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|120'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|120'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|120",
     "columnInsertIndex": 13
@@ -200,13 +308,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|120",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|123'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|123'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|123",
     "columnInsertIndex": 13
@@ -220,13 +340,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|123",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A02'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A02'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A02",
     "columnInsertIndex": 13
@@ -240,13 +372,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A02",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A72'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A72'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A72",
     "columnInsertIndex": 13
@@ -260,13 +404,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A72",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A73'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A73'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A73",
     "columnInsertIndex": 13
@@ -280,13 +436,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A73",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A87'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A87'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A87",
     "columnInsertIndex": 13
@@ -300,13 +468,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A87",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A91'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A91'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A91",
     "columnInsertIndex": 13
@@ -320,13 +500,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A91",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A95'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A95'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A95",
     "columnInsertIndex": 13
@@ -340,13 +532,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A95",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|BIB'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|BIB'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|BIB",
     "columnInsertIndex": 13
@@ -360,13 +564,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|BIB",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|CAT'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|CAT'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|CAT",
     "columnInsertIndex": 13
@@ -380,13 +596,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|CAT",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|FMT'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|FMT'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|FMT",
     "columnInsertIndex": 13
@@ -400,13 +628,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|FMT",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|IDN'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|IDN'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|IDN",
     "columnInsertIndex": 13
@@ -420,13 +660,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|IDN",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|LDR'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|LDR'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|LDR",
     "columnInsertIndex": 13
@@ -440,13 +692,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|LDR",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|STA'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|STA'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|STA",
     "columnInsertIndex": 13
@@ -460,13 +724,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|STA",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|SUB'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|SUB'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|SUB",
     "columnInsertIndex": 13
@@ -480,13 +756,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|SUB",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|105'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|105'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|105",
     "columnInsertIndex": 13
@@ -500,13 +788,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|105",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|107'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|107'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|107",
     "columnInsertIndex": 13
@@ -520,13 +820,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|107",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A94'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A94'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A94",
     "columnInsertIndex": 13
@@ -540,13 +852,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A94",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|125'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|125'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|125",
     "columnInsertIndex": 13
@@ -560,13 +884,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|125",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|072'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|072'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|072",
     "columnInsertIndex": 13
@@ -580,13 +916,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|072",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A98'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A98'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A98",
     "columnInsertIndex": 13
@@ -600,13 +948,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A98",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|HOL'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|HOL'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|HOL",
     "columnInsertIndex": 13
@@ -620,13 +980,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|HOL",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A86'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A86'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A86",
     "columnInsertIndex": 13
@@ -640,13 +1012,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A86",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A63'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A63'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A63",
     "columnInsertIndex": 13
@@ -660,13 +1044,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A63",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A70'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A70'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A70",
     "columnInsertIndex": 13
@@ -680,13 +1076,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A70",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A83'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A83'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A83",
     "columnInsertIndex": 13
@@ -700,13 +1108,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A83",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A85'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A85'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A85",
     "columnInsertIndex": 13
@@ -720,13 +1140,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A85",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|ABO'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|ABO'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|ABO",
     "columnInsertIndex": 13
@@ -740,13 +1172,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|ABO",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A97'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A97'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A97",
     "columnInsertIndex": 13
@@ -760,13 +1204,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A97",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A82'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|A82'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|A82",
     "columnInsertIndex": 13
@@ -780,13 +1236,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|A82",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|002'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|002'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|002",
     "columnInsertIndex": 13
@@ -800,13 +1268,25 @@
     "regex": false
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|002",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
       "mode": "row-based"
     },
     "baseColumnName": "id",
-    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|ORD'].value,v,v,'')).join('␞')",
+    "expression": "grel:forEach(value.cross('exemplare','titel_id'),r,forNonBlank(r.cells['E|ORD'].value,v,v,'␀')).join('␞')",
     "onError": "set-to-blank",
     "newColumnName": "E|ORD",
     "columnInsertIndex": 13
@@ -818,5 +1298,17 @@
     "mode": "separator",
     "separator": "␞",
     "regex": false
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "E|ORD",
+    "expression": "grel:value.replace('␀','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
   }
 ]
