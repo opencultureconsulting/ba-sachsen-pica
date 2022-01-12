@@ -57,7 +57,6 @@ tasks:
         "$CLIENT" -P {{.PORT}} exemplare --apply config/pre/exemplare-mehrfachbelegungen.json > {{.LOG}}
       - | # Felder löschen
         "$CLIENT" -P {{.PORT}} titel --apply config/pre/titel-loeschen.json > {{.LOG}}
-        "$CLIENT" -P {{.PORT}} exemplare --apply config/pre/exemplare-loeschen.json > {{.LOG}}
       - | # Transponieren
         "$CLIENT" -P {{.PORT}} titel --apply config/pre/titel-transponieren.json > {{.LOG}}
         "$CLIENT" -P {{.PORT}} exemplare --apply config/pre/exemplare-transponieren.json > {{.LOG}}
@@ -118,9 +117,9 @@ tasks:
         "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/7100a.json > {{.LOG}}
 #     - > # TODO: Spalte 2199 muss vorne stehen, weil für Sortierung benötigt
       - > # spec_Z_04: PPN anreichern über ISBN
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/ppn.json > {{.LOG}}
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/ppn.json > {{.LOG}}
       - > # spec_Z_05: Exemplare clustern
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/clustern.json > {{.LOG}}
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/clustern.json > {{.LOG}}
       - mkdir -p output
       - > # Export dubletter Barcodes; golang requires strange escaping https://stackoverflow.com/questions/17641887/how-do-i-escape-and-delimiters-in-go-templates/17642427#17642427
         "$CLIENT" -P {{.PORT}} {{.PROJECT}}
@@ -129,11 +128,11 @@ tasks:
         --rowSeparator ""
         > {{.LOG}}
       - > # spec_Z_06: Dublette Barcodes löschen
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/dedup.json > {{.LOG}}
+        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/dedup.json > {{.LOG}}
       - > # Export als PICA+
         "$CLIENT" -P {{.PORT}} {{.PROJECT}}
         --output "$(readlink -m output/{{.PROJECT}}.txt)"
-        --template "$(< config/template.txt)"
+        --template "$(< config/main/template.txt)"
         --rowSeparator ""
         > {{.LOG}}
       - | # print allocated system resources
