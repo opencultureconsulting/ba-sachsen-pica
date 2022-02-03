@@ -1,0 +1,68 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|001",
+          "expression": "isBlank(value)",
+          "columnName": "E|001",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "File",
+    "expression": "grel:'n' + value.toLowercase()",
+    "onError": "set-to-blank",
+    "newColumnName": "E0XXb",
+    "columnInsertIndex": 3,
+    "description": "Create column E0XXb at index 3 based on column File using expression grel:'n' + value.toLowercase()"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|001",
+          "expression": "isBlank(value)",
+          "columnName": "E|001",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "E|002a",
+    "expression": "grel:value[6,8] + '-' + value[4,6] + '-' + value[2,4]",
+    "onError": "set-to-blank",
+    "newColumnName": "E0XX",
+    "columnInsertIndex": 3,
+    "description": "Create column E0XX at index 41 based on column E|002a using expression grel:value[6,8] + '-' + value[4,6] + '-' + value[2,4]"
+  }
+]

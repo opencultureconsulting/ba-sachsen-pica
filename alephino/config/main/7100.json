@@ -1,0 +1,152 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "E|100",
+    "expression": "grel:value.split('\u001f')[0].slice(1).trim()",
+    "onError": "set-to-blank",
+    "newColumnName": "7100a",
+    "columnInsertIndex": 3,
+    "description": "Create column 7100a at index 3 based on column E|100 using expression grel:value.split('\u001f')[0].slice(1).trim()"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|001",
+          "expression": "isBlank(value)",
+          "columnName": "E|001",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "File",
+    "expression": "grel:if(value == 'LE', '0005', '0006')",
+    "onError": "set-to-blank",
+    "newColumnName": "7100j",
+    "columnInsertIndex": 3,
+    "description": "Create column 7100j at index 3 based on column File using expression grel:if(value == 'LE', '0005', '0006')"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|001",
+          "expression": "isBlank(value)",
+          "columnName": "E|001",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "LE",
+                "l": "LE"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "File",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "7100f",
+    "columnInsertIndex": 3,
+    "description": "Create column 7100f at index 3 based on column File using expression grel:value"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|001",
+          "expression": "isBlank(value)",
+          "columnName": "E|001",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "RS",
+                "l": "RS"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "7100f",
+    "expression": "grel:if(cells['E|107'].value.contains('Beuth'),'RS-BD', if(cells['E|105'].value == '00002','RS-MAG', if(cells['E|105'].value == '00003','RS-TH', if(cells['E|105'].value == '00004','RS-ZS','RS'))))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 7100f using expression grel:if(cells['E|107'].value.contains('Beuth'),'RS-BD', if(cells['E|105'].value == '00002','RS-MAG', if(cells['E|105'].value == '00003','RS-TH', if(cells['E|105'].value == '00004','RS-ZS','RS'))))"
+  }
+]
