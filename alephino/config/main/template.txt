@@ -2,28 +2,21 @@
 if(row.index - row.record.fromRowIndex == 0,
 '' + '\n'
 + forNonBlank(cells['0500'].value, v, '002@ ' + '0' + v + '\n', '')
-+ forNonBlank(cells['0501a'].value, v, '002C ' + 'a' + v + forNonBlank(cells['0501b'].value, v, 'b' + v, '') + '\n', '')
-+ forNonBlank(cells['0502a'].value, v, '002D ' + 'a' + v + forNonBlank(cells['0502b'].value, v, 'b' + v, '') + '\n', '')
-+ forNonBlank(cells['0503a'].value, v, '002E ' + 'a' + v + forNonBlank(cells['0503b'].value, v, 'b' + v, '') + '\n', '')
-+ forNonBlank(cells['0100'].value, v, '003@ ' + '0' + v + '\n', '')
-+ forNonBlank(cells['0110'].value, v, '003S ' + '0' + v + '\n', '')
 + forNonBlank(cells['2000'].value, v, forEach(v.split('␟'),x,'004A ' + '0' + x + '\n').join(''), '')
 + forNonBlank(cells['2009'].value, v, forEach(v.split('␟'),x,'004D ' + '0' + x + '\n').join(''), '')
-+ forNonBlank(cells['2020'].value, v, '004F ' + '0' + v + '\n', '')
 + forNonBlank(cells['2201'].value, v, '004L ' + '0' + v + '\n', '')
-+ forNonBlank(cells['2199'].value, v, forEach(v.split('␟'),x,'006Y ' + '0' + x + '\n').join(''), '')
-+ forNonBlank(cells['2240'].value, v, '007G ' + 'iZDB' + '0' + v + '\n', '')
++ forNonBlank(cells['2199'].value, v, '006Y ' + '0' + v + '\n', '')
 + forNonBlank(cells['1500'].value, v, '010@ ' + forEach(v.split('␟'),x,'a' + x).join('') + '\n', '')
-+ forNonBlank(cells['1100a'].value, v, '011@ ' + 'a' + v + forNonBlank(cells['1100b'].value, v, 'b' + v, '') + forNonBlank(cells['1100n'].value, v, 'n' + v, '') + '\n', '')
-+ forNonBlank(cells['1131'].value, v, '013D ' + 'a' + v + '\n', '')
++ forNonBlank(cells['1100a'].value, v, '011@ ' + 'a' + v + forNonBlank(cells['1100n'].value, v, 'n' + v, '') + '\n', '')
++ forNonBlank(cells['1131'].value, v, forEach(v.split('␟'),x,'013D ' + 'a' + x + '\n').join(''), '')
 + forNonBlank(cells['1140'].value, v, '013H ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4000a'].value, v, '021A ' + 'a' + v + forNonBlank(cells['4000d'].value, v, 'd' + v, '') + forNonBlank(cells['4000h'].value, v, 'h' + v, '') + '\n', '')
-+ forNonBlank(cells['4002'].value, v, '021G ' + 'a' + v + '\n', '')
++ forNonBlank(cells['4002'].value, v, forEach(v.split('␟'),x,'021G ' + x + '\n').join(''), '')
 + forNonBlank(cells['3210'].value, v, '022A/00 ' + 'a' + v + '\n', '')
 + forNonBlank(cells['3000'].value, v, '028A ' + v + '\n', '')
 + forNonBlank(cells['3010'].value, v, forEach(v.split('␟'),x,'028C ' + x + '\n').join(''), '')
 + forNonBlank(cells['3110'].value, v, forEach(v.split('␟'),x,'029F ' + x + '\n').join(''), '')
-+ forNonBlank(cells['4020a'].value, v, '032@ ' + 'a' + v + '\n', '')
++ forNonBlank(cells['4020'].value, v, '032@ ' + 'a' + v + '\n', '')
 + if(or(isNonBlank(cells['4030n'].value),isNonBlank(cells['4030p'].value)),'033A ' + forNonBlank(cells['4030p'].value, v, 'p' + v, '') + forNonBlank(cells['4030n'].value, v, 'n' + v,'') + '\n', '')
 + forNonBlank(cells['4060'].value, v, '034D ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4062'].value, v, '034I ' + 'a' + v + '\n', '')
@@ -33,19 +26,13 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['4170_1'].value, v, '036E/00 ' + v + '\n', '')
 + forNonBlank(cells['4170_2'].value, v, '036E/01 ' + v + '\n', '')
 + forNonBlank(cells['4204'].value, v, '037C ' + 'a' + v + '\n', '')
-+ forNonBlank(cells['0999'].value, v, '046W ' + 'a' + v + '\n', '')
 ,'')
 }}{{
 if(isNonBlank(cells['E0XXb'].value),
 with(with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i),exnr,
 '208@/' + exnr + ' a' + cells['E0XX'].value + 'b' + cells['E0XXb'].value + '\n'
 + '209A/' + exnr + ' b4736' + 'j' + cells['7100j'].value + 'f' + cells['7100f'].value + forNonBlank(cells['7100a'].value, v, 'a' + v, '') + forNonBlank(cells['7100d'].value, v, 'd' + v, '') + 'x00' + '\n'
-+ forNonBlank(cells['8011'].value, v, '209B/' + exnr + ' a' + v + 'x11' + '\n', '')
 + forNonBlank(cells['8100'].value, v, '209C/' + exnr + ' a' + v + 'x00' + '\n', '')
 + forNonBlank(cells['8200'].value, v, '209G/' + exnr + ' a' + v + '\n', '')
-+ forNonBlank(cells['8600'].value, v, '209O/' + exnr + ' a' + v + 'x00' + '\n', '')
-+ forNonBlank(cells['8515'].value, v, '220B/' + exnr + ' a' + v + '\n', '')
-+ forNonBlank(cells['6800'].value, v, forEachIndex(v.split('␟'), i, x, '244Z/' + exnr + ' a' + x.trim() + 'x' + '00'[0,2-i.split('␟').length().length()] + i + '\n').join(''), '')
-+ forNonBlank(cells['67XX'].value, v, forEachIndex(v.split('||'), i, x, '245Z/' + exnr + ' a' + x.trim() + 'x' + '00'[0,2-i.split('␟').length().length()] + i + '\n').join(''), '')
 ), '')
 }}

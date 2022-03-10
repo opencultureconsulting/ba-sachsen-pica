@@ -109,34 +109,19 @@ tasks:
         --projectName {{.PROJECT}}
         > {{.LOG}}
         && rm tmp.zip
-      - > # Spalten sortieren: Beginnen mit 1. M|001, 2. E|001, 3. File; damit Records-Mode erhalten bleibt
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/sortieren.json > {{.LOG}}
-      - > # Bibliothekskürzel aus Import-Dateiname
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/file.json > {{.LOG}}
-      - | # Exemplardaten
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/E00X.json > {{.LOG}}
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/7100.json > {{.LOG}}
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/8200.json > {{.LOG}}
-      - | # Titeldaten
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/2199.json > {{.LOG}}
-      - > # Titel ohne Exemplare löschen
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/abschluss.json > {{.LOG}}
-#      - > # spec_Z_04: PPN anreichern über ISBN
-#        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/ppn.json > {{.LOG}}
-#      - > # spec_Z_05: Exemplare clustern
-#        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/clustern.json > {{.LOG}}
-      - mkdir -p output
+      - | # Transformationen anwenden
+        for f in config/main/*.json; do
+          "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply "$f" > {{.LOG}}
+        done
       - > # Export der Barcodes; golang requires strange escaping https://stackoverflow.com/questions/17641887/how-do-i-escape-and-delimiters-in-go-templates/17642427#17642427
         "$CLIENT" -P {{.PORT}} {{.PROJECT}}
         --output "$(readlink -m output/barcodes.txt)"
         --template "{{"{{"}}forNonBlank(cells['8200'].value, v, v + '\n', ''){{"}}"}}"
         --rowSeparator ""
         > {{.LOG}}
-      - > # spec_Z_06: Dublette Barcodes löschen
-        "$CLIENT" -P {{.PORT}} {{.PROJECT}} --apply config/main/dedup.json > {{.LOG}}
       - > # Export als PICA+
         "$CLIENT" -P {{.PORT}} {{.PROJECT}}
-        --output "$(readlink -m output/{{.PROJECT}}.txt)"
+        --output "$(readlink -m output/{{.PROJECT}}.pica)"
         --template "$(< config/main/template.txt)"
         --rowSeparator ""
         > {{.LOG}}
@@ -153,7 +138,7 @@ tasks:
       - config/main/**
     generates:
       - log/{{.PROJECT}}.openrefine.tar.gz
-      - output/alephino.txt
+      - output/alephino.pica
       - output/barcodes.txt
     ignore_error: true # workaround to avoid an orphaned Java process on error https://github.com/go-task/task/issues/141
 
