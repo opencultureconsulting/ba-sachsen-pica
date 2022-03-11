@@ -29,10 +29,11 @@ if(row.index - row.record.fromRowIndex == 0,
 ,'')
 }}{{
 if(isNonBlank(cells['E0XXb'].value),
-with(with(rowIndex - row.record.fromRowIndex + 1, i, '00'[0,2-i.length()] + i),exnr,
+with(with(rowIndex - row.record.fromRowIndex, i, '00'[0,2-i.length()] + i),exnr,
 '208@/' + exnr + ' a' + cells['E0XX'].value + 'b' + cells['E0XXb'].value + '\n'
 + '209A/' + exnr + ' b4736' + 'j' + cells['7100j'].value + 'f' + cells['7100f'].value + forNonBlank(cells['7100a'].value, v, 'a' + v, '') + forNonBlank(cells['7100d'].value, v, 'd' + v, '') + 'x00' + '\n'
 + forNonBlank(cells['8100'].value, v, '209C/' + exnr + ' a' + v + 'x00' + '\n', '')
 + forNonBlank(cells['8200'].value, v, '209G/' + exnr + ' a' + v + '\n', '')
++ forNonBlank(cells['4801'].value, v, '237A/' + exnr + ' a' + v + '\n', '')
 ), '')
 }}

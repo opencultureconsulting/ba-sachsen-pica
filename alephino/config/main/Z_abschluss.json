@@ -1,13 +1,46 @@
 [
   {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|GT0",
+          "expression": "isBlank(value)",
+          "columnName": "M|GT0",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|GT0",
+    "expression": "grel:value[2,11]",
+    "onError": "set-to-blank",
+    "newColumnName": "gt0",
+    "columnInsertIndex": 67,
+    "description": "Create column gt0 at index 67 based on column M|GT0 using expression grel:value[2,11]"
+  },
+  {
     "op": "core/row-removal",
     "engineConfig": {
       "facets": [
         {
           "type": "list",
-          "name": "2199",
+          "name": "M|IDN",
           "expression": "isBlank(value)",
-          "columnName": "2199",
+          "columnName": "M|IDN",
           "invert": false,
           "omitBlank": false,
           "omitError": false,
@@ -24,9 +57,9 @@
         },
         {
           "type": "list",
-          "name": "E0XX",
-          "expression": "isBlank(value)",
-          "columnName": "E0XX",
+          "name": "E|001",
+          "expression": "grel:isBlank(row.record.cells['E|001'].value.join(''))",
+          "columnName": "E|001",
           "invert": false,
           "omitBlank": false,
           "omitError": false,
@@ -40,10 +73,27 @@
           ],
           "selectBlank": false,
           "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "grel:forNonBlank(value.cross('alephino','gt0')[0],v,'gt0','')",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [],
+          "selectBlank": true,
+          "selectError": false
         }
       ],
       "mode": "row-based"
     },
     "description": "Remove rows"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "gt0",
+    "description": "Remove column gt0"
   }
 ]

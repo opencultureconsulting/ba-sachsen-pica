@@ -1,0 +1,86 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "E|100",
+    "expression": "grel:value.split('\u001f')[0].slice(1).trim()",
+    "onError": "set-to-blank",
+    "newColumnName": "7100a",
+    "columnInsertIndex": 3,
+    "description": "Create column 7100a at index 3 based on column E|100 using expression grel:value.split('\u001f')[0].slice(1).trim()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "LE",
+                "l": "LE"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "E|001",
+          "expression": "isBlank(value)",
+          "columnName": "E|001",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "E|100",
+          "expression": "isBlank(value)",
+          "columnName": "E|100",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "7100a",
+    "expression": "grel:cells['E|107'].value.replace('\u001fa','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 7100a using expression grel:cells['E|107'].value.replace('\u001fa','')"
+  }
+]

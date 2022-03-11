@@ -63,6 +63,6 @@
     "onError": "set-to-blank",
     "newColumnName": "E0XX",
     "columnInsertIndex": 3,
-    "description": "Create column E0XX at index 41 based on column E|002a using expression grel:value[6,8] + '-' + value[4,6] + '-' + value[2,4]"
+    "description": "Create column E0XX at index 3 based on column E|002a using expression grel:value[6,8] + '-' + value[4,6] + '-' + value[2,4]"
   }
 ]

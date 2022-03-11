@@ -10,6 +10,6 @@
     "onError": "set-to-blank",
     "newColumnName": "8200",
     "columnInsertIndex": 3,
-    "description": "Create column 8200 at index 40 based on column E|120 using expression grel:value"
+    "description": "Create column 8200 at index 3 based on column E|120 using expression grel:value"
   }
 ]

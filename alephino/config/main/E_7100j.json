@@ -1,0 +1,35 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|001",
+          "expression": "isBlank(value)",
+          "columnName": "E|001",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "File",
+    "expression": "grel:if(value == 'LE', '0005', '0006')",
+    "onError": "set-to-blank",
+    "newColumnName": "7100j",
+    "columnInsertIndex": 3,
+    "description": "Create column 7100j at index 3 based on column File using expression grel:if(value == 'LE', '0005', '0006')"
+  }
+]

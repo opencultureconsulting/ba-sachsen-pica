@@ -1,0 +1,184 @@
+[
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|A87",
+          "expression": "value",
+          "columnName": "E|A87",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "050",
+                "l": "050"
+              }
+            },
+            {
+              "v": {
+                "v": "100",
+                "l": "100"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|A95",
+          "expression": "value",
+          "columnName": "E|A95",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "05",
+                "l": "05"
+              }
+            },
+            {
+              "v": {
+                "v": "10",
+                "l": "10"
+              }
+            },
+            {
+              "v": {
+                "v": "21",
+                "l": "21"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|A87",
+          "expression": "value",
+          "columnName": "E|A87",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "99",
+                "l": "99"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|A95",
+          "expression": "value",
+          "columnName": "E|A95",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "99",
+                "l": "99"
+              }
+            },
+            {
+              "v": {
+                "v": "lo",
+                "l": "lo"
+              }
+            },
+            {
+              "v": {
+                "v": "ex",
+                "l": "ex"
+              }
+            },
+            {
+              "v": {
+                "v": "vm",
+                "l": "vm"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "E|A97",
+          "expression": "value",
+          "columnName": "E|A97",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "99",
+                "l": "99"
+              }
+            },
+            {
+              "v": {
+                "v": "04",
+                "l": "04"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "description": "Remove rows"
+  }
+]
