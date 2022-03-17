@@ -1,0 +1,71 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:[\nforNonBlank(filter(cells['M|104'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|104a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|104b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|104f'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|108'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|108a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|108b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|108f'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|112'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|112a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|112b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|116'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|116a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|116b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|120a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|120b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|124a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|124b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|128a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|128b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|132a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|132b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|136a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|136b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|140a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|140b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|144a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|144b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|148a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|148b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|152a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|152b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|156a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|156b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|160a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|160b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|164a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|164b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|168a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|168b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|172a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|172b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|176a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|176b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|180a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|180b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|184a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|184b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|188a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|188b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|192a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|192b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|196a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|196b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null)\n].join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "3010",
+    "columnInsertIndex": 1,
+    "description": "Create column 3010 at index 1 based on column M|IDN using expression grel:[\nforNonBlank(filter(cells['M|104'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|104a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|104b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|104f'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|108'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|108a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|108b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|108f'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|112'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|112a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|112b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|116'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|116a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|116b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|120a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|120b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|124a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|124b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|128a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|128b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|132a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|132b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|136a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|136b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|140a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|140b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|144a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|144b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|148a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|148b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|152a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|152b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|156a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|156b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|160a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|160b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|164a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|164b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|168a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|168b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|172a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|172b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|176a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|176b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|180a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|180b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|184a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|184b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|188a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|188b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|192a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|192b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|196a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|196b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null)\n].join('␟')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "3010",
+          "expression": "isBlank(value)",
+          "columnName": "3010",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3010",
+    "expression": "grel:forEach(value.split('␟'),\nv,\nif(\nv.contains(','),\n'\u001fa' + v.split(',')[0].trim() + '\u001fd' + v.split(',')[1].trim(),\n'\u001fP' + v\n)\n).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3010 using expression grel:forEach(value.split('␟'),\nv,\nif(\nv.contains(','),\n'\u001fa' + v.split(',')[0].trim() + '\u001fd' + v.split(',')[1].trim(),\n'\u001fP' + v\n)\n).join('␟')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "text",
+          "name": "3010",
+          "columnName": "3010",
+          "query": "¬",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3010",
+    "expression": "grel:forEach(value.split('␟'), v,\nif(v.contains('¬'),\nv.split('¬')[0].trim() + '\u001fc' + v.split('¬')[1].trim(),\nv\n)\n).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3010 using expression grel:forEach(value.split('␟'), v,\nif(v.contains('¬'),\nv.split('¬')[0].trim() + '\u001fc' + v.split('¬')[1].trim(),\nv\n)\n).join('␟')"
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:forEach(forEach(cells['M|037b'].value.split('␟'),v,v.replace('; ','‡').replace(',','‡').replace('\\\\','‡')).join('‡').split('‡'), x, x.trim()).join('‡')",
+    "onError": "set-to-blank",
+    "newColumnName": "1500",
+    "columnInsertIndex": 1,
+    "description": "Create column 1500 at index 1 based on column M|IDN using expression grel:forEach(forEach(cells['M|037b'].value.split('␟'),v,v.replace('; ','‡').replace(',','‡').replace('\\\\','‡')).join('‡').split('‡'), x, x.trim()).join('‡')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "1500",
+    "expression": "grel:forEach(value.split('‡'), v, v.replace(/^dt$/,'ger').replace(/^deu$/,'ger').replace(/^engl.$/,'eng').replace(/^engl$/,'eng')).uniques().join('‡')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 1500 using expression grel:forEach(value.split('‡'), v, v.replace(/^dt$/,'ger').replace(/^deu$/,'ger').replace(/^engl.$/,'eng').replace(/^engl$/,'eng')).uniques().join('‡')"
+  }
+]

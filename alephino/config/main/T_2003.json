@@ -1,0 +1,28 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:[forNonBlank(cells['M|087'].value, v, forEach(v.split('␟'), x, x + '\u001ffo').join('␟'), null), forNonBlank(cells['M|087b'].value, v, v + '\u001ffa', null), forNonBlank(cells['M|087o'].value, v, v + '\u001ffo', null)].join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "2003",
+    "columnInsertIndex": 1,
+    "description": "Create column 2003 at index 1 based on column M|IDN using expression grel:[forNonBlank(cells['M|087b'].value, v, v + '\u001ffa', null), forNonBlank(cells['M|087'].value, v, v + '\u001ffo', null), forNonBlank(cells['M|087o'].value, v, v + '\u001ffo', null)].join('␟')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "2003",
+    "expression": "grel:value.replace('-','').replace('.','').replace(' ','').replace('=','')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 2003 using expression grel:value.replace('-','').replace('.','').replace(' ','').replace('=','')"
+  }
+]

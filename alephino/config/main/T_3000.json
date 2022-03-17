@@ -1,0 +1,51 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:filter(cells['M|100'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1)",
+    "onError": "set-to-blank",
+    "newColumnName": "3000",
+    "columnInsertIndex": 1,
+    "description": "Create column 3000 at index 1 based on column M|IDN using expression grel:filter(cells['M|100'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "3000",
+    "expression": "grel:if(\nvalue.contains(','),\n'\u001fa' + value.split(',')[0].trim() + '\u001fd' + value.split(',')[1].trim(),\n'\u001fP' + value\n)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3000 using expression grel:if(\nvalue.contains(','),\n'\u001fa' + value.split(',')[0].trim() + '\u001fd' + value.split(',')[1].trim(),\n'\u001fP' + value\n)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "text",
+          "name": "3000",
+          "columnName": "3000",
+          "query": "¬",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3000",
+    "expression": "grel:value.split('¬')[0].trim() + '\u001fc' + value.split('¬')[1].trim()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3000 using expression grel:value.split('¬')[0].trim() + '\u001fc' + value.split('¬')[1].trim()"
+  }
+]

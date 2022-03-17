@@ -1,0 +1,35 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:filter(cells['M|036a'].value.split('␟'),v,v.startsWith('X')).join('‡')",
+    "onError": "set-to-blank",
+    "newColumnName": "1700",
+    "columnInsertIndex": 1,
+    "description": "Create column 1700"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "1700",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "XA-DE++XA-AT++XA-CH"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "XA-DE‡XA-AT‡XA-CH"
+      }
+    ],
+    "description": "Mass edit cells in column 1700"
+  }
+]

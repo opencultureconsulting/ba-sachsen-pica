@@ -1,0 +1,541 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:if(\nor(\ncells['M|076a'].value == 'vide',\ncells['M|076c'].value.contains('dvdv'),\ncells['M|076c'].value.contains('vika'),\ncells['M|077'].value.contains('videodisc')\n),\n'B',null)",
+    "onError": "set-to-blank",
+    "newColumnName": "0500",
+    "columnInsertIndex": 1,
+    "description": "Create column 0500 at index 1 based on column M|IDN using expression grel:if(\nor(\ncells['M|076a'].value == 'vide',\ncells['M|076c'].value.contains('dvdv'),\ncells['M|076c'].value.contains('vika'),\ncells['M|077'].value.contains('videodisc')\n),\n'B',null)"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:if(\nor(\ncells['M|076a'].value == 'vide',\ncells['M|076c'].value.contains('dvdv'),\ncells['M|076c'].value.contains('vika'),\ncells['M|077'].value.contains('videodisc')\n),\n'vide',null)",
+    "onError": "set-to-blank",
+    "newColumnName": "1140",
+    "columnInsertIndex": 1,
+    "description": "Create column 1140 at index 1 based on column M|IDN using expression grel:if(\nor(\ncells['M|076a'].value == 'vide',\ncells['M|076c'].value.contains('dvdv'),\ncells['M|076c'].value.contains('vika'),\ncells['M|077'].value.contains('videodisc')\n),\n'vide',null)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "isBlank(value)",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:if(\nor(\ncells['M|050'].value[8] == 'd',\ncells['M|076a'].value.contains('crom')\n),\n'S',value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 0500 using expression grel:if(\nor(\ncells['M|050'].value[8] == 'd',\ncells['M|076a'].value.contains('crom')\n),\n'S',value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "isBlank(value)",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "M|076c",
+          "columnName": "M|076c",
+          "query": "cdda",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        },
+        {
+          "type": "text",
+          "name": "M|077",
+          "columnName": "M|077",
+          "query": "cd-rom|compact",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:'S'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 0500 using expression grel:'S'"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "isBlank(value)",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|050",
+          "expression": "grel:value[5,7]",
+          "columnName": "M|050",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "aa",
+                "l": "aa"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "1140",
+    "expression": "grel:'soto'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 1140 using expression grel:'soto'"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "isBlank(value)",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|050",
+          "expression": "grel:value[5,7]",
+          "columnName": "M|050",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "aa",
+                "l": "aa"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:'B'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 0500 using expression grel:'B'"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "isBlank(value)",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|050",
+          "expression": "grel:value[10]",
+          "columnName": "M|050",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "a",
+                "l": "a"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "1140",
+    "expression": "grel:'kart'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 1140 using expression grel:'kart'"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "isBlank(value)",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|050",
+          "expression": "grel:value[10]",
+          "columnName": "M|050",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "a",
+                "l": "a"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:'A'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 0500 using expression grel:'A'"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "isBlank(value)",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "M|077",
+          "columnName": "M|077",
+          "query": "karte",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "1140",
+    "expression": "grel:'kart'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 1140 using expression grel:'kart'"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "isBlank(value)",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "M|077",
+          "columnName": "M|077",
+          "query": "karte",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:'A'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 0500 using expression grel:'A'"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "isBlank(value)",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|050",
+          "expression": "grel:value[5,7]",
+          "columnName": "M|050",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "dc",
+                "l": "dc"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "1140",
+    "expression": "grel:'bild'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 1140 using expression grel:'bild'"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "isBlank(value)",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|050",
+          "expression": "grel:value[5,7]",
+          "columnName": "M|050",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "dc",
+                "l": "dc"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:'Ban'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 0500 using expression grel:'Ban'"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:'A'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 0500 using expression grel:'A'"
+  }
+]

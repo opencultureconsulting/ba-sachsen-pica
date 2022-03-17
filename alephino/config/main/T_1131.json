@@ -1,0 +1,88 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:[forNonBlank(cells['M|064'].value, v, v, null) , forNonBlank(cells['M|064a'].value, v ,v, null)].join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "1131",
+    "columnInsertIndex": 1,
+    "description": "Create column 1131 at index 1 based on column M|IDN using expression grel:[forNonBlank(cells['M|064'].value, v, v, null) , forNonBlank(cells['M|064a'].value, v ,v, null)].join('␟')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "1131",
+          "expression": "isBlank(value)",
+          "columnName": "1131",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "1131",
+    "expression": "grel:forEach(value.split('␟'), x, filter(x.split('\u001f'), v, or(v.startsWith('a'),v.startsWith('y'),v.startsWith('z'))).join('\u001f')).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 1131 using expression grel:forEach(value.split('␟'), x, filter(x.split('\u001f'), v, or(v.startsWith('a'),v.startsWith('y'),v.startsWith('z'))).join('\u001f')).join('␟')"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "1131",
+          "expression": "isBlank(value)",
+          "columnName": "1131",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "1131",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "aSoftware"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column 1131"
+  }
+]
