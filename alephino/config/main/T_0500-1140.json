@@ -499,11 +499,11 @@
       "mode": "row-based"
     },
     "columnName": "0500",
-    "expression": "grel:'Ban'",
+    "expression": "grel:'B'",
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
-    "description": "Text transform on cells in column 0500 using expression grel:'Ban'"
+    "description": "Text transform on cells in column 0500 using expression grel:'B'"
   },
   {
     "op": "core/text-transform",

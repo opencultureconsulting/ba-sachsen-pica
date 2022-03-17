@@ -6,10 +6,10 @@
       "mode": "row-based"
     },
     "baseColumnName": "E|115",
-    "expression": "grel:forEach(value.split(','), v, cells['File'].value + ' ' + v.trim()).join('\u001fa')",
+    "expression": "grel:cells['File'].value + ' ' + value.split(',')[0].trim()",
     "onError": "set-to-blank",
     "newColumnName": "8100",
     "columnInsertIndex": 3,
-    "description": "Create column 8100 at index 3 based on column E|115 using expression grel:forEach(value.split(','), v, cells['File'].value + ' ' + v.trim()).join('\u001fa')"
+    "description": "Create column 8100"
   }
 ]
