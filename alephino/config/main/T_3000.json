@@ -9,8 +9,8 @@
     "expression": "grel:filter(cells['M|100'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1)",
     "onError": "set-to-blank",
     "newColumnName": "3000",
-    "columnInsertIndex": 1,
-    "description": "Create column 3000 at index 1 based on column M|IDN using expression grel:filter(cells['M|100'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1)"
+    "columnInsertIndex": 3,
+    "description": "Create column 3000"
   },
   {
     "op": "core/text-transform",
@@ -23,7 +23,7 @@
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
-    "description": "Text transform on cells in column 3000 using expression grel:if(\nvalue.contains(','),\n'\u001fa' + value.split(',')[0].trim() + '\u001fd' + value.split(',')[1].trim(),\n'\u001fP' + value\n)"
+    "description": "Text transform on cells in column 3000"
   },
   {
     "op": "core/text-transform",
@@ -46,6 +46,6 @@
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
-    "description": "Text transform on cells in column 3000 using expression grel:value.split('¬')[0].trim() + '\u001fc' + value.split('¬')[1].trim()"
+    "description": "Text transform on cells in column 3000"
   }
 ]

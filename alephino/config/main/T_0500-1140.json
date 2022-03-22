@@ -9,8 +9,8 @@
     "expression": "grel:if(\nor(\ncells['M|076a'].value == 'vide',\ncells['M|076c'].value.contains('dvdv'),\ncells['M|076c'].value.contains('vika'),\ncells['M|077'].value.contains('videodisc')\n),\n'B',null)",
     "onError": "set-to-blank",
     "newColumnName": "0500",
-    "columnInsertIndex": 1,
-    "description": "Create column 0500 at index 1 based on column M|IDN using expression grel:if(\nor(\ncells['M|076a'].value == 'vide',\ncells['M|076c'].value.contains('dvdv'),\ncells['M|076c'].value.contains('vika'),\ncells['M|077'].value.contains('videodisc')\n),\n'B',null)"
+    "columnInsertIndex": 3,
+    "description": "Create column 0500"
   },
   {
     "op": "core/column-addition",
@@ -22,8 +22,8 @@
     "expression": "grel:if(\nor(\ncells['M|076a'].value == 'vide',\ncells['M|076c'].value.contains('dvdv'),\ncells['M|076c'].value.contains('vika'),\ncells['M|077'].value.contains('videodisc')\n),\n'vide',null)",
     "onError": "set-to-blank",
     "newColumnName": "1140",
-    "columnInsertIndex": 1,
-    "description": "Create column 1140 at index 1 based on column M|IDN using expression grel:if(\nor(\ncells['M|076a'].value == 'vide',\ncells['M|076c'].value.contains('dvdv'),\ncells['M|076c'].value.contains('vika'),\ncells['M|077'].value.contains('videodisc')\n),\n'vide',null)"
+    "columnInsertIndex": 3,
+    "description": "Create column 1140"
   },
   {
     "op": "core/text-transform",
@@ -56,7 +56,7 @@
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
-    "description": "Text transform on cells in column 0500 using expression grel:if(\nor(\ncells['M|050'].value[8] == 'd',\ncells['M|076a'].value.contains('crom')\n),\n'S',value)"
+    "description": "Text transform on cells in column 0500"
   },
   {
     "op": "core/text-transform",

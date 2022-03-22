@@ -9,7 +9,7 @@
     "expression": "grel:coalesce(cells['M|425'].value, forNonBlank(cells['M|419'].value.split('\u001fc')[1],v,v,null))",
     "onError": "set-to-blank",
     "newColumnName": "1100n",
-    "columnInsertIndex": 1,
+    "columnInsertIndex": 3,
     "description": "Create column 1100n"
   },
   {
@@ -22,7 +22,7 @@
     "expression": "grel:coalesce(cells['M|425a'].value, cells['M|425b'].value)",
     "onError": "set-to-blank",
     "newColumnName": "1100a",
-    "columnInsertIndex": 1,
+    "columnInsertIndex": 3,
     "description": "Create column 1100a"
   },
   {
@@ -87,7 +87,7 @@
     "expression": "grel:cells['M|425c'].value.find(/\\d{4}/)[0]",
     "onError": "set-to-blank",
     "newColumnName": "1100b",
-    "columnInsertIndex": 1,
+    "columnInsertIndex": 3,
     "description": "Create column 1100b"
   }
 ]

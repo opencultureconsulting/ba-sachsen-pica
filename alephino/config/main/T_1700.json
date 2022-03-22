@@ -9,7 +9,7 @@
     "expression": "grel:filter(cells['M|036a'].value.split('␟'),v,v.startsWith('X')).join('‡')",
     "onError": "set-to-blank",
     "newColumnName": "1700",
-    "columnInsertIndex": 1,
+    "columnInsertIndex": 3,
     "description": "Create column 1700"
   },
   {

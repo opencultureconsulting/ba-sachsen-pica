@@ -9,7 +9,7 @@
     "expression": "grel:'BA' + cells['File'].value + value",
     "onError": "set-to-blank",
     "newColumnName": "2199",
-    "columnInsertIndex": 1,
-    "description": "Create column 2199 at index 1 based on column M|IDN using expression grel:'BA' + cells['File'].value + value"
+    "columnInsertIndex": 3,
+    "description": "Create column 2199"
   }
 ]
