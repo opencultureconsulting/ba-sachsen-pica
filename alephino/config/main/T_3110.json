@@ -1,0 +1,141 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:[\nforNonBlank(filter(cells['M|200a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|200b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|204'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|204a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|204b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|208b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|212b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|216b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null)].join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "3110",
+    "columnInsertIndex": 3,
+    "description": "Create column 3110 at index 3 based on column M|IDN using expression grel:[\nforNonBlank(filter(cells['M|200a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|200b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|204'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|204a'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|204b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|208b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|212b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null),\nforNonBlank(filter(cells['M|216b'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1), x, x, null)].join('␟')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "3110",
+          "expression": "isBlank(value)",
+          "columnName": "3110",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "3110",
+          "columnName": "3110",
+          "query": " / ",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3110",
+    "expression": "grel:forEach(value.split('␟'), v, v.replace(' / ', '\u001fb').trim()).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3110"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "3110",
+          "expression": "isBlank(value)",
+          "columnName": "3110",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "3110",
+          "columnName": "3110",
+          "query": "¬",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3110",
+    "expression": "grel:forEach(value.split('␟'), v, v.replace(/ ¬.*¬/,'').trim()).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3110"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "3110",
+          "expression": "isBlank(value)",
+          "columnName": "3110",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "3110",
+          "columnName": "3110",
+          "query": "<",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3110",
+    "expression": "grel:forEach(value.split('␟'), v, v.replace(/ <.*>/, '').trim() + forNonBlank(v.find(/<.*>/)[0], x, '\u001fx' + x.replace('<', '').replace('>', ''), '')).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3110"
+  }
+]

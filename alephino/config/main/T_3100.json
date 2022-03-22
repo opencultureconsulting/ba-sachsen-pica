@@ -1,0 +1,141 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:filter(cells['M|200'].value.split('\u001f'), v, v.startsWith('a'))[0].slice(1)",
+    "onError": "set-to-blank",
+    "newColumnName": "3100",
+    "columnInsertIndex": 3,
+    "description": "Create column 3100"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "3100",
+          "expression": "isBlank(value)",
+          "columnName": "3100",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "3100",
+          "columnName": "3100",
+          "query": " / ",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3100",
+    "expression": "grel:value.replace(' / ', '\u001fb')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3100 using expression grel:value.replace(' / ', '\u001fb')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "3100",
+          "expression": "isBlank(value)",
+          "columnName": "3100",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "3100",
+          "columnName": "3100",
+          "query": "¬",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3100",
+    "expression": "grel:value.replace(/¬.*¬/,'').trim()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3100 using expression grel:value.replace(/¬.*¬/,'').trim()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "3100",
+          "expression": "isBlank(value)",
+          "columnName": "3100",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "3100",
+          "columnName": "3100",
+          "query": "<",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3100",
+    "expression": "grel:value.replace(/<.*>/, '').trim() + '\u001fx' + value.find(/<.*>/)[0].replace('<', '').replace('>', '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3100 using expression grel:value.replace(/<.*>/, '').trim() + '\u001fx' + value.find(/<.*>/)[0].replace('<', '').replace('>', '')"
+  }
+]
