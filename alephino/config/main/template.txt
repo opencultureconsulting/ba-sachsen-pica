@@ -9,6 +9,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['1131'].value, v, forEach(v.split('␟'),x,'013D ' + '' + x + '\n').join(''), '')
 + forNonBlank(cells['1140'].value, v, '013H ' + 'a' + v + '\n', '')
 + forNonBlank(cells['1700'].value, v, '019@ ' + forEach(v.split('‡'),x,'a' + x).join('') + '\n', '')
++ forNonBlank(cells['3210'].value, v, '022A/00 ' + 'a' + v + '\n', '')
 + forNonBlank(cells['3000'].value, v, '028A ' + v + '\n', '')
 + forNonBlank(cells['3010'].value, v, forEach(v.split('␟'), x, '028C ' + x + '\n').join(''), '')
 + forNonBlank(cells['3100'].value, v, '029A ' + v + '\n', '')
