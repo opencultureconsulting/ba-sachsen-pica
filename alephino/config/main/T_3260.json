@@ -19,6 +19,71 @@
       "mode": "row-based"
     },
     "columnName": "3260",
+    "expression": "grel:forNonBlank([ forNonBlank(value, v, v, null), forNonBlank(cells['M|375'].value, v, v.slice(2), null) ].join('␟'), x, x, null)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3260"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "3260",
+    "expression": "grel:forNonBlank([ forNonBlank(value, v, v, null), forNonBlank(cells['M|375e'].value, v, v.slice(2), null) ].join('␟'), x, x, null)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3260"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "3260",
+    "expression": "grel:forNonBlank([ forNonBlank(value, v, v, null), forNonBlank(cells['M|370'].value, v, v, null) ].join('␟'), x, x, null)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3260"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "3260",
+    "expression": "grel:forNonBlank([ forNonBlank(value, v, v, null), forNonBlank(cells['M|370a'].value, v, v, null) ].join('␟'), x, x, null)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3260"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "3260",
+    "expression": "grel:forNonBlank([ forNonBlank(value, v, v, null), forNonBlank(cells['M|370b'].value, v, v, null) ].join('␟'), x, x, null)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3260"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "3260",
     "expression": "grel:value.replace('¬', '')",
     "onError": "keep-original",
     "repeat": false,
