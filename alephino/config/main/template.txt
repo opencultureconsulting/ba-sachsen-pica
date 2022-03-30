@@ -11,9 +11,10 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['1700'].value, v, '019@ ' + forEach(v.split('‡'),x,'a' + x).join('') + '\n', '')
 + forNonBlank(cells['4000'].value, v, '021A ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4002'].value, v, forEach(v.split('␟'), x, '021G ' + 'a' + x + '\n').join(''), '')
++ forNonBlank(cells['4011'].value, v, '021N ' + 'a' + v + '\n', '')
 + forNonBlank(cells['3210'].value, v, '022A/00 ' + 'a' + v + '\n', '')
 + forNonBlank(cells['3211'].value, v, '022A/01 ' + 'a' + v + '\n', '')
-+ forNonBlank(cells['3260'].value, v, '027A ' + 'a' + v + '\n', '')
++ forNonBlank(cells['3260'].value, v, forEach(v.split('␟'), x, '027A ' + 'a' + x + '\n').join(''), '')
 + forNonBlank(cells['3000'].value, v, '028A ' + v + '\n', '')
 + forNonBlank(cells['3010'].value, v, forEach(v.split('␟'), x, '028C ' + x + '\n').join(''), '')
 + forNonBlank(cells['3100'].value, v, '029A ' + v + '\n', '')
