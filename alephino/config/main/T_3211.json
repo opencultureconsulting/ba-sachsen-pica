@@ -1,0 +1,147 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:filter(cells['M|303t'].value.split('\u001f'), v, v.startsWith('t'))[0].slice(1)",
+    "onError": "set-to-blank",
+    "newColumnName": "3211",
+    "columnInsertIndex": 3,
+    "description": "Create column 3211"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "3211",
+          "expression": "isBlank(value)",
+          "columnName": "3211",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3211",
+    "expression": "grel:value + forNonBlank(filter(cells['M|303t'].value.split('\u001f'), v, v.startsWith('u'))[0].slice(1), x, '\u001fp' + x, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3211"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "3211",
+          "expression": "isBlank(value)",
+          "columnName": "3211",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3211",
+    "expression": "grel:value + forNonBlank(filter(cells['M|303t'].value.split('\u001f'), v, v.startsWith('f'))[0].slice(1), x, '\u001ff' + x, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3211"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "3211",
+          "expression": "isBlank(value)",
+          "columnName": "3211",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3211",
+    "expression": "grel:value.replace('¬', '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3211 using expression grel:value.replace('¬', '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "3211",
+          "expression": "isBlank(value)",
+          "columnName": "3211",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "3211",
+    "expression": "grel:with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], x, if(inArray(x, value.split(' ')[0].toLowercase()), value.split(' ')[0] + ' @' + value.split(' ').slice(1).join(' '), value))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3211"
+  }
+]
