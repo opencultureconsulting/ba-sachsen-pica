@@ -1,0 +1,41 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|310",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "3260",
+    "columnInsertIndex": 3,
+    "description": "Create column 3260"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "3260",
+    "expression": "grel:value.replace('¬', '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3260"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "3260",
+    "expression": "grel:with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], x, if(inArray(x, value.split(' ')[0].toLowercase()), value.split(' ')[0] + ' @' + value.split(' ').slice(1).join(' '), value))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 3260"
+  }
+]
