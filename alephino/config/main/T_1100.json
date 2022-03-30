@@ -78,6 +78,58 @@
     "description": "Text transform on cells in column 1100a using expression grel:cells['1100n'].value.find(/\\d{4}/)[0]"
   },
   {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "1100a",
+          "expression": "isBlank(value)",
+          "columnName": "1100a",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "1100a",
+    "expression": "grel:'20XX'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 1100a using expression grel:'20XX'"
+  },
+  {
     "op": "core/column-addition",
     "engineConfig": {
       "facets": [],
