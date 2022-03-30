@@ -1,0 +1,67 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|340",
+    "expression": "grel:coalesce(cells['M|340'].value, cells['M|341'].value, cells['M|341a'].value) + forNonBlank(cells['M|343'].value, v, '\u001fd' + v, '')",
+    "onError": "set-to-blank",
+    "newColumnName": "4002",
+    "columnInsertIndex": 3,
+    "description": "Create column 4002"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "4002",
+    "expression": "grel:value + forNonBlank(cells['M|345'].value, v, '␟' + v, '') + forNonBlank(cells['M|347'].value, v, '\u001fd' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4002"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "4002",
+    "expression": "grel:value + forNonBlank(cells['M|349'].value, v, '␟' + v, '') + forNonBlank(cells['M|351'].value, v, '\u001fd' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4002"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "4002",
+    "expression": "grel:value.replace('¬', '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4002"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "4002",
+    "expression": "grel:forEach(value.split('␟'), v, with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], x, if(inArray(x, v.split(' ')[0].toLowercase()), v.split(' ')[0] + ' @' + v.split(' ').slice(1).join(' '), v))).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4002"
+  }
+]
