@@ -18,6 +18,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['3010'].value, v, forEach(v.split('␟'), x, '028C ' + x + '\n').join(''), '')
 + forNonBlank(cells['3100'].value, v, '029A ' + v + '\n', '')
 + forNonBlank(cells['3110'].value, v, forEach(v.split('␟'), x, '029F ' + x + '\n').join(''), '')
++ forNonBlank(cells['4222'].value, v, '046M ' + 'a' + v + '\n', '')
 ,'')
 }}{{
 if(isNonBlank(cells['E0XXb'].value),
