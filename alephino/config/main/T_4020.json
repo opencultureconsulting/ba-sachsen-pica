@@ -1,0 +1,15 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "baseColumnName": "M|403",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "4020",
+    "columnInsertIndex": 3,
+    "description": "Create column 4020"
+  }
+]
