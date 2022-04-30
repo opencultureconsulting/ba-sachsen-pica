@@ -4,7 +4,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['0500'].value, v, '002@ ' + '0' + v + '\n', '')
 + forNonBlank(cells['2000'].value, v, forEach(v.split('␟'), x, '004A ' + x + '\n').join(''), '')
 + forNonBlank(cells['2009'].value, v, forEach(v.split('␟'), x, '004D ' + x + '\n').join(''), '')
-+ forNonBlank(cells['2201'].value, v, '004L ' + '0' + v + '\n', '')
++ forNonBlank(cells['2201'].value, v, forEach(v.split('␟'), x, '004L ' + '0' + x + '\n').join(''), '')
 + forNonBlank(cells['2003'].value, v, forEach(v.split('␟'), x, '004P ' + '0' + x + '\n').join(''), '')
 + forNonBlank(cells['2053'].value, v, '004W ' + '0' + v + '\n', '')
 + forNonBlank(cells['2010'].value, v, forEach(v.split('␟'), x, '005A ' + x + '\n').join(''), '')

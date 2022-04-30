@@ -6,7 +6,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|IDN",
-    "expression": "grel:coalesce(cells['M|425'].value, forNonBlank(cells['M|419'].value.split('\u001fc')[1],v,v,null))",
+    "expression": "grel:coalesce(cells['M|425'].value.split('␟')[0], forNonBlank(cells['M|419'].value.split('␟')[0].split('\u001fc')[1],v,v,null))",
     "onError": "set-to-blank",
     "newColumnName": "1100n",
     "columnInsertIndex": 3,

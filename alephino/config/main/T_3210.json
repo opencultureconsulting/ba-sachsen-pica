@@ -6,7 +6,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|IDN",
-    "expression": "grel:filter(cells['M|303'].value.split('\u001f'), v, v.startsWith('t'))[0].slice(1)",
+    "expression": "grel:filter(cells['M|303'].value.split('␟')[0].split('\u001f'), v, v.startsWith('t'))[0].slice(1)",
     "onError": "set-to-blank",
     "newColumnName": "3210",
     "columnInsertIndex": 3,
@@ -43,7 +43,7 @@
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
-    "description": "Text transform on cells in column 3210 using expression grel:value + forNonBlank(filter(cells['M|303'].value.split('\u001f'), v, v.startsWith('u'))[0].slice(1), x, '\u001fp' + x, '')"
+    "description": "Text transform on cells in column 3210"
   },
   {
     "op": "core/text-transform",

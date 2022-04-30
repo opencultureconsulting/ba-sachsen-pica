@@ -6,7 +6,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|IDN",
-    "expression": "grel:filter(cells['M|303t'].value.split('\u001f'), v, v.startsWith('t'))[0].slice(1)",
+    "expression": "grel:filter(cells['M|303t'].value.split('␟')[0].split('\u001f'), v, v.startsWith('t'))[0].slice(1)",
     "onError": "set-to-blank",
     "newColumnName": "3211",
     "columnInsertIndex": 3,
@@ -39,7 +39,7 @@
       "mode": "row-based"
     },
     "columnName": "3211",
-    "expression": "grel:value + forNonBlank(filter(cells['M|303t'].value.split('\u001f'), v, v.startsWith('u'))[0].slice(1), x, '\u001fp' + x, '')",
+    "expression": "grel:value + forNonBlank(filter(cells['M|303t'].value.split('␟')[0].split('\u001f'), v, v.startsWith('u'))[0].slice(1), x, '\u001fp' + x, '')",
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
@@ -72,7 +72,7 @@
       "mode": "row-based"
     },
     "columnName": "3211",
-    "expression": "grel:value + forNonBlank(filter(cells['M|303t'].value.split('\u001f'), v, v.startsWith('f'))[0].slice(1), x, '\u001ff' + x, '')",
+    "expression": "grel:value + forNonBlank(filter(cells['M|303t'].value.split('␟')[0].split('\u001f'), v, v.startsWith('f'))[0].slice(1), x, '\u001ff' + x, '')",
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
