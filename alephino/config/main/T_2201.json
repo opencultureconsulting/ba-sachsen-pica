@@ -1,0 +1,35 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|553a",
+          "expression": "isBlank(value)",
+          "columnName": "M|553a",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|553a",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "2201",
+    "columnInsertIndex": 3,
+    "description": "Create column 2201"
+  }
+]
