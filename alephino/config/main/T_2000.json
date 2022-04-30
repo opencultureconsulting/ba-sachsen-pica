@@ -1,0 +1,48 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|540a",
+    "expression": "grel:[ value, cells['M|540'].value ].join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "2000",
+    "columnInsertIndex": 3,
+    "description": "Create column 2000 at index 3 based on column M|540a using expression grel:[ value, cells['M|540'].value ].join('␟')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "2000",
+          "expression": "isBlank(value)",
+          "columnName": "2000",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "2000",
+    "expression": "grel:forEach(value.split('␟'), v, forNonBlank(filter(v.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, '\u001f0' + x.replace('-','').replace('x','X'), '') + forNonBlank(filter(v.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, '\u001ff' + x, '') ).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 2000"
+  }
+]
