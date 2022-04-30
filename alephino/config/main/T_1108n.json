@@ -1,0 +1,15 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|419d",
+    "expression": "grel:value.replace('c©Copyright','©').replace('c©','©').replace('c@','©').replace('© ','©').replace('©','© ')",
+    "onError": "set-to-blank",
+    "newColumnName": "1108n",
+    "columnInsertIndex": 3,
+    "description": "Create column 1108n"
+  }
+]
