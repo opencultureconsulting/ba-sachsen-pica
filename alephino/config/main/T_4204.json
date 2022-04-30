@@ -1,0 +1,15 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|519",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "4204",
+    "columnInsertIndex": 3,
+    "description": "Create column 4204"
+  }
+]
