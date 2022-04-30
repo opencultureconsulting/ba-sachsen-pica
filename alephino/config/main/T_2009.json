@@ -1,0 +1,35 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|540b",
+          "expression": "isBlank(value)",
+          "columnName": "M|540b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|540b",
+    "expression": "grel:forEach(value.split('␟'), v, forNonBlank(filter(v.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, '\u001f0' + x.replace('-','').replace('x','X'), '') + forNonBlank(filter(v.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, '\u001ff' + x, '') ).join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "2009",
+    "columnInsertIndex": 3,
+    "description": "Create column 2009"
+  }
+]
