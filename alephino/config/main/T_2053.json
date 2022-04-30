@@ -1,0 +1,35 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|552a",
+          "expression": "isBlank(value)",
+          "columnName": "M|552a",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|552a",
+    "expression": "grel:value.replace('DOI: ','').replace('DOI:','').replace('DOI','')",
+    "onError": "set-to-blank",
+    "newColumnName": "2053",
+    "columnInsertIndex": 3,
+    "description": "Create column 2053"
+  }
+]
