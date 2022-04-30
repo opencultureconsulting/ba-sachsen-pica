@@ -6,10 +6,43 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|519",
-    "expression": "grel:value",
+    "expression": "grel:'\u001fa' + value",
     "onError": "set-to-blank",
     "newColumnName": "4204",
     "columnInsertIndex": 3,
-    "description": "Create column 4204"
+    "description": "Create column 4204 at index 3 based on column M|519 using expression grel:'\u001fa' + value"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|520",
+          "expression": "isBlank(value)",
+          "columnName": "M|520",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "4204",
+    "expression": "grel:coalesce(forNonBlank(filter(cells['M|520'].value.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, '\u001fa' + x, '') + forNonBlank(filter(cells['M|520'].value.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, '\u001fd' + x, '') + forNonBlank(filter(cells['M|520'].value.split('\u001f'), f, f[0] == 'c')[0].slice(1), x, '\u001fe' + x, '') + forNonBlank(filter(cells['M|520'].value.split('\u001f'), f, f[0] == 'd')[0].slice(1), x, '\u001ff' + x, ''), value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4204 using expression grel:coalesce(forNonBlank(filter(cells['M|520'].value.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, '\u001fa' + x, '') + forNonBlank(filter(cells['M|520'].value.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, '\u001fd' + x, '') + forNonBlank(filter(cells['M|520'].value.split('\u001f'), f, f[0] == 'c')[0].slice(1), x, '\u001fe' + x, '') + forNonBlank(filter(cells['M|520'].value.split('\u001f'), f, f[0] == 'd')[0].slice(1), x, '\u001ff' + x, ''), value)"
   }
 ]
