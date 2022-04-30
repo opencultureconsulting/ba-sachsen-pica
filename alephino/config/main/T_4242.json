@@ -1,0 +1,35 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|529",
+          "expression": "isBlank(value)",
+          "columnName": "M|529",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|529",
+    "expression": "grel:forEach(value.split('␟'), v, forNonBlank(filter(v.split('\u001f'), f, f[0] == 'p')[0].slice(1), x, '\u001fi' + x, '') + forNonBlank(filter(v.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, '\u001fa' + x.replace('¬','').replace(/^:\\s?/,''), '')).join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "4242",
+    "columnInsertIndex": 3,
+    "description": "Create column 4242"
+  }
+]

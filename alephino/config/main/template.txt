@@ -29,6 +29,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['4063'].value, v, '034K ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4026'].value, v, '035E ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4204'].value, v, '037C ' + v + '\n', '')
++ forNonBlank(cells['4242'].value, v, forEach(v.split('␟'), x, '039C ' + x + '\n').join(''), '')
 + forNonBlank(cells['4243'].value, v, forEach(v.split('␟'), x, '039I ' + x + '\n').join(''), '')
 + forNonBlank(cells['4212'].value, v, '046C ' + v + '\n', '')
 + forNonBlank(cells['4222'].value, v, '046M ' + 'a' + v + '\n', '')
