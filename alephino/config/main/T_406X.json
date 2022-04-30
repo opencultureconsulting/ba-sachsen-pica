@@ -1,0 +1,80 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|433",
+    "expression": "grel:coalesce(value, cells['M|433c'].value).split(' : ')[0].split('␟')[0]",
+    "onError": "set-to-blank",
+    "newColumnName": "4060",
+    "columnInsertIndex": 3,
+    "description": "Create column 4060"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|433",
+    "expression": "grel:coalesce(value, cells['M|433c'].value).split(' : ')[1].split(' ; ')[0].split('␟')[0]",
+    "onError": "set-to-blank",
+    "newColumnName": "4061",
+    "columnInsertIndex": 3,
+    "description": "Create column 4061"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "4061",
+    "expression": "grel:[ value, forEach(cells['M|434'].value.split('␟'), v, v).join('; ') ].join('; ')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4061"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|433",
+    "expression": "grel:coalesce(value, cells['M|433c'].value).split(' : ')[1].split(' ; ')[1].split('␟')[0]",
+    "onError": "set-to-blank",
+    "newColumnName": "4062",
+    "columnInsertIndex": 3,
+    "description": "Create column 4062"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "4062",
+    "expression": "grel:coalesce(value, cells['M|435'].value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4062"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|437",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "4063",
+    "columnInsertIndex": 3,
+    "description": "Create column 4063"
+  }
+]

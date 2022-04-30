@@ -22,6 +22,10 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['3110'].value, v, forEach(v.split('␟'), x, '029F ' + x + '\n').join(''), '')
 + forNonBlank(cells['4025'].value, v, '031@ ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4020'].value, v, '032@ ' + 'a' + v + '\n', '')
++ forNonBlank(cells['4060'].value, v, '034D ' + 'a' + v + '\n', '')
++ forNonBlank(cells['4061'].value, v, '034M ' + 'a' + v + '\n', '')
++ forNonBlank(cells['4062'].value, v, '034I ' + 'a' + v + '\n', '')
++ forNonBlank(cells['4063'].value, v, '034K ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4026'].value, v, '035E ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4030'].value, v, forEach(v.split('␟'), x, '033A ' + x + '\n').join(''), '')
 + forNonBlank(cells['4222'].value, v, '046M ' + 'a' + v + '\n', '')
