@@ -1,0 +1,35 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|505",
+          "expression": "isBlank(value)",
+          "columnName": "M|505",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|505",
+    "expression": "grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'p')[0].slice(1), x, '\u001fi' + x, '\u001fiAbweichender Titel') + forNonBlank(filter(value.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, '\u001fa' + with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], y, if(inArray(y, x.split(' ')[0].toLowercase()), x.split(' ')[0] + ' @' + x.split(' ').slice(1).join(' '), x)), '')",
+    "onError": "set-to-blank",
+    "newColumnName": "4212",
+    "columnInsertIndex": 3,
+    "description": "Create column 4212"
+  }
+]
