@@ -1,6 +1,6 @@
 [
   {
-    "op": "core/row-removal",
+    "op": "core/row-star",
     "engineConfig": {
       "facets": [
         {
@@ -31,10 +31,11 @@
       ],
       "mode": "record-based"
     },
-    "description": "Remove rows"
+    "starred": true,
+    "description": "Star rows"
   },
   {
-    "op": "core/row-removal",
+    "op": "core/row-star",
     "engineConfig": {
       "facets": [
         {
@@ -59,10 +60,11 @@
       ],
       "mode": "record-based"
     },
-    "description": "Remove rows"
+    "starred": true,
+    "description": "Star rows"
   },
   {
-    "op": "core/row-removal",
+    "op": "core/row-star",
     "engineConfig": {
       "facets": [
         {
@@ -77,10 +79,11 @@
       ],
       "mode": "record-based"
     },
-    "description": "Remove rows"
+    "starred": true,
+    "description": "Star rows"
   },
   {
-    "op": "core/row-removal",
+    "op": "core/row-star",
     "engineConfig": {
       "facets": [
         {
@@ -105,10 +108,11 @@
       ],
       "mode": "record-based"
     },
-    "description": "Remove rows"
+    "starred": true,
+    "description": "Star rows"
   },
   {
-    "op": "core/row-removal",
+    "op": "core/row-star",
     "engineConfig": {
       "facets": [
         {
@@ -123,10 +127,11 @@
       ],
       "mode": "record-based"
     },
-    "description": "Remove rows"
+    "starred": true,
+    "description": "Star rows"
   },
   {
-    "op": "core/row-removal",
+    "op": "core/row-star",
     "engineConfig": {
       "facets": [
         {
@@ -141,10 +146,11 @@
       ],
       "mode": "record-based"
     },
-    "description": "Remove rows"
+    "starred": true,
+    "description": "Star rows"
   },
   {
-    "op": "core/row-removal",
+    "op": "core/row-star",
     "engineConfig": {
       "facets": [
         {
@@ -159,10 +165,11 @@
       ],
       "mode": "record-based"
     },
-    "description": "Remove rows"
+    "starred": true,
+    "description": "Star rows"
   },
   {
-    "op": "core/row-removal",
+    "op": "core/row-star",
     "engineConfig": {
       "facets": [
         {
@@ -177,10 +184,11 @@
       ],
       "mode": "record-based"
     },
-    "description": "Remove rows"
+    "starred": true,
+    "description": "Star rows"
   },
   {
-    "op": "core/row-removal",
+    "op": "core/row-star",
     "engineConfig": {
       "facets": [
         {
@@ -205,6 +213,7 @@
       ],
       "mode": "record-based"
     },
-    "description": "Remove rows"
+    "starred": true,
+    "description": "Star rows"
   }
 ]
