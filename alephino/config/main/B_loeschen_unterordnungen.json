@@ -21,6 +21,25 @@
           ],
           "selectBlank": false,
           "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "LE",
+                "l": "LE"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
         }
       ],
       "mode": "row-based"
@@ -28,14 +47,85 @@
     "baseColumnName": "M|IDN",
     "expression": "grel:value",
     "onError": "set-to-blank",
-    "newColumnName": "delete",
-    "columnInsertIndex": 3,
-    "description": "Create column delete at index 3 based on column M|IDN using expression grel:value"
+    "newColumnName": "deleteLE",
+    "columnInsertIndex": 1,
+    "description": "Create column deleteLE at index 1 based on column M|IDN using expression grel:value"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Starred Rows",
+          "expression": "row.starred",
+          "columnName": "",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "RS",
+                "l": "RS"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|IDN",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "deleteRS",
+    "columnInsertIndex": 1,
+    "description": "Create column deleteRS at index 1 based on column M|IDN using expression grel:value"
   },
   {
     "op": "core/row-removal",
     "engineConfig": {
       "facets": [
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "LE",
+                "l": "LE"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
         {
           "type": "list",
           "name": "M|GT0",
@@ -58,7 +148,73 @@
         {
           "type": "list",
           "name": "M|GT0",
-          "expression": "grel:forNonBlank(forNonBlank(filter(value.split('\u001f'), f, f[0] == 'L')[0].slice(1), x, x, null).cross('alephino','delete')[0],v,'delete','')",
+          "expression": "grel:forNonBlank(forNonBlank(filter(value.split('\u001f'), f, f[0] == 'L')[0].slice(1), x, x, null).cross('alephino','deleteLE')[0],v,'delete','')",
+          "columnName": "M|GT0",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "delete",
+                "l": "delete"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "RS",
+                "l": "RS"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|GT0",
+          "expression": "isBlank(value)",
+          "columnName": "M|GT0",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|GT0",
+          "expression": "grel:forNonBlank(forNonBlank(filter(value.split('\u001f'), f, f[0] == 'L')[0].slice(1), x, x, null).cross('alephino','deleteRS')[0],v,'delete','')",
           "columnName": "M|GT0",
           "invert": false,
           "omitBlank": false,
@@ -81,7 +237,12 @@
   },
   {
     "op": "core/column-removal",
-    "columnName": "delete",
-    "description": "Remove column delete"
+    "columnName": "deleteRS",
+    "description": "Remove column deleteRS"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "deleteLE",
+    "description": "Remove column deleteLE"
   }
 ]
