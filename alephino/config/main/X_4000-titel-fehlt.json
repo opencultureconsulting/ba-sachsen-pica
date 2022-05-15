@@ -1,0 +1,54 @@
+[
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "value",
+          "columnName": "0500",
+          "invert": true,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "Afn",
+                "l": "Afn"
+              }
+            }
+          ],
+          "selectBlank": true,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "4000",
+          "expression": "isBlank(value)",
+          "columnName": "4000",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "4000",
+    "expression": "grel:'Titel fehlt'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4000 using expression grel:'Titel fehlt'"
+  }
+]
