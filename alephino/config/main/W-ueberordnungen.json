@@ -191,6 +191,25 @@
         },
         {
           "type": "list",
+          "name": "M|GT0",
+          "expression": "isBlank(value)",
+          "columnName": "M|GT0",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
           "name": "M|331",
           "expression": "isBlank(value)",
           "columnName": "M|331",
@@ -262,6 +281,25 @@
         },
         {
           "type": "list",
+          "name": "M|GT0",
+          "expression": "isBlank(value)",
+          "columnName": "M|GT0",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
           "name": "M|331",
           "expression": "isBlank(value)",
           "columnName": "M|331",
@@ -288,6 +326,110 @@
     "repeat": false,
     "repeatCount": 10,
     "description": "Text transform on cells in column 0500 using expression grel:value + 'f'"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Starred Rows",
+          "expression": "row.starred",
+          "columnName": "",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|GT0",
+          "expression": "isBlank(value)",
+          "columnName": "M|GT0",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:value + 'a'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 0500 using expression grel:value + 'a'"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:value + 'n'",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 0500 using expression grel:value + 'n'"
   },
   {
     "op": "core/text-transform",

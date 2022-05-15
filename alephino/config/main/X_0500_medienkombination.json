@@ -1,0 +1,144 @@
+[
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "LE",
+                "l": "LE"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "grel:value[1]",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "c",
+                "l": "c"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "grel:forEach(value.cross('alephino','gt0LE'), r, r.cells['0500'].value[0]).uniques().length() > 1",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:'Z' + value.slice(1)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 0500 using expression grel:'Z' + value.slice(1)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "File",
+          "expression": "value",
+          "columnName": "File",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "RS",
+                "l": "RS"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "0500",
+          "expression": "grel:value[1]",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "c",
+                "l": "c"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "grel:forEach(value.cross('alephino','gt0RS'), r, r.cells['0500'].value[0]).uniques().length() > 1",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "0500",
+    "expression": "grel:'Z' + value.slice(1)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 0500 using expression grel:'Z' + value.slice(1)"
+  }
+]

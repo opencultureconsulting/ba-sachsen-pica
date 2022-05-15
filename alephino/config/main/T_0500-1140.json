@@ -511,6 +511,25 @@
       "facets": [
         {
           "type": "list",
+          "name": "0500",
+          "expression": "isBlank(value)",
+          "columnName": "0500",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
           "name": "M|IDN",
           "expression": "isBlank(value)",
           "columnName": "M|IDN",
