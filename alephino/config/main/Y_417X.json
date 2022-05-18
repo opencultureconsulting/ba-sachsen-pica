@@ -1,0 +1,2179 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "File",
+    "expression": "grel:forNonBlank([ cells['M|GT1'].value, cells['M|GT2'].value, cells['M|GT3'].value].join('␟'), x, x, null)",
+    "onError": "set-to-blank",
+    "newColumnName": "gt",
+    "columnInsertIndex": 3,
+    "description": "Create column gt at index 3 based on column File using expression grel:forNonBlank([ cells['M|GT1'].value, cells['M|GT2'].value, cells['M|GT3'].value].join('␟'), x, x, null)"
+  },
+  {
+    "op": "core/column-split",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "gt",
+    "guessCellType": false,
+    "removeOriginalColumn": true,
+    "mode": "separator",
+    "separator": "␟",
+    "regex": false,
+    "maxColumns": 0,
+    "description": "Split column gt by separator"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "gt 1",
+    "expression": "grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, x, null)",
+    "onError": "set-to-blank",
+    "newColumnName": "gt1a",
+    "columnInsertIndex": 4,
+    "description": "Create column gt1a at index 4 based on column gt 1 using expression grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, x, null)"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "gt 1",
+    "expression": "grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, x, null)",
+    "onError": "set-to-blank",
+    "newColumnName": "gt1b",
+    "columnInsertIndex": 4,
+    "description": "Create column gt1b at index 4 based on column gt 1 using expression grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, x, null)"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "gt 2",
+    "expression": "grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, x, null)",
+    "onError": "set-to-blank",
+    "newColumnName": "gt2a",
+    "columnInsertIndex": 7,
+    "description": "Create column gt2a at index 7 based on column gt 2 using expression grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, x, null)"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "gt 2",
+    "expression": "grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, x, null)",
+    "onError": "set-to-blank",
+    "newColumnName": "gt2b",
+    "columnInsertIndex": 7,
+    "description": "Create column gt2b at index 7 based on column gt 2 using expression grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, x, null)"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "gt 3",
+    "expression": "grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, x, null)",
+    "onError": "set-to-blank",
+    "newColumnName": "gt3a",
+    "columnInsertIndex": 10,
+    "description": "Create column gt3a at index 10 based on column gt 3 using expression grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, x, null)"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "gt 3",
+    "expression": "grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, x, null)",
+    "onError": "set-to-blank",
+    "newColumnName": "gt3b",
+    "columnInsertIndex": 10,
+    "description": "Create column gt3b at index 10 based on column gt 3 using expression grel:forNonBlank(filter(value.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, x, null)"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "gt 1",
+    "description": "Remove column gt 1"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "gt 2",
+    "description": "Remove column gt 2"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "gt 3",
+    "description": "Remove column gt 3"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "gt1a",
+    "expression": "grel:forNonBlank(value.split(' : ')[0].replace('¬', '').split('; ')[0].split(' / ')[0], v, '\u001fa' + with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], x, if(inArray(x, v.split(' ')[0].toLowercase()), v.split(' ')[0] + ' @' + v.split(' ').slice(1).join(' '), v)), null)",
+    "onError": "set-to-blank",
+    "newColumnName": "417X",
+    "columnInsertIndex": 5,
+    "description": "Create column 417X at index 5 based on column gt1a using expression grel:forNonBlank(value.split(' : ')[0].replace('¬', '').split('; ')[0].split(' / ')[0], v, '\u001fa' + with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], x, if(inArray(x, v.split(' ')[0].toLowercase()), v.split(' ')[0] + ' @' + v.split(' ').slice(1).join(' '), v)), null)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt1a",
+          "columnName": "gt1a",
+          "query": " / ",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1a'].value.split(' / ')[1], v, '\u001fh' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1a'].value.split(' / ')[1], v, '\u001fh' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt1b",
+          "expression": "isBlank(value)",
+          "columnName": "gt1b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value, v, '\u001fl' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value, v, '\u001fl' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt1b",
+          "expression": "isBlank(value)",
+          "columnName": "gt1b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value, v, '\u001fl' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value, v, '\u001fl' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt1b",
+          "expression": "isBlank(value)",
+          "columnName": "gt1b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value.split('.')[0], v, '\u001fl' + v, '') + forNonBlank(cells['gt1b'].value.split('.')[1].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value.split('.')[0], v, '\u001fl' + v, '') + forNonBlank(cells['gt1b'].value.split('.')[1].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt1b",
+          "expression": "isBlank(value)",
+          "columnName": "gt1b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": ":",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt1b'].value.split(':')[1].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt1b'].value.split(':')[1].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt1b",
+          "expression": "isBlank(value)",
+          "columnName": "gt1b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": ":",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": " ; ",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value.split(' ; ')[1].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt1b'].value.split(' ; ')[0].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value.split(' ; ')[1].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt1b'].value.split(' ; ')[0].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt1b",
+          "expression": "isBlank(value)",
+          "columnName": "gt1b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": ":",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt1b",
+          "columnName": "gt1b",
+          "query": " ; ",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt1a'].value.split(' : ')[1].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt1b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt1a'].value.split(' : ')[1].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:value + forNonBlank(cells['gt2a'].value.split(' : ')[0].replace('¬', '').split('; ')[0].split(' / ')[0], v, '␟' + '\u001fa' + with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], x, if(inArray(x, v.split(' ')[0].toLowercase()), v.split(' ')[0] + ' @' + v.split(' ').slice(1).join(' '), v)), '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:value + forNonBlank(cells['gt2a'].value.split(' : ')[0].replace('¬', '').split('; ')[0].split(' / ')[0], v, '␟' + '\u001fa' + with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], x, if(inArray(x, v.split(' ')[0].toLowercase()), v.split(' ')[0] + ' @' + v.split(' ').slice(1).join(' '), v)), '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt2a",
+          "columnName": "gt2a",
+          "query": " / ",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2a'].value.split(' / ')[1], v, '\u001fh' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2a'].value.split(' / ')[1], v, '\u001fh' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt2b",
+          "expression": "isBlank(value)",
+          "columnName": "gt2b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value, v, '\u001fl' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value, v, '\u001fl' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt2b",
+          "expression": "isBlank(value)",
+          "columnName": "gt2b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value, v, '\u001fl' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value, v, '\u001fl' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt2b",
+          "expression": "isBlank(value)",
+          "columnName": "gt2b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value.split('.')[0], v, '\u001fl' + v, '') + forNonBlank(cells['gt2b'].value.split('.')[1].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value.split('.')[0], v, '\u001fl' + v, '') + forNonBlank(cells['gt2b'].value.split('.')[1].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt2b",
+          "expression": "isBlank(value)",
+          "columnName": "gt2b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": ":",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt2b'].value.split(':')[1].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt2b'].value.split(':')[1].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt2b",
+          "expression": "isBlank(value)",
+          "columnName": "gt2b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": ":",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": " ; ",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value.split(' ; ')[1].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt2b'].value.split(' ; ')[0].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value.split(' ; ')[1].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt2b'].value.split(' ; ')[0].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt2b",
+          "expression": "isBlank(value)",
+          "columnName": "gt2b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": ":",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt2b",
+          "columnName": "gt2b",
+          "query": " ; ",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt2a'].value.split(' : ')[1].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt2b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt2a'].value.split(' : ')[1].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:value + forNonBlank(cells['gt3a'].value.split(' : ')[0].replace('¬', '').split('; ')[0].split(' / ')[0], v, '␟' + '\u001fa' + with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], x, if(inArray(x, v.split(' ')[0].toLowercase()), v.split(' ')[0] + ' @' + v.split(' ').slice(1).join(' '), v)), '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:value + forNonBlank(cells['gt3a'].value.split(' : ')[0].replace('¬', '').split('; ')[0].split(' / ')[0], v, '␟' + '\u001fa' + with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], x, if(inArray(x, v.split(' ')[0].toLowercase()), v.split(' ')[0] + ' @' + v.split(' ').slice(1).join(' '), v)), '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt3a",
+          "columnName": "gt3a",
+          "query": " / ",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3a'].value.split(' / ')[1], v, '\u001fh' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3a'].value.split(' / ')[1], v, '\u001fh' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt3b",
+          "expression": "isBlank(value)",
+          "columnName": "gt3b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value, v, '\u001fl' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value, v, '\u001fl' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt3b",
+          "expression": "isBlank(value)",
+          "columnName": "gt3b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value, v, '\u001fl' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value, v, '\u001fl' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt3b",
+          "expression": "isBlank(value)",
+          "columnName": "gt3b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value.split('.')[0], v, '\u001fl' + v, '') + forNonBlank(cells['gt3b'].value.split('.')[1].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value.split('.')[0], v, '\u001fl' + v, '') + forNonBlank(cells['gt3b'].value.split('.')[1].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt3b",
+          "expression": "isBlank(value)",
+          "columnName": "gt3b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": ":",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt3b'].value.split(':')[1].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt3b'].value.split(':')[1].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt3b",
+          "expression": "isBlank(value)",
+          "columnName": "gt3b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": ":",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": " ; ",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value.split(' ; ')[1].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt3b'].value.split(' ; ')[0].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value.split(' ; ')[1].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt3b'].value.split(' ; ')[0].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt3b",
+          "expression": "isBlank(value)",
+          "columnName": "gt3b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\.{2,3}$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "^\\(.*\\)$",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "Bd\\.\\s|Nr\\.\\s|Ausg\\.\\s|Jg\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": "\\d+\\.\\s",
+          "mode": "regex",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": ":",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        },
+        {
+          "type": "text",
+          "name": "gt3b",
+          "columnName": "gt3b",
+          "query": " ; ",
+          "mode": "text",
+          "caseSensitive": false,
+          "invert": true
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt3a'].value.split(' : ')[1].trim(), v, '\u001fp' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v, '') + forNonBlank(cells['gt3b'].value.split(':')[0].trim(), v, '\u001fl' + v, '') + forNonBlank(cells['gt3a'].value.split(' : ')[1].trim(), v, '\u001fp' + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|GTU",
+          "expression": "isBlank(value)",
+          "columnName": "M|GTU",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "417X",
+    "expression": "grel:forNonBlank(value, v, v + '␟', '') + forEach(cells['M|GTU'].value.split('␟'), v, forNonBlank(v.match(/(.*)/)[0].split(' : ')[0].split(': ')[0].split('. ')[0].split(' /')[0].split(' ; ')[0].split('; ')[0].split(' / ')[0].replace(/\\.$/,'').replace(/:$/,'').replace(/ ; \\.\\.\\.$/,'').replace(/ , \\.\\.\\.$/,'').replace(/\\.\\.\\.$/,'').replace('¬', ''), x, '\u001fa' + with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], z, if(inArray(z, x.split(' ')[0].toLowercase()), x.split(' ')[0] + ' @' + x.split(' ').slice(1).join(' '), x.trim())), '') + forNonBlank(v.match(/.*\\s\\/\\s(.*)/)[0].split(' : ')[0].split(': ')[0].split('. ')[0].split(' /')[0].split(' ; ')[0].split('; ')[0].split(' / ')[0].replace(/\\.$/,'').replace(/:$/,'').replace(/ ; \\.\\.\\.$/,'').replace(/ , \\.\\.\\.$/,'').replace(/\\.\\.\\.$/,''), x,  '\u001fh' + x.trim(), '') + forNonBlank(v.match(/.*;\\s(.*)/)[0].split(' : ')[0].split(': ')[0].split('. ')[0].split(' /')[0].split(' ; ')[0].split('; ')[0].split(' / ')[0].replace(/\\.$/,'').replace(/:$/,'').replace(/ ; \\.\\.\\.$/,'').replace(/ , \\.\\.\\.$/,'').replace(/\\.\\.\\.$/,''), x,  '\u001fl' + x.trim(), '') + forNonBlank(v.match(/.*\\.\\s(.*)/)[0].split(' : ')[0].split(': ')[0].split('. ')[0].split(' /')[0].split(' ; ')[0].split('; ')[0].split(' / ')[0].replace(/\\.$/,'').replace(/:$/,'').replace(/ ; \\.\\.\\.$/,'').replace(/ , \\.\\.\\.$/,'').replace(/\\.\\.\\.$/,''), x,  '\u001fp' + x.trim(), '') + forNonBlank(v.match(/.*:\\s(.*)/)[0].split(' : ')[0].split(': ')[0].split('. ')[0].split(' /')[0].split(' ; ')[0].split('; ')[0].split(' / ')[0].replace(/\\.$/,'').replace(/:$/,'').replace(/ ; \\.\\.\\.$/,'').replace(/ , \\.\\.\\.$/,'').replace(/\\.\\.\\.$/,''), x,  '\u001fp' + x.trim(), '') ).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 417X using expression grel:forNonBlank(value, v, v + '␟', '') + forEach(cells['M|GTU'].value.split('␟'), v, forNonBlank(v.match(/(.*)/)[0].split(' : ')[0].split(': ')[0].split('. ')[0].split(' /')[0].split(' ; ')[0].split('; ')[0].split(' / ')[0].replace(/\\.$/,'').replace(/:$/,'').replace(/ ; \\.\\.\\.$/,'').replace(/ , \\.\\.\\.$/,'').replace(/\\.\\.\\.$/,'').replace('¬', ''), x, '\u001fa' + with(['a', 'das', 'dem', 'den', 'der', 'des', 'die', 'ein', 'eine', 'einem', 'einen', 'einer', 'eines', 'the'], z, if(inArray(z, x.split(' ')[0].toLowercase()), x.split(' ')[0] + ' @' + x.split(' ').slice(1).join(' '), x.trim())), '') + forNonBlank(v.match(/.*\\s\\/\\s(.*)/)[0].split(' : ')[0].split(': ')[0].split('. ')[0].split(' /')[0].split(' ; ')[0].split('; ')[0].split(' / ')[0].replace(/\\.$/,'').replace(/:$/,'').replace(/ ; \\.\\.\\.$/,'').replace(/ , \\.\\.\\.$/,'').replace(/\\.\\.\\.$/,''), x,  '\u001fh' + x.trim(), '') + forNonBlank(v.match(/.*;\\s(.*)/)[0].split(' : ')[0].split(': ')[0].split('. ')[0].split(' /')[0].split(' ; ')[0].split('; ')[0].split(' / ')[0].replace(/\\.$/,'').replace(/:$/,'').replace(/ ; \\.\\.\\.$/,'').replace(/ , \\.\\.\\.$/,'').replace(/\\.\\.\\.$/,''), x,  '\u001fl' + x.trim(), '') + forNonBlank(v.match(/.*\\.\\s(.*)/)[0].split(' : ')[0].split(': ')[0].split('. ')[0].split(' /')[0].split(' ; ')[0].split('; ')[0].split(' / ')[0].replace(/\\.$/,'').replace(/:$/,'').replace(/ ; \\.\\.\\.$/,'').replace(/ , \\.\\.\\.$/,'').replace(/\\.\\.\\.$/,''), x,  '\u001fp' + x.trim(), '') + forNonBlank(v.match(/.*:\\s(.*)/)[0].split(' : ')[0].split(': ')[0].split('. ')[0].split(' /')[0].split(' ; ')[0].split('; ')[0].split(' / ')[0].replace(/\\.$/,'').replace(/:$/,'').replace(/ ; \\.\\.\\.$/,'').replace(/ , \\.\\.\\.$/,'').replace(/\\.\\.\\.$/,''), x,  '\u001fp' + x.trim(), '') ).join('␟')"
+  }
+]

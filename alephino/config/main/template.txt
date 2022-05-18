@@ -34,6 +34,7 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['4026'].value, v, '035E ' + 'a' + v + '\n', '')
 + forNonBlank(cells['415X'].value, v, forEachIndex(v.split('␟'), i, x, '036C/0' + i + ' ' + x + '\n').join(''), '')
 + forNonBlank(cells['4160'].value, v, '036D ' + v + '\n', '')
++ forNonBlank(cells['417X'].value, v, forEachIndex(v.split('␟'), i, x, '036E/0' + i + ' ' + x + '\n').join(''), '')
 + forNonBlank(cells['4204'].value, v, '037C ' + v + '\n', '')
 + forNonBlank(cells['4242'].value, v, forEach(v.split('␟'), x, '039C ' + x + '\n').join(''), '')
 + forNonBlank(cells['4243'].value, v, forEach(v.split('␟'), x, '039I ' + x + '\n').join(''), '')
