@@ -1,0 +1,281 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|GT0",
+          "expression": "isBlank(value)",
+          "coluamnName": "M|GT0",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt0s",
+          "expression": "isBlank(value)",
+          "columnName": "gt0s",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "gt0s",
+    "expression": "grel:'\u001fX' + value",
+    "onError": "set-to-blank",
+    "newColumnName": "4160",
+    "columnInsertIndex": 3,
+    "description": "Create column 4160 at index 3 based on column gt0s using expression grel:'\u001fX' + value"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|GT0",
+          "expression": "isBlank(value)",
+          "columnName": "M|GT0",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt0s",
+          "expression": "isBlank(value)",
+          "columnName": "gt0s",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt0b",
+          "expression": "isBlank(value)",
+          "columnName": "gt0b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "4160",
+    "expression": "grel:'\u001fX' + if(value.contains(' ; '), cells['gt0b'].value.split(' ; ')[1], cells['gt0b'].value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4160 using expression grel:'\u001fX' + if(value.contains(' ; '), cells['gt0b'].value.split(' ; ')[1], cells['gt0b'].value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|GT0",
+          "expression": "isBlank(value)",
+          "columnName": "M|GT0",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt0s",
+          "expression": "isBlank(value)",
+          "columnName": "gt0s",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "gt0b",
+          "expression": "isBlank(value)",
+          "columnName": "gt0b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "M|331",
+          "expression": "isBlank(value)",
+          "columnName": "M|331",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "4160",
+    "expression": "grel:forNonBlank(cells['M|331'].value, v, '\u001fX' + v.find(/[A-Za-z0-9]{3}/)[0].toLowercase(), '') + forNonBlank(cells['M|425'].value, v, '.' + v.find(/\\d{4}/)[0], '') + forNonBlank(cells['M|425a'].value, v, '.' + v.find(/\\d{4}/)[0], '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4160 using expression grel:forNonBlank(cells['M|331'].value, v, '\u001fX' + v.find(/[A-Za-z0-9]{3}/)[0].toLowercase(), '') + forNonBlank(cells['M|425'].value, v, '.' + v.find(/\\d{4}/)[0], '') + forNonBlank(cells['M|425a'].value, v, '.' + v.find(/\\d{4}/)[0], '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|GT0",
+          "expression": "isBlank(value)",
+          "columnName": "M|GT0",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "4160",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(coalesce(cells['gt0RS'].value, cells['gt0LE'].value), v, '\u001f7' + 'BA' + cells['File'].value + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4160 using expression grel:forNonBlank(value, v, v, '') + forNonBlank(coalesce(cells['gt0RS'].value, cells['gt0LE'].value), v, '\u001f7' + 'BA' + cells['File'].value + v, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|GT0",
+          "expression": "isBlank(value)",
+          "columnName": "M|GT0",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "4160",
+    "expression": "grel:forNonBlank(value, v, v, '') + forNonBlank(coalesce(cells['gt0b'].value, cells['gt0s'].value), v, '\u001fl' + v, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4160 using expression grel:forNonBlank(value, v, v, '') + forNonBlank(coalesce(cells['gt0b'].value, cells['gt0s'].value), v, '\u001fl' + v, '')"
+  }
+]
