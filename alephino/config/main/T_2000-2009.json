@@ -1,0 +1,114 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "M|540a",
+    "expression": "grel:[ cells['M|540a'].value, cells['M|540'].value ].join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "2000",
+    "columnInsertIndex": 3,
+    "description": "Create column 2000"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "2000",
+          "expression": "isBlank(value)",
+          "columnName": "2000",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "baseColumnName": "2000",
+    "expression": "grel:forEach(value.split('␟'), v, forNonBlank(filter(v.split('\u001f'), f, f[0] == 'a')[0].slice(1).replace('-','').replace('x','X'), isbn, if(isbn.length() == 10, if(with(round(sum(forRange(1,10,1,i,toNumber(isbn[i-1])*i))%11),x,if(x == 10, 'X', x)).toString() == isbn[9], null, '\u001f0' + isbn), if(isbn.length() == 13, if(((10-(sum(forRange(0,12,1,i,toNumber(isbn[i])*(1+(i%2*2)) )) %10)) %10).toString()[0] == isbn[12], null, '\u001f0' + isbn), null)) + forNonBlank(filter(v.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, '\u001ff' + x, ''), null) ).join('␟')",
+    "onError": "set-to-blank",
+    "newColumnName": "2009",
+    "columnInsertIndex": 4,
+    "description": "Create column 2009"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "2000",
+          "expression": "isBlank(value)",
+          "columnName": "2000",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "2000",
+    "expression": "grel:forEach(value.split('␟'), v, forNonBlank(filter(v.split('\u001f'), f, f[0] == 'a')[0].slice(1).replace('-','').replace('x','X'), isbn, if(isbn.length() == 10, if(with(round(sum(forRange(1,10,1,i,toNumber(isbn[i-1])*i))%11),x,if(x == 10, 'X', x)).toString() == isbn[9], '\u001f0' + isbn, null), if(isbn.length() == 13, if(((10-(sum(forRange(0,12,1,i,toNumber(isbn[i])*(1+(i%2*2)) )) %10)) %10).toString()[0] == isbn[12], '\u001f0' + isbn, null), null)) + forNonBlank(filter(v.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, '\u001ff' + x, ''), null) ).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 2000"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|540b",
+          "expression": "isBlank(value)",
+          "columnName": "M|540b",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "2009",
+    "expression": "grel:forNonBlank(value, v, v + '␟', '') + \nforNonBlank(forEach(cells['M|540b'].value.split('␟'), v, forNonBlank(filter(v.split('\u001f'), f, f[0] == 'a')[0].slice(1), x, '\u001f0' + x.replace('-','').replace('x','X'), '') + forNonBlank(filter(v.split('\u001f'), f, f[0] == 'b')[0].slice(1), x, '\u001ff' + x, '') ).join('␟'), z, z, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 2009"
+  }
+]
