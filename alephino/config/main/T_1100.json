@@ -19,7 +19,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|IDN",
-    "expression": "grel:coalesce(cells['M|425a'].value, cells['M|425b'].value)",
+    "expression": "grel:coalesce(cells['M|425a'].value, cells['M|425b'].value).find(/\\d{4}/)[0]",
     "onError": "set-to-blank",
     "newColumnName": "1100a",
     "columnInsertIndex": 3,
