@@ -5,25 +5,6 @@
       "facets": [
         {
           "type": "list",
-          "name": "M|GT0",
-          "expression": "isBlank(value)",
-          "coluamnName": "M|GT0",
-          "invert": false,
-          "omitBlank": false,
-          "omitError": false,
-          "selection": [
-            {
-              "v": {
-                "v": false,
-                "l": "false"
-              }
-            }
-          ],
-          "selectBlank": false,
-          "selectError": false
-        },
-        {
-          "type": "list",
           "name": "gt0s",
           "expression": "isBlank(value)",
           "columnName": "gt0s",
@@ -48,8 +29,8 @@
     "expression": "grel:'\u001fX' + value",
     "onError": "set-to-blank",
     "newColumnName": "4160",
-    "columnInsertIndex": 3,
-    "description": "Create column 4160 at index 3 based on column gt0s using expression grel:'\u001fX' + value"
+    "columnInsertIndex": 4,
+    "description": "Create column 4160 at index 4 based on column gt0s using expression grel:'\u001fX' + value"
   },
   {
     "op": "core/text-transform",
