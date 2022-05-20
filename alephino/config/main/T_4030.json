@@ -130,7 +130,7 @@
       "mode": "row-based"
     },
     "columnName": "4030",
-    "expression": "grel:forEach(value.split('␟'), v, if(v.contains('\u001fn'), v, '\u001fn[Verlag nicht ermittelbar]' + v)).join('␟')",
+    "expression": "grel:forEach(value.split('␟'), v, if(v.contains('\u001fn'), v, v + '\u001fn[Verlag nicht ermittelbar]')).join('␟')",
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
