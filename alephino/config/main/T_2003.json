@@ -6,7 +6,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|IDN",
-    "expression": "grel:[forNonBlank(cells['M|087'].value, v, forEach(v.split('␟'), x, x + '\u001ffo').join('␟'), null), forNonBlank(cells['M|087b'].value, v, v + '\u001ffa', null), forNonBlank(cells['M|087o'].value, v, v + '\u001ffo', null)].join('␟')",
+    "expression": "grel:[forNonBlank(cells['M|087'].value, v, forEach(v.split('␟'), x, x + '\u001fSo').join('␟'), null), forNonBlank(cells['M|087b'].value, v, v + '\u001fSa', null), forNonBlank(cells['M|087o'].value, v, v + '\u001fSo', null)].join('␟')",
     "onError": "set-to-blank",
     "newColumnName": "2003",
     "columnInsertIndex": 3,
