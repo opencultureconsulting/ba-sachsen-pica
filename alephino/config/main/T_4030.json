@@ -26,7 +26,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|IDN",
-    "expression": "grel:[ forNonBlank(forEach(cells['M|410'].value.split(';'), v, '\u001fp' + v.trim()).join(''), x, x, '') + forNonBlank(forEach(cells['M|412'].value.split(';'), v, '\u001fn' + v.trim()).join(''), x, x, null), forNonBlank(forEach(cells['M|415'].value.split(';'), v, '\u001fp' + v.trim()).join(''), x, x, '') + forNonBlank(forEach(cells['M|417'].value.split(';'), v, '\u001fn' + v.trim()).join(''), x, x, null), forNonBlank(forEach(cells['M|418'].value.split('␟'), v, forEach(filter(v.split('\u001f'), f, 'agh'.contains(f[0])), sub, '\u001f' + sub[0].replace('a','p').replace('g','n') + sub.slice(1)).join('')).join('␟'), x, x, null), forNonBlank(forEach(cells['M|419'].value.split('␟'), v, forEach(filter(v.split('\u001f'), f, 'ab'.contains(f[0])), sub, if(sub[0] == 'a', forEach(sub.slice(1).split(';'), a, '\u001fp' + a.trim()).join(''), '\u001fn' + sub.slice(1) )).join('')).join('␟'), x, x, null) ].join('␟')",
+    "expression": "grel:[ forNonBlank(forEach(cells['M|410'].value.split(';'), v, '\u001fp' + v.trim()).join(''), x, x, '') + forNonBlank(forEach(cells['M|412'].value.split(';'), v, '\u001fn' + v.trim()).join(''), x, x, null), forNonBlank(forEach(cells['M|415'].value.split(';'), v, '\u001fp' + v.trim()).join(''), x, x, '') + forNonBlank(forEach(cells['M|417'].value.split(';'), v, '\u001fn' + v.trim()).join(''), x, x, null), forNonBlank(forEach(cells['M|418'].value.split('␟'), v, [ forEach(filter(v.split('\u001f'), f, f[0] == 'a'), sub, forEach(sub.split(';'), part, '\u001fp' + part.slice(1).trim()).join('')).join(''), forEach(filter(v.split('\u001f'), f, f[0] == 'g'), sub, forEach(sub.split(';'), part, '\u001fn' + part.slice(1).trim()).join('')).join('')\n, forEach(filter(v.split('\u001f'), f, f[0] == 'h'), sub, forEach(sub.split(';'), part, '\u001fh' + part.slice(1).trim()).join('')).join('') ].join('') ).join('␟'), x, x, null), forNonBlank(forEach(cells['M|419'].value.split('␟'), v, forEach(filter(v.split('\u001f'), f, 'ab'.contains(f[0])), sub, if(sub[0] == 'a', forEach(sub.slice(1).split(';'), a, '\u001fp' + a.trim()).join(''), '\u001fn' + sub.slice(1) )).join('')).join('␟'), x, x, null) ].join('␟')",
     "onError": "set-to-blank",
     "newColumnName": "4030",
     "columnInsertIndex": 3,
@@ -36,6 +36,25 @@
     "op": "core/text-transform",
     "engineConfig": {
       "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
         {
           "type": "list",
           "name": "4030",
@@ -59,7 +78,111 @@
       "mode": "row-based"
     },
     "columnName": "4030",
-    "expression": "grel:forEach(value.split('␟'), v, if(v[0,2] != '\u001fp', '\u001fp[Erscheinungsort nicht ermittelbar]' + v, v)).join('␟')",
+    "expression": "grel:forEach(value.split('␟'), v, if(v.contains('\u001fp'), v, '\u001fp[Erscheinungsort nicht ermittelbar]' + v)).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4030"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "4030",
+          "expression": "isBlank(value)",
+          "columnName": "4030",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "4030",
+    "expression": "grel:forEach(value.split('␟'), v, if(v.contains('\u001fn'), v, '\u001fn[Verlag nicht ermittelbar]' + v)).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 4030"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "M|IDN",
+          "expression": "isBlank(value)",
+          "columnName": "M|IDN",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": false,
+                "l": "false"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "4030",
+          "expression": "isBlank(value)",
+          "columnName": "4030",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "columnName": "4030",
+    "expression": "grel:'\u001fp[Erscheinungsort nicht ermittelbar]' + '\u001fn[Verlag nicht ermittelbar]'",
     "onError": "keep-original",
     "repeat": false,
     "repeatCount": 10,
