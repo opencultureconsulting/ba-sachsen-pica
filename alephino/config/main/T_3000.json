@@ -47,5 +47,17 @@
     "repeat": false,
     "repeatCount": 10,
     "description": "Text transform on cells in column 3000"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "3000",
+    "expression": "grel:forEach(value.split('␟'), v, forEach(v.split('\u001f'), x, x).sort().reverse().join('\u001f')).join('␟')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
   }
 ]
