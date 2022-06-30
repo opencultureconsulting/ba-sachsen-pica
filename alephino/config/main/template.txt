@@ -22,8 +22,8 @@ if(row.index - row.record.fromRowIndex == 0,
 + forNonBlank(cells['3260'].value, v, forEach(v.split('␟'), x, '027A ' + 'a' + x + '\n').join(''), '')
 + forNonBlank(cells['3000'].value, v, '028A ' + v + '\n', '')
 + forNonBlank(cells['3010'].value, v, forEach(v.split('␟'), x, '028C ' + x + '\n').join(''), '')
-+ forNonBlank(cells['3100'].value, v, '029A ' + v + '\n', '')
-+ forNonBlank(cells['3110'].value, v, forEach(v.split('␟'), x, '029F ' + x + '\n').join(''), '')
++ forNonBlank(cells['3100'].value, v, '029A ' + 'a' + v + '\n', '')
++ forNonBlank(cells['3110'].value, v, forEach(v.split('␟'), x, '029F ' + 'a' + x + '\n').join(''), '')
 + forNonBlank(cells['4025'].value, v, '031@ ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4020'].value, v, '032@ ' + 'a' + v + '\n', '')
 + forNonBlank(cells['4030'].value, v, forEach(v.split('␟'), x, '033A ' + x + '\n').join(''), '')
