@@ -6,7 +6,7 @@
       "mode": "row-based"
     },
     "baseColumnName": "M|419d",
-    "expression": "grel:value.replace('c©Copyright','©').replace('c©','©').replace('c@','©').replace('© ','©').replace('©','© ')",
+    "expression": "grel:value.slice(2).replace('©Copyright','©').replace('@','©').replace('© ','©').replace('©','© ')",
     "onError": "set-to-blank",
     "newColumnName": "1108n",
     "columnInsertIndex": 3,
